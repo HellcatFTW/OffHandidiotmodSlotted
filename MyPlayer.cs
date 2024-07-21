@@ -7,7 +7,7 @@ using CustomSlot;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 
-namespace OffHandidiotmodSlotted
+namespace OffHandidiotmod
 {
     public class MyPlayer : ModPlayer
     {

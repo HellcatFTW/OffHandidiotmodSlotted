@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OffHandidiotmodSlotted
+namespace OffHandidiotmod
 {
 public class MySlotUI : UIState {
     public static CustomItemSlot RMBSlot;

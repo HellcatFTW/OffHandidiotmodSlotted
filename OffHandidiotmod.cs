@@ -5,9 +5,9 @@ using Terraria.ModLoader;
 using Terraria.UI;
 
 
-namespace OffHandidiotmodSlotted
+namespace OffHandidiotmod
 {
-	public class OffHandidiotmodSlotted : Mod
+	public class OffHandidiotmod : Mod
 	{
 		public static UserInterface _myUserInterface;
 		public static MySlotUI SlotUI;
@@ -47,9 +47,9 @@ public class Activation : ModSystem
 					inventoryLayer,
 					new LegacyGameInterfaceLayer("My Mod: My Slot UI", () =>
 					{
-						if (OffHandidiotmodSlotted.SlotUI.Visible)
+						if (OffHandidiotmod.SlotUI.Visible)
 						{
-							OffHandidiotmodSlotted._myUserInterface.Draw(Main.spriteBatch, new GameTime());
+							OffHandidiotmod._myUserInterface.Draw(Main.spriteBatch, new GameTime());
 						}
 
 						return true;

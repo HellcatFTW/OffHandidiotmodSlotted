@@ -36,11 +36,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmodSlotted\\OffHandidiotmod.csproj",
+      "projectUniqueName": "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj",
       "projectName": "OffHandidiotmod",
-      "projectPath": "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmodSlotted\\OffHandidiotmod.csproj",
+      "projectPath": "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj",
       "packagesPath": "C:\\Users\\mross\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmodSlotted\\obj\\",
+      "outputPath": "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mross\\AppData\\Roaming\\NuGet\\NuGet.Config"

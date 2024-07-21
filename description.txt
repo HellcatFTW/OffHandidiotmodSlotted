@@ -1,3 +1,10 @@
-(A very basic mod I made with zero C# knowledge entirely using chatgpt.)
-
 Put a weapon in the custom slot below inventory, and when you right click, it will use that weapon.
+
+
+
+
+Mod repo: https://github.com/HellcatFTW/OffHandidiotmod
+abluescarab's very helpful library (not needed!): https://github.com/abluescarab/tModLoader-CustomSlot
+
+I'm super new so I apologize for any bugs. (use at your own risk!)
+(A very basic mod I made with zero C# knowledge using chatgpt and abluescarab's tModLoader-CustomSlot)
