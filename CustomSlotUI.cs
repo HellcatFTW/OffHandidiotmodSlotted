@@ -3,30 +3,31 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
-using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
+using Terraria.GameContent.UI.Elements;
 
 namespace OffHandidiotmodSlotted
 {
     public class CustomSlotUI : UIState
     {
         private UIImageButton customSlotButton;
+        private const int SlotX = 20; // Adjusted X position
+        private const int SlotY = 300; // Adjusted Y position
         private const int SlotSize = 50; // Size of the slot
 
         public override void OnInitialize()
         {
-            // Adjust position: 20 pixels from the left side and 1/3rd of the screen height vertically
-            int slotX = 20; // 20 pixels from the left
-            int slotY = Main.screenHeight / 3 - SlotSize / 2; // 1/3 of the screen height
+            var texture = ModContent.Request<Texture2D>("OffHandidiotmodSlotted/Assets/UI/CustomSlotImage");
 
-            customSlotButton = new UIImageButton(ModContent.Request<Texture2D>("OffHandidiotmodSlotted/Assets/UI/CustomSlotImage"))
+            customSlotButton = new UIImageButton(texture)
             {
-                Left = { Pixels = slotX },
-                Top = { Pixels = slotY },
+                Left = { Pixels = SlotX },
+                Top = { Pixels = SlotY },
                 Width = { Pixels = SlotSize },
                 Height = { Pixels = SlotSize }
             };
 
+            // Attach the event handler for left click
             customSlotButton.OnLeftClick += OnSlotClick;
 
             Append(customSlotButton);
@@ -43,6 +44,15 @@ namespace OffHandidiotmodSlotted
             {
                 modPlayer.customSlotItem = Main.mouseItem.Clone();
                 Main.mouseItem.TurnToAir();
+            }
+            else
+            {
+                // Handle case where slot is empty, remove item from slot
+                if (modPlayer.customSlotItem.type != ItemID.None)
+                {
+                    Main.mouseItem = modPlayer.customSlotItem.Clone();
+                    modPlayer.customSlotItem.TurnToAir();
+                }
             }
         }
 
