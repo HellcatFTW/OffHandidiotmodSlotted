@@ -1,0 +1,3 @@
+(A very basic mod I made with zero C# knowledge entirely using chatgpt.)
+
+Put a weapon in the custom slot below inventory, and when you right click, it will use that weapon.
