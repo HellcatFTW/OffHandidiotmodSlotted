@@ -16,7 +16,7 @@ namespace OffHandidiotmodSlotted
 
         public override void OnInitialize()
         {
-            customSlotButton = new UIImageButton(ModContent.Request<Texture2D>("Terraria/Images/UI/ButtonPlay"))
+            customSlotButton = new UIImageButton(ModContent.Request<Texture2D>("OffHandidiotmodSlotted/Assets/UI/CustomSlotImage"))
             {
                 Left = { Pixels = SlotX },
                 Top = { Pixels = SlotY },
