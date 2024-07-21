@@ -11,18 +11,17 @@ namespace OffHandidiotmod
 {
     public class MyPlayer : ModPlayer
     {
-        private int slotIndex = 4; // Hotbar slot 5 (0-based index)
         private Item originalSelectedItem;
         private bool isUsingItem;
         public override void PreUpdate()
         {
-            // Check if the right mouse button is held and the inventory is not open
-            if (PlayerInput.Triggers.Current.MouseRight && !Main.playerInventory)
+            // Check if the right mouse button is held and the inventory is not open (to preserve RMB functionality on treasure bags etc)
+            if (PlayerInput.Triggers.Current.MouseRight && !Main.playerInventory) 
             {
-                // Ensure we have a valid item in RMBSlot and selected slot
-                if (MySlotUI.RMBSlot.Item.type != ItemID.None)                                           //  <----------- Player.selectedItem != ItemID.None) &&
+                // Ensure we have a valid item in RMBSlot
+                if (MySlotUI.RMBSlot.Item.type != ItemID.None)                
                 {
-                    // Save the original selected item and initialize item usage
+                    // Save the selected item and put RMBSlot.Item in its place
                     if (!isUsingItem)
                     {
                         originalSelectedItem = Player.inventory[Player.selectedItem];
@@ -30,9 +29,9 @@ namespace OffHandidiotmod
 
 
 
-                        // Update item’s use time considering modifiers
-                        Item item = Player.inventory[Player.selectedItem]; //                                                                  CHANGE THIS LINE TO RMBSLOT ITEM
-                        int modifiedUseTime = (int)(item.useTime / Player.GetWeaponAttackSpeed(item)); // Adjust for attack speed
+                        // Update item’s use time considering accessory modifiers
+                        Item item = Player.inventory[Player.selectedItem];                                                                   
+                        int modifiedUseTime = (int)(item.useTime / Player.GetWeaponAttackSpeed(item)); // Adjust for attack speed modifiers
 
                         // Set animation and item time based on modified use time
                         Player.itemAnimation = modifiedUseTime;
@@ -45,11 +44,11 @@ namespace OffHandidiotmod
                     if (Player.itemAnimation <= 0)
                     {
                         Player.controlUseItem = true;
-                        Player.controlUseTile = false; // Ensure tile interactions do not interfere
+                        Player.controlUseTile = false; // Disallows tile usage (i think?)
                         Player.ItemCheck();
 
                         // Reset item animation and time
-                        Item item = Player.inventory[Player.selectedItem];                                              // CHANGE THIS LINE TO RMBSLOT ITEM
+                        Item item = Player.inventory[Player.selectedItem];                                              
                         int modifiedUseTime = (int)(item.useTime / Player.GetWeaponAttackSpeed(item));
                         Player.itemAnimation = modifiedUseTime;
                         Player.itemTime = modifiedUseTime;
@@ -58,7 +57,7 @@ namespace OffHandidiotmod
             }
             else
             {
-                // Stop using the item and restore the original selected item
+                // Stop using RMBSlot.Item and return to originalSelectedItem
                 if (isUsingItem)
                 {
                     Player.controlUseItem = false;
