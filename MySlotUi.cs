@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace OffHandidiotmodSlotted
 {
 public class MySlotUI : UIState {
-    public CustomItemSlot RMBSlot;
+    public static CustomItemSlot RMBSlot;
 
     public bool Visible {
         get => Main.playerInventory; // how do you display your slot?

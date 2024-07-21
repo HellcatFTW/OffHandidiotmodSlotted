@@ -12,24 +12,26 @@ namespace OffHandidiotmodSlotted
     public class MyPlayer : ModPlayer
     {
         private int slotIndex = 4; // Hotbar slot 5 (0-based index)
-        private int originalSelectedItem;
+        private Item originalSelectedItem;
         private bool isUsingItem;
         public override void PreUpdate()
         {
             // Check if the right mouse button is held and the inventory is not open
             if (PlayerInput.Triggers.Current.MouseRight && !Main.playerInventory)
             {
-                // Ensure we have a valid item in slot 5
-                if (Player.inventory[slotIndex].type != ItemID.None)
+                // Ensure we have a valid item in RMBSlot and selected slot
+                if (MySlotUI.RMBSlot.Item.type != ItemID.None)                                           //  <----------- Player.selectedItem != ItemID.None) &&
                 {
                     // Save the original selected item and initialize item usage
                     if (!isUsingItem)
                     {
-                        originalSelectedItem = Player.selectedItem;
-                        Player.selectedItem = slotIndex;
+                        originalSelectedItem = Player.inventory[Player.selectedItem];
+                        Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
+
+
 
                         // Update item’s use time considering modifiers
-                        Item item = Player.inventory[slotIndex];
+                        Item item = Player.inventory[Player.selectedItem]; //                                                                  CHANGE THIS LINE TO RMBSLOT ITEM
                         int modifiedUseTime = (int)(item.useTime / Player.GetWeaponAttackSpeed(item)); // Adjust for attack speed
 
                         // Set animation and item time based on modified use time
@@ -47,7 +49,7 @@ namespace OffHandidiotmodSlotted
                         Player.ItemCheck();
 
                         // Reset item animation and time
-                        Item item = Player.inventory[slotIndex];
+                        Item item = Player.inventory[Player.selectedItem];                                              // CHANGE THIS LINE TO RMBSLOT ITEM
                         int modifiedUseTime = (int)(item.useTime / Player.GetWeaponAttackSpeed(item));
                         Player.itemAnimation = modifiedUseTime;
                         Player.itemTime = modifiedUseTime;
@@ -61,7 +63,7 @@ namespace OffHandidiotmodSlotted
                 {
                     Player.controlUseItem = false;
                     Player.controlUseTile = false;
-                    Player.selectedItem = originalSelectedItem;
+                    Player.inventory[Player.selectedItem] = originalSelectedItem;
                     isUsingItem = false;
                 }
             }
@@ -76,7 +78,7 @@ namespace OffHandidiotmodSlotted
         {
             // When the player enters the world, equip the correct items
             // SetItem() also fires the ItemChanged event by default
-            OffHandidiotmodSlotted.SlotUI.RMBSlot.SetItem(myCustomItem.Value);
+            MySlotUI.RMBSlot.SetItem(myCustomItem.Value);
         }
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
@@ -91,7 +93,7 @@ namespace OffHandidiotmodSlotted
 
             // Remember that SetItem() fires the ItemChanged event, so if you have set up events then this will
             // update myCustomItem as desired
-            OffHandidiotmodSlotted.SlotUI.RMBSlot.SetItem(new Item());
+            MySlotUI.RMBSlot.SetItem(new Item());
         }
 
         public void ItemChanged(CustomItemSlot slot, ItemChangedEventArgs e)
