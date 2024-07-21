@@ -3,55 +3,49 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
-using Terraria.ID;
-using Terraria.GameContent.UI.Elements;
+using Terraria.ID;  // For ItemID.None
+using ReLogic.Content;  // For Asset<Texture2D>
 
 namespace OffHandidiotmodSlotted
 {
     public class CustomSlotUI : UIState
     {
-        private UIImageButton customSlotButton;
-        private const int SlotX = 20; // Adjusted X position
-        private const int SlotY = 300; // Adjusted Y position
+        private UIElement customSlot;
+        private const int SlotX = 20; // Position X
+        private const int SlotY = 300; // Position Y
         private const int SlotSize = 50; // Size of the slot
+        private Item customSlotItem = new Item();
 
         public override void OnInitialize()
         {
-            var texture = ModContent.Request<Texture2D>("OffHandidiotmodSlotted/Assets/UI/CustomSlotImage");
-
-            customSlotButton = new UIImageButton(texture)
+            customSlot = new UIElement
             {
-                Left = { Pixels = SlotX },
-                Top = { Pixels = SlotY },
                 Width = { Pixels = SlotSize },
                 Height = { Pixels = SlotSize }
             };
 
-            // Attach the event handler for left click
-            customSlotButton.OnLeftClick += OnSlotClick;
+            customSlot.Left.Set(SlotX, 0f);
+            customSlot.Top.Set(SlotY, 0f);
+            customSlot.OnLeftClick += OnSlotClick;
 
-            Append(customSlotButton);
+            Append(customSlot);
         }
 
         private void OnSlotClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            // Open inventory or custom logic to select item
-            Main.playerInventory = true;
-
-            // Logic to set the item in the custom slot
-            MyPlayer modPlayer = Main.LocalPlayer.GetModPlayer<MyPlayer>();
-            if (Main.mouseItem.type != ItemID.None)
+            if (Main.playerInventory)
             {
-                modPlayer.customSlotItem = Main.mouseItem.Clone();
-                Main.mouseItem.TurnToAir();
-            }
-            else
-            {
-                // Handle case where slot is empty, remove item from slot
-                if (modPlayer.customSlotItem.type != ItemID.None)
+                if (Main.mouseItem.IsAir)
                 {
-                    Main.mouseItem = modPlayer.customSlotItem.Clone();
-                    modPlayer.customSlotItem.TurnToAir();
+                    // Move item from slot to cursor
+                    Main.mouseItem = customSlotItem.Clone();
+                    customSlotItem.TurnToAir();
+                }
+                else if (Main.mouseItem.type != ItemID.None)
+                {
+                    // Move item from cursor to slot
+                    customSlotItem = Main.mouseItem.Clone();
+                    Main.mouseItem.TurnToAir();
                 }
             }
         }
@@ -59,6 +53,10 @@ namespace OffHandidiotmodSlotted
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+
+            // Draw the slot texture manually
+            var texture = ModContent.Request<Texture2D>("OffHandidiotmodSlotted/Assets/UI/CustomSlotImage").Value;
+            spriteBatch.Draw(texture, new Rectangle(SlotX, SlotY, SlotSize, SlotSize), Color.White);
         }
     }
 }
