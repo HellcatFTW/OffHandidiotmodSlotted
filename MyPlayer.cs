@@ -1,34 +1,118 @@
-using System.IO;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.GameInput;
 using Terraria.ID;
+using CustomSlot.UI;
+using CustomSlot;
 using Terraria.DataStructures;
-using Terraria.IO;
 using Terraria.ModLoader.IO;
 
 namespace OffHandidiotmodSlotted
 {
     public class MyPlayer : ModPlayer
     {
-        public Item customSlotItem = new Item(); // Ensure this is initialized
-
-        public override void LoadData(TagCompound tag)
+        private int slotIndex = 4; // Hotbar slot 5 (0-based index)
+        private int originalSelectedItem;
+        private bool isUsingItem;
+        public override void PreUpdate()
         {
-            if (tag.TryGet("CustomSlotItem", out TagCompound itemTag))
+            // Check if the right mouse button is held and the inventory is not open
+            if (PlayerInput.Triggers.Current.MouseRight && !Main.playerInventory)
             {
-                customSlotItem = ItemIO.Load(itemTag);
+                // Ensure we have a valid item in slot 5
+                if (Player.inventory[slotIndex].type != ItemID.None)
+                {
+                    // Save the original selected item and initialize item usage
+                    if (!isUsingItem)
+                    {
+                        originalSelectedItem = Player.selectedItem;
+                        Player.selectedItem = slotIndex;
+
+                        // Update item’s use time considering modifiers
+                        Item item = Player.inventory[slotIndex];
+                        int modifiedUseTime = (int)(item.useTime / Player.GetWeaponAttackSpeed(item)); // Adjust for attack speed
+
+                        // Set animation and item time based on modified use time
+                        Player.itemAnimation = modifiedUseTime;
+                        Player.itemTime = modifiedUseTime;
+
+                        isUsingItem = true;
+                    }
+
+                    // Simulate item use
+                    if (Player.itemAnimation <= 0)
+                    {
+                        Player.controlUseItem = true;
+                        Player.controlUseTile = false; // Ensure tile interactions do not interfere
+                        Player.ItemCheck();
+
+                        // Reset item animation and time
+                        Item item = Player.inventory[slotIndex];
+                        int modifiedUseTime = (int)(item.useTime / Player.GetWeaponAttackSpeed(item));
+                        Player.itemAnimation = modifiedUseTime;
+                        Player.itemTime = modifiedUseTime;
+                    }
+                }
+            }
+            else
+            {
+                // Stop using the item and restore the original selected item
+                if (isUsingItem)
+                {
+                    Player.controlUseItem = false;
+                    Player.controlUseTile = false;
+                    Player.selectedItem = originalSelectedItem;
+                    isUsingItem = false;
+                }
             }
         }
+    }
 
-        public override void SaveData(TagCompound tag)
+    public class MyCustomSlotPlayer : ModPlayer
+    {
+        private PlayerData<Item> myCustomItem = new PlayerData<Item>("myitemtag", new Item());
+
+        public override void OnEnterWorld()
         {
-            TagCompound itemTag = ItemIO.Save(customSlotItem);
-            tag["CustomSlotItem"] = itemTag;
+            // When the player enters the world, equip the correct items
+            // SetItem() also fires the ItemChanged event by default
+            OffHandidiotmodSlotted.SlotUI.MyNormalSlot.SetItem(myCustomItem.Value);
         }
 
-        public override void PostUpdate()
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            // Custom logic here if needed
+            if (Player.difficulty == PlayerDifficultyID.Creative || Player.difficulty == PlayerDifficultyID.SoftCore)
+            {
+                return;
+            }
+
+            // Ensure that the player drops items in the slot on death, if desired
+            Player.QuickSpawnItem(Player.GetSource_Death(), myCustomItem.Value);
+
+            // Remember that SetItem() fires the ItemChanged event, so if you have set up events then this will
+            // update myCustomItem as desired
+            OffHandidiotmodSlotted.SlotUI.MyNormalSlot.SetItem(new Item());
+        }
+
+        public void ItemChanged(CustomItemSlot slot, ItemChangedEventArgs e)
+        {
+            // Here we update myCustomItem when MyNormalSlot fires ItemChanged
+            myCustomItem.Value = e.NewItem.Clone();
+        }
+
+        // Ensure that the item is saved with the character
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add(myCustomItem.Tag, ItemIO.Save(myCustomItem.Value));
+        }
+
+        // Ensure that the item loads with the character. This method is called on the character select screen
+        public override void LoadData(TagCompound tag)
+        {
+            if (tag.ContainsKey(myCustomItem.Tag))
+            {
+                myCustomItem.Value = ItemIO.Load(tag.GetCompound(myCustomItem.Tag));
+            }
         }
     }
 }
