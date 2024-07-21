@@ -3,7 +3,7 @@ Put a weapon in the custom slot below inventory, and when you right click, it wi
 
 
 
-Mod repo: https://github.com/HellcatFTW/OffHandidiotmod
+Mod repo: https://github.com/HellcatFTW/OffHandidiotmodSlotted
 abluescarab's very helpful library (not needed!): https://github.com/abluescarab/tModLoader-CustomSlot
 
 I'm super new so I apologize for any bugs. (use at your own risk!)
