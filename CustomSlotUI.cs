@@ -15,9 +15,9 @@ namespace OffHandidiotmodSlotted
 
         public override void OnInitialize()
         {
-            // Adjust position to 1/3rd of the screen height
-            int slotX = Main.screenWidth / 2 - SlotSize / 2; // Center horizontally
-            int slotY = Main.screenHeight / 3 - SlotSize / 2; // Move button down to 1/3 of the screen
+            // Adjust position: 20 pixels from the left side and 1/3rd of the screen height vertically
+            int slotX = 20; // 20 pixels from the left
+            int slotY = Main.screenHeight / 3 - SlotSize / 2; // 1/3 of the screen height
 
             customSlotButton = new UIImageButton(ModContent.Request<Texture2D>("OffHandidiotmodSlotted/Assets/UI/CustomSlotImage"))
             {
