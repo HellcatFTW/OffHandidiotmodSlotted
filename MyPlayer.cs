@@ -76,7 +76,7 @@ namespace OffHandidiotmodSlotted
         {
             // When the player enters the world, equip the correct items
             // SetItem() also fires the ItemChanged event by default
-            OffHandidiotmodSlotted.SlotUI.MyNormalSlot.SetItem(myCustomItem.Value);
+            OffHandidiotmodSlotted.SlotUI.RMBSlot.SetItem(myCustomItem.Value);
         }
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
@@ -91,7 +91,7 @@ namespace OffHandidiotmodSlotted
 
             // Remember that SetItem() fires the ItemChanged event, so if you have set up events then this will
             // update myCustomItem as desired
-            OffHandidiotmodSlotted.SlotUI.MyNormalSlot.SetItem(new Item());
+            OffHandidiotmodSlotted.SlotUI.RMBSlot.SetItem(new Item());
         }
 
         public void ItemChanged(CustomItemSlot slot, ItemChangedEventArgs e)
