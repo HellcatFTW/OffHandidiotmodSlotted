@@ -11,6 +11,6 @@ leave a comment on the workshop if a weapon doesn't work as intended or any sugg
 
 
 Mod repo: https://github.com/HellcatFTW/OffHandidiotmodSlotted
-abluescarab's very helpful library (not needed!): https://github.com/abluescarab/tModLoader-CustomSlot
+abluescarab's very helpful library I forked (not needed!): https://github.com/abluescarab/tModLoader-CustomSlot
 
 A very basic mod I made with zero C# knowledge using chatgpt and abluescarab's tModLoader-CustomSlot

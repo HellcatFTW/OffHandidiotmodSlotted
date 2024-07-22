@@ -15,6 +15,7 @@ namespace OffHandidiotmod
     {
         private Item originalSelectedItem;
         private bool isUsingOffhand;
+        private int delayTimer = 0;  
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
@@ -31,6 +32,7 @@ namespace OffHandidiotmod
             // Check if the right mouse button is held and the inventory is not open (to preserve RMB functionality on treasure bags etc)
             if (PlayerInput.Triggers.Current.MouseRight && !Main.playerInventory)
             {
+
                 // Ensure we have a valid item in RMBSlot
                 if (MySlotUI.RMBSlot.Item.type != ItemID.None)
                 {
@@ -40,8 +42,16 @@ namespace OffHandidiotmod
                         originalSelectedItem = Player.inventory[Player.selectedItem];
                         Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
                         isUsingOffhand = true;
+                        delayTimer = 1;
                     }
+                    if(delayTimer>0)
+                    {
+                        delayTimer--;
+                    }
+                    else
+                    {
                     PlayerInput.Triggers.Current.MouseLeft = true;
+                    }
                 }
             }
             else
