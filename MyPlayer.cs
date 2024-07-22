@@ -27,14 +27,9 @@ namespace OffHandidiotmod
                         originalSelectedItem = Player.inventory[Player.selectedItem];
                         Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
 
-                        // Update item’s use time considering accessory modifiers
-                        Item item = Player.inventory[Player.selectedItem];                                                                   
-                        int modifiedUseTime = (int)(item.useTime / Player.GetWeaponAttackSpeed(item)); // Adjust for attack speed modifiers
-                        
-
-                        // Set animation and item time based on modified use time
-                        Player.itemAnimation = modifiedUseTime;
-                        Player.itemTime = modifiedUseTime;
+                        // Set animation and item time accounting for modifiers and accessories 
+                        Player.itemAnimation = Player.itemAnimationMax;
+                        Player.itemTime = Player.itemAnimationMax;
 
                         isUsingItem = true;
                     }
@@ -45,12 +40,6 @@ namespace OffHandidiotmod
                         Player.controlUseItem = true;
                         Player.controlUseTile = false; // Disallows tile usage (i think?)
                         Player.ItemCheck();
-
-                        // Reset item animation and time
-                        Item item = Player.inventory[Player.selectedItem];                                              
-                        int modifiedUseTime = (int)(item.useTime / Player.GetWeaponAttackSpeed(item));
-                        Player.itemAnimation = modifiedUseTime;
-                        Player.itemTime = modifiedUseTime;
                     }
                 }
             }
