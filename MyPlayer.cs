@@ -7,6 +7,7 @@ using CustomSlot;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 
 namespace OffHandidiotmod
 {
@@ -27,32 +28,11 @@ namespace OffHandidiotmod
                     {
                         originalSelectedItem = Player.inventory[Player.selectedItem];
                         Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
-
-                        // Set animation and item time accounting for modifiers and accessories 
-                        Player.itemAnimation = Player.itemAnimationMax;
-                        Player.itemTime = Player.itemAnimationMax;
-
                         isUsingItem = true;
                     }
-
-                    // Simulate item use
                     if (Player.itemAnimation <= 0)
                     {
-                        Player.controlUseItem = true;
-                        Player.controlUseTile = false; // dont ask
-
-                        Item item = Player.HeldItem;
-                        if (!Player.HeldItem.channel)
-                        {
-                            Player.ItemCheck();
-                            Main.NewText("Itemcheck!");
-                        }
-                        else
-                        {
-                            Player.StartChanneling();
-                            Player.TryUpdateChannel(GetPlayerActiveProjectile());
-                            Main.NewText("Item Channeled!");
-                        }
+                        PlayerInput.Triggers.Current.MouseLeft = true;
                     }
                 }
             }
@@ -61,35 +41,8 @@ namespace OffHandidiotmod
                 // Stop using RMBSlot.Item and return to originalSelectedItem
                 if (isUsingItem)
                 {
-                    Player.controlUseItem = false;
-                    Player.controlUseTile = false;
                     Player.inventory[Player.selectedItem] = originalSelectedItem;
                     isUsingItem = false;
-                    Player.TryCancelChannel(GetPlayerActiveProjectile());
-                }
-            }
-        }
-        private Projectile GetPlayerActiveProjectile()
-        {
-            foreach (Projectile projectile in Main.ActiveProjectiles)
-            {
-                // Check if the projectile belongs to this player
-                if (projectile.owner == Player.whoAmI)
-                {
-                    Main.NewText("Sent",255,0,0);
-                    return projectile;
-                }
-            }
-            return null;
-        }
-        private void ProjectileExists()
-        {
-            foreach (Projectile projectile in Main.ActiveProjectiles)
-            {
-                // Check if the projectile belongs to this player
-                if (projectile.owner == Player.whoAmI)
-                {
-                    Main.NewText("Found Projectile",255,0,0);
                 }
             }
         }
