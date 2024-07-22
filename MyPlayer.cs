@@ -6,6 +6,7 @@ using CustomSlot.UI;
 using CustomSlot;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace OffHandidiotmod
 {
@@ -16,10 +17,10 @@ namespace OffHandidiotmod
         public override void PreUpdate()
         {
             // Check if the right mouse button is held and the inventory is not open (to preserve RMB functionality on treasure bags etc)
-            if (PlayerInput.Triggers.Current.MouseRight && !Main.playerInventory) 
+            if (PlayerInput.Triggers.Current.MouseRight && !Main.playerInventory)
             {
                 // Ensure we have a valid item in RMBSlot
-                if (MySlotUI.RMBSlot.Item.type != ItemID.None)                
+                if (MySlotUI.RMBSlot.Item.type != ItemID.None)
                 {
                     // Save the selected item and put RMBSlot.Item in its place, prevent using both items at once
                     if (!isUsingItem && !Player.channel)
@@ -38,8 +39,20 @@ namespace OffHandidiotmod
                     if (Player.itemAnimation <= 0)
                     {
                         Player.controlUseItem = true;
-                        Player.controlUseTile = false; // Disallows tile usage (i think?)
-                        Player.ItemCheck();
+                        Player.controlUseTile = false; // dont ask
+
+                        Item item = Player.HeldItem;
+                        if (!Player.HeldItem.channel)
+                        {
+                            Player.ItemCheck();
+                            Main.NewText("Itemcheck!");
+                        }
+                        else
+                        {
+                            Player.StartChanneling();
+                            Player.TryUpdateChannel(GetPlayerActiveProjectile());
+                            Main.NewText("Item Channeled!");
+                        }
                     }
                 }
             }
@@ -52,10 +65,37 @@ namespace OffHandidiotmod
                     Player.controlUseTile = false;
                     Player.inventory[Player.selectedItem] = originalSelectedItem;
                     isUsingItem = false;
+                    Player.TryCancelChannel(GetPlayerActiveProjectile());
+                }
+            }
+        }
+        private Projectile GetPlayerActiveProjectile()
+        {
+            foreach (Projectile projectile in Main.ActiveProjectiles)
+            {
+                // Check if the projectile belongs to this player
+                if (projectile.owner == Player.whoAmI)
+                {
+                    Main.NewText("Sent",255,0,0);
+                    return projectile;
+                }
+            }
+            return null;
+        }
+        private void ProjectileExists()
+        {
+            foreach (Projectile projectile in Main.ActiveProjectiles)
+            {
+                // Check if the projectile belongs to this player
+                if (projectile.owner == Player.whoAmI)
+                {
+                    Main.NewText("Found Projectile",255,0,0);
                 }
             }
         }
     }
+
+
 
     public class MyCustomSlotPlayer : ModPlayer
     {
