@@ -21,17 +21,16 @@ namespace OffHandidiotmod
                 // Ensure we have a valid item in RMBSlot
                 if (MySlotUI.RMBSlot.Item.type != ItemID.None)                
                 {
-                    // Save the selected item and put RMBSlot.Item in its place
-                    if (!isUsingItem)
+                    // Save the selected item and put RMBSlot.Item in its place, prevent using both items at once
+                    if (!isUsingItem && !Player.channel)
                     {
                         originalSelectedItem = Player.inventory[Player.selectedItem];
                         Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
 
-
-
                         // Update item’s use time considering accessory modifiers
                         Item item = Player.inventory[Player.selectedItem];                                                                   
                         int modifiedUseTime = (int)(item.useTime / Player.GetWeaponAttackSpeed(item)); // Adjust for attack speed modifiers
+                        
 
                         // Set animation and item time based on modified use time
                         Player.itemAnimation = modifiedUseTime;
