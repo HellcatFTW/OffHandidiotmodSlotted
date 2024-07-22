@@ -2,7 +2,7 @@ Put a weapon in the custom slot below inventory, and when you right click, it wi
 
 
 
-(message me on discord @HelcatFTW if a weapon does not work.)
+leave a comment on the workshop if a weapon doesn't work as intended or any suggestions you may have.
 
 
 
