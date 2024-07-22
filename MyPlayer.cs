@@ -14,7 +14,17 @@ namespace OffHandidiotmod
     public class MyPlayer : ModPlayer
     {
         private Item originalSelectedItem;
-        private bool isUsingItem;
+        private bool isUsingOffhand;
+
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            if (Activation.SwapKeybind.JustPressed)
+            {
+                Item SelectedItem = Player.inventory[Player.selectedItem];
+                Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
+                MySlotUI.RMBSlot.SetItem(SelectedItem, false);
+            }
+        }
         public override void PreUpdate()
         {
             // Check if the right mouse button is held and the inventory is not open (to preserve RMB functionality on treasure bags etc)
@@ -24,11 +34,11 @@ namespace OffHandidiotmod
                 if (MySlotUI.RMBSlot.Item.type != ItemID.None)
                 {
                     // Save the selected item and put RMBSlot.Item in its place, prevent using both items at once
-                    if (!isUsingItem && !Player.channel)
+                    if (!isUsingOffhand && !Player.channel)
                     {
                         originalSelectedItem = Player.inventory[Player.selectedItem];
                         Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
-                        isUsingItem = true;
+                        isUsingOffhand = true;
                     }
                     PlayerInput.Triggers.Current.MouseLeft = true;
                 }
@@ -36,10 +46,10 @@ namespace OffHandidiotmod
             else
             {
                 // Stop using RMBSlot.Item and return to originalSelectedItem
-                if (isUsingItem)
+                if (isUsingOffhand)
                 {
                     Player.inventory[Player.selectedItem] = originalSelectedItem;
-                    isUsingItem = false;
+                    isUsingOffhand = false;
                 }
             }
         }

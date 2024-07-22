@@ -57,8 +57,15 @@ public class Activation : ModSystem
 					InterfaceScaleType.UI));
 			}
 		}
+		public static ModKeybind SwapKeybind { get; private set; }
+
+        public override void Load() {
+            // Registers a new keybind
+            SwapKeybind = KeybindLoader.RegisterKeybind(Mod, "Swap Offhand", "T");
+        }
+
+        public override void Unload() {
+            SwapKeybind = null;
+        }
 }
-
-
-
 }
