@@ -18,11 +18,12 @@ namespace OffHandidiotmod
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (Activation.SwapKeybind.JustPressed)
+            if (Activation.SwapKeybind.JustPressed && Player.selectedItem!=58)
             {
                 Item SelectedItem = Player.inventory[Player.selectedItem];
                 Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
                 MySlotUI.RMBSlot.SetItem(SelectedItem, false);
+
             }
         }
         public override void PreUpdate()

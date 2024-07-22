@@ -1,5 +1,6 @@
 Put a weapon in the custom slot below inventory, and when you right click, it will use that weapon. Only one weapon at a time, no doubling your dps!
 
+Added a configurable keybind (you must set it in controls! Default 'T') to manually swap the item in current slot and offhand. Will come in handy with next updates!
 
 
 leave a comment on the workshop if a weapon doesn't work as intended or any suggestions you may have.
