@@ -30,9 +30,16 @@ namespace OffHandidiotmod
                         Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
                         isUsingItem = true;
                     }
-                    if (Player.itemAnimation <= 0)
+                    if (Player.HeldItem.channel)
                     {
                         PlayerInput.Triggers.Current.MouseLeft = true;
+                    }
+                    else if (!Player.HeldItem.channel)
+                    {
+                        if (Player.itemAnimation <= 0)
+                        {
+                            PlayerInput.Triggers.Current.MouseLeft = true;
+                        }
                     }
                 }
             }

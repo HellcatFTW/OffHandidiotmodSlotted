@@ -2,9 +2,14 @@ Put a weapon in the custom slot below inventory, and when you right click, it wi
 
 
 
+(message me on discord @HelcatFTW if a weapon does not work.)
+
+
+
+
+
 
 Mod repo: https://github.com/HellcatFTW/OffHandidiotmodSlotted
 abluescarab's very helpful library (not needed!): https://github.com/abluescarab/tModLoader-CustomSlot
 
-(use at your own risk!)
-(A very basic mod I made with zero C# knowledge using chatgpt and abluescarab's tModLoader-CustomSlot)
+A very basic mod I made with zero C# knowledge using chatgpt and abluescarab's tModLoader-CustomSlot
