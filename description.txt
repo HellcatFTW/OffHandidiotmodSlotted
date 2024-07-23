@@ -7,11 +7,11 @@ Want to place blocks with one hand and hammer with the other? No problem! Maybe 
 Configurable keybinds! (you MUST set them in controls!) to manually swap the item in current slot and offhand, as well as changing the keybind to use Offhand item directly from right click to something else.
 
 If you want to use weapons with 2 different attacks, simply unbind 'Use offhand Item` and stick to using the 'Swap Offhand' keybind, that way you can use the weapons like normal.
+This also applies for anything that doesn't work correctly with the `Use offhand Item` bind. I'm fixing as much of it as I can at the moment.
 
 
-
-
-if a weapon doesn't work as intended or if you have any suggestions, leave a comment on the workshop.
+Please leave a rating and favourite this item! It releases many happy chemicals in my brain!
+if an item doesn't work as intended or if you have any suggestions, leave a comment on the workshop. (but read the instructions first!)
 
 
 Mod repo: https://github.com/HellcatFTW/OffHandidiotmodSlotted
