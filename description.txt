@@ -1,7 +1,10 @@
-Put a weapon in the custom slot below inventory, and when you right click, it will use that weapon. Only one weapon at a time, no doubling your dps!
-Want to place blocks with one hand and hammer with the other? No problem!
+Put an item in the custom slot below inventory, and when you right click(Customizable!), it will use that item. Only allows using one at a time, no doubling your dps!
 
-Configurable keybinds! (you MUST set them in controls!) to manually swap the item in current slot and offhand, as well as changing the keybind to use Offhand item from right click to something else.
+Want to place blocks with one hand and hammer with the other? No problem! Maybe dig them up while placing them? That also works. Or you can use 2 different weapons!
+
+
+
+Configurable keybinds! (you MUST set them in controls!) to manually swap the item in current slot and offhand, as well as changing the keybind to use Offhand item directly from right click to something else.
 
 If you want to use weapons with 2 different attacks, simply unbind 'Use offhand Item` and stick to using the 'Swap Offhand' keybind, that way you can use the weapons like normal.
 
@@ -14,4 +17,4 @@ if a weapon doesn't work as intended or if you have any suggestions, leave a com
 Mod repo: https://github.com/HellcatFTW/OffHandidiotmodSlotted
 abluescarab's very helpful library I forked (not needed!): https://github.com/abluescarab/tModLoader-CustomSlot
 
-A very basic mod I made with zero C# knowledge using chatgpt and abluescarab's tModLoader-CustomSlot
+A very basic mod I made with starting with zero C# knowledge using chatgpt and a fork of abluescarab's tModLoader-CustomSlot

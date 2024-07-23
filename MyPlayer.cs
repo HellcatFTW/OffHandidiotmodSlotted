@@ -15,12 +15,24 @@ namespace OffHandidiotmod
     {
         private Item originalSelectedItem;
         private bool isUsingOffhand;
-        private int delayTimer = 0;  
-        private bool OffhandKeyPressed;
-        
+        private int delayTimer = 0;
+
+        private int delayTimer2 = 0;
+
+        public bool IsMessageEnabled()
+        {
+            return ModContent.GetInstance<OffHandConfig>().ChatMessageToggle;
+        }
+        public override void OnEnterWorld()
+        {
+            if (IsMessageEnabled())
+            {
+                delayTimer2 = 160;
+            }
+        }
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (Activation.SwapKeybind.JustPressed && Player.selectedItem!=58)
+            if (Activation.SwapKeybind.JustPressed && Player.selectedItem != 58)
             {
                 Item SelectedItem = Player.inventory[Player.selectedItem];
                 Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
@@ -44,13 +56,13 @@ namespace OffHandidiotmod
                         isUsingOffhand = true;
                         delayTimer = 1; // 1-tick delay to allow autopause and whatever else to interrupt
                     }
-                    if(delayTimer>0) // delay man cmon
+                    if (delayTimer > 0) // delay man cmon
                     {
                         delayTimer--;
                     }
                     else
                     {
-                    PlayerInput.Triggers.Current.MouseLeft = true;
+                        PlayerInput.Triggers.Current.MouseLeft = true;
                     }
                 }
             }
@@ -63,6 +75,14 @@ namespace OffHandidiotmod
                     isUsingOffhand = false;
                 }
             }
+            if (delayTimer2 > 0) // Warning message delay
+            {
+                delayTimer2--;
+            }
+            if (delayTimer2 == 1 && IsMessageEnabled()) // Warning message send
+            {
+                Main.NewText("Please make sure you've set Offhand Slot's keybinds in your controls. You can disable this message in Mod Configuration.", 255, 255, 0);
+            }
         }
     }
 
@@ -72,20 +92,11 @@ namespace OffHandidiotmod
     {
         private PlayerData<Item> myCustomItem = new PlayerData<Item>("myitemtag", new Item());
 
-        public bool IsMessageEnabled() {
-			return ModContent.GetInstance<OffHandConfig>().ChatMessageToggle;
-		}
-
         public override void OnEnterWorld()
         {
             // When the player enters the world, equip the correct items
             // SetItem() also fires the ItemChanged event by default
             MySlotUI.RMBSlot.SetItem(myCustomItem.Value);
-            if(IsMessageEnabled())
-            {
-                Main.NewText("Please make sure you've set Offhand Slot's keybinds in your controls.",218,112,214);
-            }
-            
         }
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
