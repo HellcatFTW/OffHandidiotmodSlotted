@@ -15,9 +15,10 @@ namespace OffHandidiotmod
     {
         private Item originalSelectedItem;
         private bool isUsingOffhand;
-        private int delayTimer = 0;
+        private int delayTimerOffhand = 0;
+        private int delayTimerMessage = 0;
+        private int delayTimerSwap = 0; // swap delay to stop weird animation things
 
-        private int delayTimer2 = 0;
 
         public bool IsMessageEnabled()
         {
@@ -27,7 +28,7 @@ namespace OffHandidiotmod
         {
             if (IsMessageEnabled())
             {
-                delayTimer2 = 160;
+                delayTimerMessage = 160;
             }
         }
         public override void ProcessTriggers(TriggersSet triggersSet)
@@ -54,11 +55,11 @@ namespace OffHandidiotmod
                         originalSelectedItem = Player.inventory[Player.selectedItem];
                         Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
                         isUsingOffhand = true;
-                        delayTimer = 1; // 1-tick delay to allow autopause and whatever else to interrupt
+                        delayTimerOffhand = 1; // 1-tick delay to allow autopause and whatever else to interrupt
                     }
-                    if (delayTimer > 0) // delay man cmon
+                    if (delayTimerOffhand > 0) // delay man cmon
                     {
-                        delayTimer--;
+                        delayTimerOffhand--;
                     }
                     else
                     {
@@ -71,18 +72,27 @@ namespace OffHandidiotmod
                 // Stop using RMBSlot.Item and return to originalSelectedItem
                 if (isUsingOffhand)
                 {
+                    delayTimerSwap = Player.itemAnimation+1;
+                    if(delayTimerSwap==1)
+                    {
                     Player.inventory[Player.selectedItem] = originalSelectedItem;
                     isUsingOffhand = false;
+                    }
                 }
             }
-            if (delayTimer2 > 0) // Warning message delay
+            if (delayTimerSwap > 0) // swap delay to stop weird animation things
+                    {
+                        delayTimerSwap--;
+                    }
+            if (delayTimerMessage > 0) // Warning message delay
             {
-                delayTimer2--;
+                delayTimerMessage--;
             }
-            if (delayTimer2 == 1 && IsMessageEnabled()) // Warning message send
+            if (delayTimerMessage == 1 && IsMessageEnabled()) // Warning message send
             {
                 Main.NewText("Please make sure you've set Offhand Slot's keybinds in your controls. You can disable this message in Mod Configuration.", 255, 255, 0);
             }
+
         }
     }
 
