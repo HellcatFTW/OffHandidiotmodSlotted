@@ -2,3 +2,5 @@ Keybinds: {
 	"Swap Offhand.DisplayName": Swap Offhand
 	"Use Offhand Item.DisplayName": Use Offhand Item
 }
+
+Configs.OffHandConfig.DisplayName: Off Hand Config

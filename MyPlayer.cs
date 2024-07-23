@@ -16,9 +16,8 @@ namespace OffHandidiotmod
         private Item originalSelectedItem;
         private bool isUsingOffhand;
         private int delayTimer = 0;  
-
         private bool OffhandKeyPressed;
-
+        
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             if (Activation.SwapKeybind.JustPressed && Player.selectedItem!=58)
@@ -73,12 +72,20 @@ namespace OffHandidiotmod
     {
         private PlayerData<Item> myCustomItem = new PlayerData<Item>("myitemtag", new Item());
 
+        public bool IsMessageEnabled() {
+			return ModContent.GetInstance<OffHandConfig>().ChatMessageToggle;
+		}
+
         public override void OnEnterWorld()
         {
             // When the player enters the world, equip the correct items
             // SetItem() also fires the ItemChanged event by default
             MySlotUI.RMBSlot.SetItem(myCustomItem.Value);
-            Main.NewText("Please make sure you've set Offhand Slot's keybinds in your controls.",218,112,214);
+            if(IsMessageEnabled())
+            {
+                Main.NewText("Please make sure you've set Offhand Slot's keybinds in your controls.",218,112,214);
+            }
+            
         }
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
