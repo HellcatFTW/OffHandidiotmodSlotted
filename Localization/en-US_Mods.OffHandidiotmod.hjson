@@ -1,1 +1,4 @@
-"Keybinds.Swap Offhand.DisplayName": Swap  Offhand
+Keybinds: {
+	"Swap Offhand.DisplayName": Swap Offhand
+	"Use Offhand Item.DisplayName": Use Offhand Item
+}

@@ -17,6 +17,8 @@ namespace OffHandidiotmod
         private bool isUsingOffhand;
         private int delayTimer = 0;  
 
+        private bool OffhandKeyPressed;
+
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             if (Activation.SwapKeybind.JustPressed && Player.selectedItem!=58)
@@ -24,13 +26,12 @@ namespace OffHandidiotmod
                 Item SelectedItem = Player.inventory[Player.selectedItem];
                 Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
                 MySlotUI.RMBSlot.SetItem(SelectedItem, false);
-
             }
         }
         public override void PreUpdate()
         {
             // Check if the right mouse button is held and the inventory is not open (to preserve RMB functionality on treasure bags etc)
-            if (PlayerInput.Triggers.Current.MouseRight && !Main.playerInventory)
+            if (Activation.UseOffhandKeybind.Current && !Main.playerInventory)
             {
 
                 // Ensure we have a valid item in RMBSlot
@@ -44,7 +45,7 @@ namespace OffHandidiotmod
                         isUsingOffhand = true;
                         delayTimer = 1; // 1-tick delay to allow autopause and whatever else to interrupt
                     }
-                    if(delayTimer>0) // delay countdown before sending lmb
+                    if(delayTimer>0) // delay man cmon
                     {
                         delayTimer--;
                     }
@@ -77,6 +78,7 @@ namespace OffHandidiotmod
             // When the player enters the world, equip the correct items
             // SetItem() also fires the ItemChanged event by default
             MySlotUI.RMBSlot.SetItem(myCustomItem.Value);
+            
         }
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)

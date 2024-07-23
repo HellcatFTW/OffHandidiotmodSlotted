@@ -1,13 +1,14 @@
 Put a weapon in the custom slot below inventory, and when you right click, it will use that weapon. Only one weapon at a time, no doubling your dps!
+Want to place blocks with one hand and hammer with the other? No problem!
 
-Added a configurable keybind (you must set it in controls! Default 'T') to manually swap the item in current slot and offhand. Will come in handy with next updates!
+Configurable keybinds! (you MUST set them in controls!) to manually swap the item in current slot and offhand, as well as changing the keybind to use Offhand item from right click to something else.
 
-
-leave a comment on the workshop if a weapon doesn't work as intended or any suggestions you may have.
-
-
+If you want to use weapons with 2 different attacks, simply unbind 'Use offhand item" and stick to using the 'Swap Offhand' keybind, that way you can use the weapons like normal.
 
 
+
+
+if a weapon doesn't work as intended or if you have any suggestions, leave a comment on the workshop.
 
 
 Mod repo: https://github.com/HellcatFTW/OffHandidiotmodSlotted

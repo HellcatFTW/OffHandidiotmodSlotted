@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 using Terraria.UI;
 
 
@@ -31,11 +33,11 @@ namespace OffHandidiotmod
 			SlotUI.Unload();
 		}
 
-		
+
 	}
-public class Activation : ModSystem
-{
-// Make sure the UI can draw
+	public class Activation : ModSystem
+	{
+		// Make sure the UI can draw
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
 			// This will draw on the same layer as the inventory
@@ -58,14 +60,19 @@ public class Activation : ModSystem
 			}
 		}
 		public static ModKeybind SwapKeybind { get; private set; }
+		public static ModKeybind UseOffhandKeybind { get; private set; }
 
-        public override void Load() {
-            // Registers a new keybind
-            SwapKeybind = KeybindLoader.RegisterKeybind(Mod, "Swap Offhand", "T");
-        }
+		public override void Load()
+		{
+			// Register new keybind
+			SwapKeybind = KeybindLoader.RegisterKeybind(Mod, "Swap Offhand", "T");
+			UseOffhandKeybind = KeybindLoader.RegisterKeybind(Mod, "Use Offhand Item", "Mouse2");
+		}
 
-        public override void Unload() {
-            SwapKeybind = null;
-        }
-}
+		public override void Unload()
+		{
+			SwapKeybind = null;
+			UseOffhandKeybind = null;
+		}
+	}
 }
