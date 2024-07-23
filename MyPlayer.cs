@@ -78,7 +78,7 @@ namespace OffHandidiotmod
             // When the player enters the world, equip the correct items
             // SetItem() also fires the ItemChanged event by default
             MySlotUI.RMBSlot.SetItem(myCustomItem.Value);
-            
+            Main.NewText("Please make sure you've set Offhand Slot's keybinds in your controls.",218,112,214);
         }
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
