@@ -42,9 +42,9 @@ namespace OffHandidiotmod
                         originalSelectedItem = Player.inventory[Player.selectedItem];
                         Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
                         isUsingOffhand = true;
-                        delayTimer = 1;
+                        delayTimer = 1; // 1-tick delay to allow autopause and whatever else to interrupt
                     }
-                    if(delayTimer>0)
+                    if(delayTimer>0) // delay countdown before sending lmb
                     {
                         delayTimer--;
                     }
