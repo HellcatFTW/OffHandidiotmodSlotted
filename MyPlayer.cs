@@ -48,6 +48,7 @@ namespace OffHandidiotmod
             bool actualMouseLeftCurrent = PlayerInput.Triggers.Current.MouseLeft;
             var actualMouseLeftJustPressed = actualMouseLeftCurrent && !previousMouseLeft;
             var actualMouseLeftJustReleased = !actualMouseLeftCurrent && previousMouseLeft;
+
             // Issue:
             // Holding LMB then pressing the magic key causes both items to alternate in swinging, but with perfect timing
             // Holding magic key then pressing LMB ignores the LMB press, as if it was from Offhand function
@@ -72,48 +73,43 @@ namespace OffHandidiotmod
                 {
                     manualSwapRequested = false;
                 }
-            }
+            }    // DONT TOUCH DONT TOUCH DONT TOUCH
 
 
             // Handles magic key state
-            if (!currentlySwapped && Activation.UseOffhandKeybind.JustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) // 1: No offhand, keybind just pressed, switches from main to off 
-            {
-                swapRequestedToOffhand = true;
-            }
-            if (swapRequestedToOffhand && Activation.UseOffhandKeybind.JustReleased) // reset swapRequestedToOffhand if key is released
-            {
-                swapRequestedToOffhand = false;
-            }
-
-
-
-
-
-
-
-
-
+          if (!currentlySwapped && Activation.UseOffhandKeybind.JustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) // 1: No offhand, keybind just pressed, switches from main to off 
+          {
+              swapRequestedToOffhand = true;
+          }
+          if (swapRequestedToOffhand && Activation.UseOffhandKeybind.JustReleased) // reset swapRequestedToOffhand if key is released
+          {
+              swapRequestedToOffhand = false;
+          }
 
 
 
 
             // Handles left mouse state 
-          // if (currentlySwapped && actualMouseLeftJustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) //2: Offhand active and keybind released, Switches from off to main
-          // {
-          //     swapRequestedToMain = true;
-          // }
-          // if (swapRequestedToMain && actualMouseLeftJustReleased) // reset swapRequestedToMain if key is released
-          // {
-          //     swapRequestedToMain = false;
-          // }
-            if (!actualMouseLeftCurrent && !Activation.UseOffhandKeybind.Current && currentlySwapped)
-            {
-                swapRequestedToMain = true;
-            }
-          // if (actualMouseLeftJustPressed && Activation.UseOffhandKeybind.Current && currentlySwapped)
-          // {
-          //     swapRequestedToMain = true;
-          // }
+           if (currentlySwapped && actualMouseLeftJustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) //2: Offhand active and keybind released, Switches from off to main
+           {
+               swapRequestedToMain = true;
+           }
+           if (swapRequestedToMain && actualMouseLeftJustReleased) // reset swapRequestedToMain if key is released
+           {
+               swapRequestedToMain = false;
+           }
+           if (!actualMouseLeftCurrent && !Activation.UseOffhandKeybind.Current && currentlySwapped)
+           {
+               swapRequestedToMain = true;
+           }
+           if (actualMouseLeftJustPressed && Activation.UseOffhandKeybind.Current && currentlySwapped)
+           {
+               swapRequestedToMain = true;
+           }
+
+
+
+
 
 
             // Swap request handler
@@ -184,7 +180,6 @@ namespace OffHandidiotmod
 
 
 
-
             //Message timer
             if (delayTimerMessage > 0) // Warning message delay
             {
@@ -197,14 +192,24 @@ namespace OffHandidiotmod
 
 
 
-            previousMouseLeft = actualMouseLeftCurrent;
-        }
+           previousMouseLeft = actualMouseLeftCurrent;
+        }  //end of preupdate
+
+
 
         public void PrintStates()
         {
             Main.NewText("offhand: {" + currentlySwapped.ToString() + "}, swapRequestedToOffhand: {" + swapRequestedToOffhand.ToString() + "},"
             + "swapRequestedToMain: {" + swapRequestedToMain.ToString() + "}");
         }
+
+
+
+
+
+
+
+
 
 
         // swaps at earliest possible moment while looking.. ok
@@ -227,6 +232,10 @@ namespace OffHandidiotmod
             return false;
         }
 
+
+
+
+
         public void SwapSlots()
         {
             Item originalSelectedItem = Player.inventory[Player.selectedItem];
@@ -236,6 +245,12 @@ namespace OffHandidiotmod
 
 
     }
+
+
+
+
+
+
 
 
 
