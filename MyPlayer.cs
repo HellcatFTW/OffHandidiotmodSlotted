@@ -67,8 +67,8 @@ namespace OffHandidiotmod
             //10- (DONE) items swap if inventory is open. Check if inventory is open when magic key is pressed to send a swapRequest.
             //11- (DONE) setting use off hand item to mouse1(lmb) prevents you from using GUI mouse1 functions. can temporarily try to block mouse1 from being assigned? but the real fix is to use mirsario's implementation 
             //
-            //12- swapping to prism via magic key then releasing, still uses mouse after swap
-            //
+            //12- (DONE)swapping to prism via magic key then releasing, still uses mouse after swap
+            //13- (meh) if you mine blocks they dont get stacked back into offhandslot
             //
             //================================================================================================================================================
 
@@ -78,10 +78,10 @@ namespace OffHandidiotmod
             if (Activation.UseOffhandKeybind.Current && !isUIActive() && !requestExists && !Main.playerInventory)
             {
                 // Ensure we have a valid item in RMBSlot and nor torch nor mouseitem is held, as well as being in main hand state
-                if (MySlotUI.RMBSlot.Item.type != ItemID.None)
+                if (currentlySwapped)  
                 {
                     // Swap and use
-                    if (!currentlySwapped && Player.selectedItem != 58 && !isTorchHeld())
+                    if (!currentlySwapped && Player.selectedItem != 58 && !isTorchHeld()) 
                     {
                         delayTimerOffhand = 1; // 1-tick delay to allow autopause and whatever else to interrupt
                     }
@@ -113,6 +113,11 @@ namespace OffHandidiotmod
             }    // DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH
 
 
+            // Input handlers:
+            // we may not swap to empty off-hand
+            // (swapping back to empty main hand is fine)
+            // if both are held, the most recently pressed takes precedence  
+
 
             // General input handler, assuming mod should be active and no pause / menus open that require cursor clicks
             if (!shiftCurrent && !isUIActive() && !Main.playerInventory)
@@ -130,7 +135,7 @@ namespace OffHandidiotmod
                 {
                     swapRequestedToMain = true;
                 }
-                if (actualMouseLeftJustReleased && Activation.UseOffhandKeybind.Current && !currentlySwapped)
+                if (actualMouseLeftJustReleased && Activation.UseOffhandKeybind.Current && !currentlySwapped  && MySlotUI.RMBSlot.Item.type != ItemID.None)
                 {
                     swapRequestedToOffhand = true;
                 }
@@ -139,7 +144,7 @@ namespace OffHandidiotmod
 
 
                 // Handles left mouse state 
-                if (currentlySwapped && actualMouseLeftJustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) //2: Offhand active and keybind released, Switches from off to main
+                if (currentlySwapped && actualMouseLeftJustPressed) //2: Offhand active and keybind released, Switches from off to main
                 {
                     swapRequestedToMain = true;
                 }

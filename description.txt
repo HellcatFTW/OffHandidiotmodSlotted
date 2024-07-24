@@ -1,18 +1,26 @@
-Put an item in the custom slot below inventory, and when you right click(Customizable!), it will use that item. Only allows using one at a time, no doubling your dps!
+Put an item in the custom slot below inventory, and when you use your custom keybind (Default RMB), it will use the item in that slot. Only allows using one at a time, no doubling your dps!
 
 Want to place blocks with one hand and hammer with the other? No problem! Maybe dig them up while placing them? That also works. Or you can use 2 different weapons!
 
-MOD IS INCOMPATIBLE WITH MULTIPLAYER RIGHT NOW!!
+Summoners using two whips with 2 buttons.. I'm looking at you.
 
-Configurable keybinds! (you MUST set them in controls!) to manually swap the item in current slot and offhand, as well as changing the keybind to use Offhand item directly from right click to something else.
 
-If you want to use weapons with 2 different attacks, simply unbind 'Use offhand Item` and stick to using the 'Swap Offhand' keybind, that way you can use the weapons like normal.
+
+MOD IS SUPER MEGA INCOMPATIBLE WITH MULTIPLAYER RIGHT NOW!!! 
+
+Configurable keybinds! (you MUST set them in controls!):
+
+1- Keybind that uses offhand item (Default RMB). Don't use mouse1(left click) as the custom keybind, it interferes with the entire mod (and maybe other mods too).
+2- Keybind that manually swaps items in the slots (Default T, conflicts with vanilla "throw item"). very useful if you disable above keybind for usage of dual-attack weapons.
+
+
+
+If you want to use weapons with 2 different attacks, simply unbind 'Use offhand Item` and stick to using the 'Swap Offhand' keybind, that way you can use those weapons like normal.
 This also applies for anything that doesn't work correctly with the `Use offhand Item` bind. I'm fixing as much of it as I can at the moment.
 
-Don't use mouse1(left click) as the custom keybind, it interferes with the entire mod.
 
-Please leave a rating and favourite this item! It releases many happy chemicals in my brain!
-if an item doesn't work as intended or if you have any suggestions, leave a comment on the workshop. (but read the instructions first!)
+Please leave a rating! It makes me very happy and keeps me motivated <3
+if an item doesn't work as intended or if you have any suggestions, leave a comment on the workshop. Don't report dual-function items, I'm working on it.
 
 
 Mod repo: https://github.com/HellcatFTW/OffHandidiotmodSlotted
