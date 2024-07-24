@@ -240,7 +240,6 @@ namespace OffHandidiotmod
                     PlayerInput.Triggers.JustReleased.MouseLeft = false;
                     PlayerInput.Triggers.JustPressed.MouseLeft = false;
                     PlayerInput.Triggers.Current.MouseLeft = false;
-                    Main.NewText($"Mouse blocked outer");
                 }
                 if (!Player.channel)  // current item is not channeling
                 {
@@ -251,9 +250,7 @@ namespace OffHandidiotmod
                         PlayerInput.Triggers.JustReleased.MouseLeft = false;
                         PlayerInput.Triggers.JustPressed.MouseLeft = false;
                         PlayerInput.Triggers.Current.MouseLeft = false;
-                        Main.NewText($"Mouse blocked inner");
                         SwapSlots();
-                        Main.NewText($"Swapped {Player.itemAnimation}");
                         cancelSwapRequests = false;
                         return true;
                     }
