@@ -74,11 +74,11 @@ namespace OffHandidiotmod
             // also disables mouse simulating if UI is open to prevent locking player in their settings menu
             if (Activation.UseOffhandKeybind.Current && !isUIActive && !requestExists)
             {
-                // Ensure we have a valid item in RMBSlot
+                // Ensure we have a valid item in RMBSlot and nor torch nor mouseitem is held, as well as being in main hand state
                 if (MySlotUI.RMBSlot.Item.type != ItemID.None)
                 {
                     // Swap and use
-                    if (!currentlySwapped && Player.selectedItem != 58)
+                    if (!currentlySwapped && Player.selectedItem != 58 && !isTorchHeld())
                     {
                         delayTimerOffhand = 1; // 1-tick delay to allow autopause and whatever else to interrupt
                     }
@@ -176,7 +176,7 @@ namespace OffHandidiotmod
             }
 
 
-            // DEBUGGING STUFFFF
+            // MOUSE DEBUGGING STUFFFF
             // if (PlayerInput.Triggers.Current.MouseLeft)
             // {
             //     Main.NewText("Fake Mouse Current:" + PlayerInput.Triggers.Current.MouseLeft.ToString());
@@ -193,8 +193,7 @@ namespace OffHandidiotmod
             //{
             //    Main.NewText("Actual Mouse Current:" + actualMouseLeftCurrent.ToString());
             //}
-
-
+            
             //Message timer
             if (delayTimerMessage > 0) // Warning message delay
             {
