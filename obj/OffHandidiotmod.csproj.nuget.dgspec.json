@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj": {}
+    "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj": {}
   },
   "projects": {
-    "c:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj": {
+    "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj",
+        "projectUniqueName": "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj",
         "projectName": "OffHandidiotmod",
-        "projectPath": "c:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj",
+        "projectPath": "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj",
         "packagesPath": "C:\\Users\\mross\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\obj\\",
+        "outputPath": "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mross\\AppData\\Roaming\\NuGet\\NuGet.Config"

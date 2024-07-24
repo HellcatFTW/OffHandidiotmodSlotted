@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8e/ZM2N2g1M=",
+  "dgSpecHash": "kev+L0GDg/c=",
   "success": true,
-  "projectFilePath": "c:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj",
+  "projectFilePath": "C:\\Users\\mross\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\OffHandidiotmod\\OffHandidiotmod.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mross\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
   ],

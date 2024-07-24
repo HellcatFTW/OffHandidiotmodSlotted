@@ -2,7 +2,7 @@ Put an item in the custom slot below inventory, and when you right click(Customi
 
 Want to place blocks with one hand and hammer with the other? No problem! Maybe dig them up while placing them? That also works. Or you can use 2 different weapons!
 
-
+MOD IS INCOMPATIBLE WITH MULTIPLAYER RIGHT NOW!!
 
 Configurable keybinds! (you MUST set them in controls!) to manually swap the item in current slot and offhand, as well as changing the keybind to use Offhand item directly from right click to something else.
 
