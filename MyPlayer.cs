@@ -91,7 +91,6 @@ namespace OffHandidiotmod
                     {
                         PlayerInput.Triggers.Current.MouseLeft = true;
                     }
-
                 }
             }
 
@@ -231,20 +230,19 @@ namespace OffHandidiotmod
         {
             if (!isTorchHeld())
             {
-                if ((Player.selectedItem != 58) && !Player.channel)
+                if ((Player.selectedItem != 58) && !Player.channel) // current item is not channeling
                 {
                     if (Player.ItemAnimationEndingOrEnded)             //polish feature, not needed but prevents 2 items from being swung together
                     {
                         PlayerInput.Triggers.JustReleased.MouseLeft = false;
                         PlayerInput.Triggers.JustPressed.MouseLeft = false;
                         PlayerInput.Triggers.Current.MouseLeft = false;
-                        // PlayerInput.Triggers.Current.MouseLeft = false;  //idk if its needed but it worked before and im keeping it
                         SwapSlots();
                         cancelSwapRequests = false;
                         return true;
                     }
                 }
-                else if ((Player.selectedItem != 58) && Player.channel)
+                else if ((Player.selectedItem != 58) && Player.channel) // current item is channeling
                 {
                     PlayerInput.Triggers.JustReleased.MouseLeft = false;
                     PlayerInput.Triggers.JustPressed.MouseLeft = false;
