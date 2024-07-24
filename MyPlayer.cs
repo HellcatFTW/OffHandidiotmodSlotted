@@ -17,9 +17,8 @@ namespace OffHandidiotmod
         private bool swapRequestedToOffhand = false;
         private bool swapRequestedToMain = false;
         private bool manualSwapRequested = false;
-        private bool requestExists {get => manualSwapRequested || swapRequestedToMain || swapRequestedToOffhand;}
+        private bool requestExists { get => manualSwapRequested || swapRequestedToMain || swapRequestedToOffhand; }
         private bool previousMouseLeft;
-
 
         public bool IsMessageEnabled()
         {
@@ -45,13 +44,17 @@ namespace OffHandidiotmod
             return ItemID.Sets.Torches[item.type];
 
         }
+        public bool isUIActive()
+        {
+            return Main.ingameOptionsWindow || Main.mapFullscreen || Main.gamePaused;
+        }
         public override void PreUpdate()
         {
-            bool isUIActive = Main.ingameOptionsWindow || Main.mapFullscreen || Main.gamePaused || Main.playerInventory;
             bool shiftCurrent = Main.keyState.PressingShift();
             bool actualMouseLeftCurrent = PlayerInput.Triggers.Current.MouseLeft;
             var actualMouseLeftJustPressed = actualMouseLeftCurrent && !previousMouseLeft;
             var actualMouseLeftJustReleased = !actualMouseLeftCurrent && previousMouseLeft;
+
 
             // Issues:
             //
@@ -64,7 +67,7 @@ namespace OffHandidiotmod
             //10- (DONE) items swap if inventory is open. Check if inventory is open when magic key is pressed to send a swapRequest.
             //11- (DONE) setting use off hand item to mouse1(lmb) prevents you from using GUI mouse1 functions. can temporarily try to block mouse1 from being assigned? but the real fix is to use mirsario's implementation 
             //
-            //12- swapping to prism via magic key then releasing, consumes a couple throwing items from main hand upon swap
+            //12- swapping to prism via magic key then releasing, still uses mouse after swap
             //
             //
             //================================================================================================================================================
@@ -72,7 +75,7 @@ namespace OffHandidiotmod
 
             // Offhand function: This simulates LMB. Prevents vanilla interference and duplication by disallowing if inventory is open or mouse has an item in it
             // also disables mouse simulating if UI is open to prevent locking player in their settings menu
-            if (Activation.UseOffhandKeybind.Current && !isUIActive && !requestExists)
+            if (Activation.UseOffhandKeybind.Current && !isUIActive() && !requestExists && !Main.playerInventory)
             {
                 // Ensure we have a valid item in RMBSlot and nor torch nor mouseitem is held, as well as being in main hand state
                 if (MySlotUI.RMBSlot.Item.type != ItemID.None)
@@ -112,7 +115,7 @@ namespace OffHandidiotmod
 
 
             // General input handler, assuming mod should be active and no pause / menus open that require cursor clicks
-            if (!shiftCurrent && !isUIActive)
+            if (!shiftCurrent && !isUIActive() && !Main.playerInventory)
             {
                 // Handles magic key state 
                 if (!currentlySwapped && Activation.UseOffhandKeybind.JustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) // 1: No offhand, keybind just pressed, switches from main to off 
@@ -192,7 +195,7 @@ namespace OffHandidiotmod
             //{
             //    Main.NewText("Actual Mouse Current:" + actualMouseLeftCurrent.ToString());
             //}
-            
+
             //Message timer
             if (delayTimerMessage > 0) // Warning message delay
             {
@@ -221,35 +224,39 @@ namespace OffHandidiotmod
 
 
 
-
-
-
-
         // swaps at earliest possible moment while looking.. ok. prevent funny torch business
         public bool TrySwap(out bool cancelSwapRequests)
         {
-            if (!isTorchHeld())
+            if (!isTorchHeld() && !isUIActive() && Player.selectedItem != 58)
             {
-                if ((Player.selectedItem != 58) && !Player.channel) // current item is not channeling
+                if (Player.HeldItem.channel) 
+                { 
+                    // We block input here to allow channeled items such as last prism to wind down from their positive animation time back to 0...
+                    PlayerInput.Triggers.JustReleased.MouseLeft = false;
+                    PlayerInput.Triggers.JustPressed.MouseLeft = false;
+                    PlayerInput.Triggers.Current.MouseLeft = false;
+                    Main.NewText($"Mouse blocked outer");
+                }
+                if (!Player.channel)  // current item is not channeling
                 {
-                    if (Player.ItemAnimationEndingOrEnded)             //polish feature, not needed but prevents 2 items from being swung together
+                    if (Player.ItemAnimationEndingOrEnded)
                     {
+                        // Here, we block inputs again to make sure there is an opportunity to swap the items smoothly (one frame with no item being used) 
+                        // without doing weird animation things.
                         PlayerInput.Triggers.JustReleased.MouseLeft = false;
                         PlayerInput.Triggers.JustPressed.MouseLeft = false;
                         PlayerInput.Triggers.Current.MouseLeft = false;
+                        Main.NewText($"Mouse blocked inner");
                         SwapSlots();
+                        Main.NewText($"Swapped {Player.itemAnimation}");
                         cancelSwapRequests = false;
                         return true;
                     }
                 }
-                else if ((Player.selectedItem != 58) && Player.channel) // current item is channeling
+                else if (Player.channel) // current item is channeling, sends false to keep mouse buttons up there set to false.
                 {
-                    PlayerInput.Triggers.JustReleased.MouseLeft = false;
-                    PlayerInput.Triggers.JustPressed.MouseLeft = false;
-                    PlayerInput.Triggers.Current.MouseLeft = false;
-                    SwapSlots();
                     cancelSwapRequests = false;
-                    return true;
+                    return false;
                 }
                 cancelSwapRequests = false;
                 return false;
