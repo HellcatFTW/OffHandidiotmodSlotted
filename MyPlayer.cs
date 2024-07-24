@@ -49,86 +49,9 @@ namespace OffHandidiotmod
             var actualMouseLeftJustPressed = actualMouseLeftCurrent && !previousMouseLeft;
             var actualMouseLeftJustReleased = !actualMouseLeftCurrent && previousMouseLeft;
 
-            // Issue:
-            // Holding LMB then pressing the magic key causes both items to alternate in swinging, but with perfect timing
-            // Holding magic key then pressing LMB ignores the LMB press, as if it was from Offhand function
-            // Need to make TryInterrupt() func to fix this, where it continously sets Current.MouseLeft to false until it recieves that swap succeeded
-            // 
-            // if there's an active projectile from a sniper, while Player.itemanimationactive, and user presses magic key, game will swap the items permanently and jitter view.
+            // Issues:
             //
-            // if holding LMB and then hold magic key and release LMB, nothing happens, but it should stop using LMB and start using magic key one.
-            //
-            // && !Player.ItemAnimationActive in swap request number 1 is to prevent item swapping during LMB anim from a single magic key press (must fix)
-            //
-            //
-            //
-            // Make going from offhand to main slow like main to offhand or make both quick.
-            //
-            //
-            //
-
-            if (manualSwapRequested)  // for Swap Slots keybind 'T', don't touch it.
-            {
-                if (TrySwap())
-                {
-                    manualSwapRequested = false;
-                }
-            }    // DONT TOUCH DONT TOUCH DONT TOUCH
-
-
-            // Handles magic key state
-          if (!currentlySwapped && Activation.UseOffhandKeybind.JustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) // 1: No offhand, keybind just pressed, switches from main to off 
-          {
-              swapRequestedToOffhand = true;
-          }
-          if (swapRequestedToOffhand && Activation.UseOffhandKeybind.JustReleased) // reset swapRequestedToOffhand if key is released
-          {
-              swapRequestedToOffhand = false;
-          }
-
-
-
-
-            // Handles left mouse state 
-           if (currentlySwapped && actualMouseLeftJustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) //2: Offhand active and keybind released, Switches from off to main
-           {
-               swapRequestedToMain = true;
-           }
-           if (swapRequestedToMain && actualMouseLeftJustReleased) // reset swapRequestedToMain if key is released
-           {
-               swapRequestedToMain = false;
-           }
-           if (!actualMouseLeftCurrent && !Activation.UseOffhandKeybind.Current && currentlySwapped)
-           {
-               swapRequestedToMain = true;
-           }
-           if (actualMouseLeftJustPressed && Activation.UseOffhandKeybind.Current && currentlySwapped)
-           {
-               swapRequestedToMain = true;
-           }
-
-
-
-
-
-
-            // Swap request handler
-            if (swapRequestedToMain || swapRequestedToOffhand)
-            {
-                //PrintStates();
-                if (TrySwap())
-                {
-                    swapRequestedToOffhand = false;
-                    swapRequestedToMain = false;
-                    currentlySwapped = !currentlySwapped;
-                    //PrintStates();
-                }
-            }
-
-
-
-
-
+            // Remake the entire thing using Mirsario's overhaul's PlayerItemUse.....
             //================================================================================================================================================
 
 
@@ -158,9 +81,66 @@ namespace OffHandidiotmod
 
             //================================================================================================================================================
 
+            if (manualSwapRequested)  // for Swap Slots keybind 'T', don't touch it.  DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH
+            {
+                if (TrySwap())
+                {
+                    manualSwapRequested = false;
+                }
+            }    // DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH
+
+
+            // Handles magic key state
+            if (!currentlySwapped && Activation.UseOffhandKeybind.JustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) // 1: No offhand, keybind just pressed, switches from main to off 
+            {
+                swapRequestedToOffhand = true;
+            }
+            if (swapRequestedToOffhand && Activation.UseOffhandKeybind.JustReleased) // reset swapRequestedToOffhand if key is released
+            {
+                swapRequestedToOffhand = false;
+            }
 
 
 
+
+            // Handles left mouse state 
+            if (currentlySwapped && actualMouseLeftJustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) //2: Offhand active and keybind released, Switches from off to main
+            {
+                swapRequestedToMain = true;
+            }
+            if (swapRequestedToMain && actualMouseLeftJustReleased) // reset swapRequestedToMain if key is released
+            {
+                swapRequestedToMain = false;
+            }
+            if (!actualMouseLeftCurrent && !Activation.UseOffhandKeybind.Current && currentlySwapped)
+            {
+                swapRequestedToMain = true;
+            }
+            if (actualMouseLeftJustPressed && Activation.UseOffhandKeybind.Current && currentlySwapped)
+            {
+                swapRequestedToMain = true;
+            }
+
+
+
+
+
+
+            // Swap request handler
+            if (swapRequestedToMain || swapRequestedToOffhand)
+            {
+                //PrintStates();
+                if (TrySwap())
+                {
+                    swapRequestedToOffhand = false;
+                    swapRequestedToMain = false;
+                    currentlySwapped = !currentlySwapped;
+                    //PrintStates();
+                }
+            }
+
+
+            // DEBUGGING STUFFFF
             // if (PlayerInput.Triggers.Current.MouseLeft)
             // {
             //     Main.NewText("Fake Mouse Current:" + PlayerInput.Triggers.Current.MouseLeft.ToString());
@@ -192,7 +172,7 @@ namespace OffHandidiotmod
 
 
 
-           previousMouseLeft = actualMouseLeftCurrent;
+            previousMouseLeft = actualMouseLeftCurrent; // save mouse state for next tick lol
         }  //end of preupdate
 
 
@@ -226,6 +206,9 @@ namespace OffHandidiotmod
             }
             else if ((Player.selectedItem != 58) && Player.channel)
             {
+                PlayerInput.Triggers.JustReleased.MouseLeft = false;
+                PlayerInput.Triggers.JustPressed.MouseLeft = false;
+                PlayerInput.Triggers.Current.MouseLeft = false;
                 SwapSlots();
                 return true;
             }
