@@ -78,10 +78,10 @@ namespace OffHandidiotmod
             if (Activation.UseOffhandKeybind.Current && !isUIActive() && !requestExists && !Main.playerInventory)
             {
                 // Ensure we have a valid item in RMBSlot and nor torch nor mouseitem is held, as well as being in main hand state
-                if (currentlySwapped)  
+                if (currentlySwapped)
                 {
                     // Swap and use
-                    if (!currentlySwapped && Player.selectedItem != 58 && !isTorchHeld()) 
+                    if (!currentlySwapped && Player.selectedItem != 58 && !isTorchHeld())
                     {
                         delayTimerOffhand = 1; // 1-tick delay to allow autopause and whatever else to interrupt
                     }
@@ -135,7 +135,7 @@ namespace OffHandidiotmod
                 {
                     swapRequestedToMain = true;
                 }
-                if (actualMouseLeftJustReleased && Activation.UseOffhandKeybind.Current && !currentlySwapped  && MySlotUI.RMBSlot.Item.type != ItemID.None)
+                if (actualMouseLeftJustReleased && Activation.UseOffhandKeybind.Current && !currentlySwapped && MySlotUI.RMBSlot.Item.type != ItemID.None)
                 {
                     swapRequestedToOffhand = true;
                 }
@@ -234,8 +234,8 @@ namespace OffHandidiotmod
         {
             if (!isTorchHeld() && !isUIActive() && Player.selectedItem != 58)
             {
-                if (Player.HeldItem.channel) 
-                { 
+                if (Player.HeldItem.channel)
+                {
                     // We block input here to allow channeled items such as last prism to wind down from their positive animation time back to 0...
                     PlayerInput.Triggers.JustReleased.MouseLeft = false;
                     PlayerInput.Triggers.JustPressed.MouseLeft = false;
