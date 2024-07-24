@@ -6,19 +6,19 @@ using CustomSlot.UI;
 using CustomSlot;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 
 namespace OffHandidiotmod
 {
     public class MyPlayer : ModPlayer
     {
-        private Item originalSelectedItem;
-        private bool isUsingOffhand;
         private int delayTimerOffhand = 0;
         private int delayTimerMessage = 0;
-        private int delayTimerSwap = 0; // swap delay to stop weird animation things
-
+        private bool currentlySwapped = false;
+        private bool swapRequestedToOffhand = false;
+        private bool swapRequestedToMain = false;
+        private bool manualSwapRequested = false;
+        private bool requestExists { get => manualSwapRequested || swapRequestedToMain || swapRequestedToOffhand; }
+        private bool previousMouseLeft;
 
         public bool IsMessageEnabled()
         {
@@ -33,31 +33,60 @@ namespace OffHandidiotmod
         }
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (Activation.SwapKeybind.JustPressed && Player.selectedItem != 58)
+            if (Activation.SwapKeybind.JustPressed && Player.selectedItem != 58 && !isTorchHeld())
             {
-                Item SelectedItem = Player.inventory[Player.selectedItem];
-                Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
-                MySlotUI.RMBSlot.SetItem(SelectedItem, false);
+                manualSwapRequested = true;
             }
+        }
+        public bool isTorchHeld()
+        {
+            Item item = Player.HeldItem;
+            return ItemID.Sets.Torches[item.type];
+
+        }
+        public bool isUIActive()
+        {
+            return Main.ingameOptionsWindow || Main.mapFullscreen || Main.gamePaused;
         }
         public override void PreUpdate()
         {
-            // Check if the right mouse button is held and the inventory is not open (to preserve RMB functionality on treasure bags etc)
-            if (Activation.UseOffhandKeybind.Current && !Main.playerInventory)
-            {
+            bool shiftCurrent = Main.keyState.PressingShift();
+            bool actualMouseLeftCurrent = PlayerInput.Triggers.Current.MouseLeft;
+            var actualMouseLeftJustPressed = actualMouseLeftCurrent && !previousMouseLeft;
+            var actualMouseLeftJustReleased = !actualMouseLeftCurrent && previousMouseLeft;
 
-                // Ensure we have a valid item in RMBSlot
-                if (MySlotUI.RMBSlot.Item.type != ItemID.None)
+
+            // Issues:
+            //
+            // Remake the entire thing using Mirsario's overhaul's PlayerItemUse.....
+            //1- Needs a toggle to choose which attack of a weapon it uses
+            //6- having a config that does allow you to use both items at once (1: do we care? thats just stealing yoraizors idea at this point, + idk if we can even do on current implementation)
+            //7- going click by click for people who dont have autofire enabled does some stupid shit. maybe thats what that guy was complaining about in issue 5
+            //8- (DONE) if hotbar slot is empty, and magic key is pressed, item gets swapped and nothing happens 
+            //9- (DONE) player.heldItem must not be torch, otherwise some weird shit happens which ill explain. basically dont swap items if held item is torch or shift is held (ItemID.Sets.Torches[item.type]) 
+            //10- (DONE) items swap if inventory is open. Check if inventory is open when magic key is pressed to send a swapRequest.
+            //11- (DONE) setting use off hand item to mouse1(lmb) prevents you from using GUI mouse1 functions. can temporarily try to block mouse1 from being assigned? but the real fix is to use mirsario's implementation 
+            //
+            //12- (DONE)swapping to prism via magic key then releasing, still uses mouse after swap
+            //13- (meh) if you mine blocks they dont get stacked back into offhandslot
+            //
+            //================================================================================================================================================
+
+
+            // Offhand function: This simulates LMB. Prevents vanilla interference and duplication by disallowing if inventory is open or mouse has an item in it
+            // also disables mouse simulating if UI is open to prevent locking player in their settings menu
+            if (Activation.UseOffhandKeybind.Current && !isUIActive() && !requestExists && !Main.playerInventory)
+            {
+                // Ensure we have a valid item in RMBSlot and nor torch nor mouseitem is held, as well as being in main hand state
+                if (currentlySwapped)  
                 {
-                    // Save the selected item and put RMBSlot.Item in its place, prevent using both items at once
-                    if (!isUsingOffhand && !Player.channel)
+                    // Swap and use
+                    if (!currentlySwapped && Player.selectedItem != 58 && !isTorchHeld()) 
                     {
-                        originalSelectedItem = Player.inventory[Player.selectedItem];
-                        Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
-                        isUsingOffhand = true;
                         delayTimerOffhand = 1; // 1-tick delay to allow autopause and whatever else to interrupt
                     }
-                    if (delayTimerOffhand > 0) // delay man cmon
+                    //----------------------------
+                    if (delayTimerOffhand >= 0)
                     {
                         delayTimerOffhand--;
                     }
@@ -67,23 +96,112 @@ namespace OffHandidiotmod
                     }
                 }
             }
-            else
+
+            //================================================================================================================================================
+
+            if (manualSwapRequested)  // for Swap Slots keybind 'T', don't touch it.  DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH
             {
-                // Stop using RMBSlot.Item and return to originalSelectedItem
-                if (isUsingOffhand)
+                bool cancelCurrent = false;
+                if (TrySwap(out cancelCurrent))
                 {
-                    delayTimerSwap = Player.itemAnimation+1;
-                    if(delayTimerSwap==1)
-                    {
-                    Player.inventory[Player.selectedItem] = originalSelectedItem;
-                    isUsingOffhand = false;
-                    }
+                    manualSwapRequested = false;
+                }
+                else if (cancelCurrent)
+                {
+                    manualSwapRequested = false;
+                }
+            }    // DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH
+
+
+            // Input handlers:
+            // we may not swap to empty off-hand
+            // (swapping back to empty main hand is fine)
+            // if both are held, the most recently pressed takes precedence  
+
+
+            // General input handler, assuming mod should be active and no pause / menus open that require cursor clicks
+            if (!shiftCurrent && !isUIActive() && !Main.playerInventory)
+            {
+                // Handles magic key state 
+                if (!currentlySwapped && Activation.UseOffhandKeybind.JustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) // 1: No offhand, keybind just pressed, switches from main to off 
+                {
+                    swapRequestedToOffhand = true;
+                }
+                if (swapRequestedToOffhand && Activation.UseOffhandKeybind.JustReleased) // reset swapRequestedToOffhand if key is released
+                {
+                    swapRequestedToOffhand = false;
+                }
+                if (currentlySwapped && Activation.UseOffhandKeybind.JustReleased && actualMouseLeftCurrent)
+                {
+                    swapRequestedToMain = true;
+                }
+                if (actualMouseLeftJustReleased && Activation.UseOffhandKeybind.Current && !currentlySwapped  && MySlotUI.RMBSlot.Item.type != ItemID.None)
+                {
+                    swapRequestedToOffhand = true;
+                }
+
+
+
+
+                // Handles left mouse state 
+                if (currentlySwapped && actualMouseLeftJustPressed) //2: Offhand active and keybind released, Switches from off to main
+                {
+                    swapRequestedToMain = true;
+                }
+                if (swapRequestedToMain && actualMouseLeftJustReleased) // reset swapRequestedToMain if key is released
+                {
+                    swapRequestedToMain = false;
+                }
+                if (!actualMouseLeftCurrent && !Activation.UseOffhandKeybind.Current && currentlySwapped)
+                {
+                    swapRequestedToMain = true;
+                }
+                if (actualMouseLeftJustPressed && Activation.UseOffhandKeybind.Current && currentlySwapped)
+                {
+                    swapRequestedToMain = true;
                 }
             }
-            if (delayTimerSwap > 0) // swap delay to stop weird animation things
-                    {
-                        delayTimerSwap--;
-                    }
+
+
+            // Swap request handler
+            if (swapRequestedToMain || swapRequestedToOffhand)
+            {
+                bool cancelCurrent = false;
+                //PrintStates();
+                if (TrySwap(out cancelCurrent))
+                {
+                    swapRequestedToOffhand = false;
+                    swapRequestedToMain = false;
+                    currentlySwapped = !currentlySwapped;
+                    //PrintStates();
+                }
+                else if (cancelCurrent)
+                {
+                    swapRequestedToOffhand = false;
+                    swapRequestedToMain = false;
+                }
+            }
+
+
+            // MOUSE DEBUGGING STUFFFF
+            // if (PlayerInput.Triggers.Current.MouseLeft)
+            // {
+            //     Main.NewText("Fake Mouse Current:" + PlayerInput.Triggers.Current.MouseLeft.ToString());
+            // }
+            // if (PlayerInput.Triggers.JustPressed.MouseLeft)
+            // {
+            //     Main.NewText("Fake Mouse Press:" + PlayerInput.Triggers.JustPressed.MouseLeft.ToString());
+            // }
+            // if (PlayerInput.Triggers.JustReleased.MouseLeft)
+            // {
+            //     Main.NewText("Fake Mouse Release:" + PlayerInput.Triggers.JustReleased.MouseLeft.ToString());
+            // }
+            //if (actualMouseLeftCurrent)
+            //{
+            //    Main.NewText("Actual Mouse Current:" + actualMouseLeftCurrent.ToString());
+            //}
+
+            //Message timer
             if (delayTimerMessage > 0) // Warning message delay
             {
                 delayTimerMessage--;
@@ -93,8 +211,88 @@ namespace OffHandidiotmod
                 Main.NewText("Please make sure you've set Offhand Slot's keybinds in your controls. You can disable this message in Mod Configuration.", 255, 255, 0);
             }
 
+
+
+            previousMouseLeft = actualMouseLeftCurrent; // save mouse state for next tick lol
+        }  //end of preupdate
+
+
+
+        public void PrintStates()
+        {
+            Main.NewText("offhand: {" + currentlySwapped.ToString() + "}, swapRequestedToOffhand: {" + swapRequestedToOffhand.ToString() + "},"
+            + "swapRequestedToMain: {" + swapRequestedToMain.ToString() + "}");
         }
+
+
+
+
+
+
+        // swaps at earliest possible moment while looking.. ok. prevent funny torch business
+        public bool TrySwap(out bool cancelSwapRequests)
+        {
+            if (!isTorchHeld() && !isUIActive() && Player.selectedItem != 58)
+            {
+                if (Player.HeldItem.channel) 
+                { 
+                    // We block input here to allow channeled items such as last prism to wind down from their positive animation time back to 0...
+                    PlayerInput.Triggers.JustReleased.MouseLeft = false;
+                    PlayerInput.Triggers.JustPressed.MouseLeft = false;
+                    PlayerInput.Triggers.Current.MouseLeft = false;
+                    Main.NewText($"Mouse blocked outer");
+                }
+                if (!Player.channel)  // current item is not channeling
+                {
+                    if (Player.ItemAnimationEndingOrEnded)
+                    {
+                        // Here, we block inputs again to make sure there is an opportunity to swap the items smoothly (one frame with no item being used) 
+                        // without doing weird animation things.
+                        PlayerInput.Triggers.JustReleased.MouseLeft = false;
+                        PlayerInput.Triggers.JustPressed.MouseLeft = false;
+                        PlayerInput.Triggers.Current.MouseLeft = false;
+                        Main.NewText($"Mouse blocked inner");
+                        SwapSlots();
+                        Main.NewText($"Swapped {Player.itemAnimation}");
+                        cancelSwapRequests = false;
+                        return true;
+                    }
+                }
+                else if (Player.channel) // current item is channeling, sends false to keep mouse buttons up there set to false.
+                {
+                    cancelSwapRequests = false;
+                    return false;
+                }
+                cancelSwapRequests = false;
+                return false;
+            }
+            else
+            {
+                cancelSwapRequests = true;
+                return false;
+            }
+
+        }
+
+
+
+
+
+        public void SwapSlots()
+        {
+            Item originalSelectedItem = Player.inventory[Player.selectedItem];
+            Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
+            MySlotUI.RMBSlot.SetItem(originalSelectedItem);
+        }
+
+
     }
+
+
+
+
+
+
 
 
 
