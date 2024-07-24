@@ -55,7 +55,6 @@ namespace OffHandidiotmod
             var actualMouseLeftJustPressed = actualMouseLeftCurrent && !previousMouseLeft;
             var actualMouseLeftJustReleased = !actualMouseLeftCurrent && previousMouseLeft;
 
-
             // Issues:
             //
             // Remake the entire thing using Mirsario's overhaul's PlayerItemUse.....
@@ -69,7 +68,9 @@ namespace OffHandidiotmod
             //
             //12- (DONE)swapping to prism via magic key then releasing, still uses mouse after swap
             //13- (meh) if you mine blocks they dont get stacked back into offhandslot
-            //
+            //14- change slot color
+            //15- make slot draggable(?) or move it
+            //16- maybe account for resolution and UI Scale?
             //================================================================================================================================================
 
 
