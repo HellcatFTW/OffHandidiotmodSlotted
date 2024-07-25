@@ -11,4 +11,4 @@ Configurable keybinds! (you MUST set them in controls!):
 
 If you want to use weapons with 2 different attacks, or some other buggy items, simply unbind 'Use offhand Item` and stick to just using the 'Swap Offhand' keybind.
 
-(Extended description on workshop.)
+(More info on workshop.)
