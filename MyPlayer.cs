@@ -76,7 +76,7 @@ namespace OffHandidiotmod
             //================================================================================================================================================
 
 
-            
+
             // Offhand function: This simulates LMB. Prevents vanilla interference and duplication by disallowing if inventory is open or mouse has an item in it
             // also disables mouse simulating if UI is open to prevent locking player in their settings menu
             if (Activation.UseOffhandKeybind.Current && !isUIActive() && !requestExists && !Main.playerInventory)
@@ -100,7 +100,6 @@ namespace OffHandidiotmod
                     }
                 }
             }
-
             //================================================================================================================================================
 
             if (manualSwapRequested)  // for Swap Slots keybind 'T', don't touch it.  DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH
