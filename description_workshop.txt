@@ -2,11 +2,14 @@ Put an item in the custom slot below inventory, and when you use your custom key
 
 Want to place blocks with one hand and hammer with the other? No problem! Maybe dig them up while placing them? That also works. Or you can use 2 different weapons!
 
-Summoners using two whips with 2 buttons.. I'm looking at you.
+Summoners, ever thought of having a convenient right-click speed buff whip?
+
 
 
 
 MOD IS SUPER MEGA INCOMPATIBLE WITH MULTIPLAYER RIGHT NOW!!!
+
+
 
 Configurable keybinds! (you MUST set them in controls!):
 
@@ -17,11 +20,15 @@ Configurable keybinds! (you MUST set them in controls!):
 
 
 If you want to use weapons with 2 different attacks, simply unbind 'Use offhand Item` and stick to just using the 'Swap Offhand' keybind, that way you can use those weapons like normal.
+
 This also applies for anything that doesn't work correctly with the `Use offhand Item` bind. I'm fixing as much of it as I can at the moment.
 
 
+
 Please leave a rating! It makes me very happy and keeps me motivated <3
+
 if an item doesn't work as intended or if you have any suggestions, leave a comment on the workshop. Don't report dual-function items, I'm working on it.
+
 
 
 Mod repo: https://github.com/HellcatFTW/OffHandidiotmodSlotted
