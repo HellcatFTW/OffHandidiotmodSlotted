@@ -26,14 +26,14 @@ namespace OffHandidiotmod
         }
         public override void OnEnterWorld()
         {
-            if (IsMessageEnabled())
+            if (IsMessageEnabled() && Main.netMode != NetmodeID.SinglePlayer)
             {
                 delayTimerMessage = 160;
             }
         }
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (Activation.SwapKeybind.JustPressed && Player.selectedItem != 58 && !isTorchHeld())
+            if (Activation.SwapKeybind.JustPressed && Player.selectedItem != 58 && !isTorchHeld() && Main.netMode != NetmodeID.SinglePlayer)
             {
                 manualSwapRequested = true;
             }
