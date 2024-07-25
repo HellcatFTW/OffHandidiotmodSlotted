@@ -50,6 +50,9 @@ namespace OffHandidiotmod
         }
         public override void PreUpdate()
         {
+            if (Main.netMode != NetmodeID.SinglePlayer)
+                return;
+
             bool shiftCurrent = Main.keyState.PressingShift();
             bool actualMouseLeftCurrent = PlayerInput.Triggers.Current.MouseLeft;
             var actualMouseLeftJustPressed = actualMouseLeftCurrent && !previousMouseLeft;
@@ -74,7 +77,6 @@ namespace OffHandidiotmod
             //17- disable mod if Main.netMode > 0
             //
             //================================================================================================================================================
-
 
 
             // Offhand function: This simulates LMB. Prevents vanilla interference and duplication by disallowing if inventory is open or mouse has an item in it
