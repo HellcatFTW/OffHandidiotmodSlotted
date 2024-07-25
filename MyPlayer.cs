@@ -93,7 +93,8 @@ namespace OffHandidiotmod
             //14- change slot color
             //15- make slot draggable(?) or move it
             //16- maybe account for resolution and UI Scale?
-            //17- disable mod if Main.netMode > 0
+            //
+            //17- if you click magic key quickly then hold after releasing said fast click, item will shoot once and not continue.
             //
             //================================================================================================================================================
 
