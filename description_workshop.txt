@@ -1,40 +1,45 @@
-Put an item in the custom slot below inventory, and when you use your custom keybind (Default RMB), it will use the item in that slot. You cannot swing both at once.
+[h2] What does this mod do? [/h2]
+It adds a new slot below your inventory, where you can place an item that will be used when holding the mod's [b] 'Use offhand Item' [/b] keybind. It also allows manually swapping to that slot's item to use it without the quick-use keybind.
 
 Want to place blocks with one hand and hammer with the other? No problem! Maybe dig them up while placing them? That also works. Or you can use 2 different weapons!
 
-Summoners, ever thought of having a convenient right-click speed buff whip?~ 
+[spoiler] Summoners, ever thought of having a convenient one click speed buff whip? [/spoiler]
 
-
+[h2] Features [/h2]
 
 
 Multiplayer is now working. Everything should work fine, but please report any error codes if you somehow get any in chat. ("Code (XXX): please conta...")
 
 
 
-Configurable keybinds! (you MUST set them in controls!):
+Configurable keybinds!  [b] (you MUST set them in controls!): [/b]
 
-1- Keybind that uses offhand item (Default RMB). Don't use mouse1(left click) as the custom keybind, it interferes with the entire mod (and maybe other mods too).
+1. Keybind that uses offhand item (Default RMB).  [b] Don't use mouse1 (left click) [/b] as the custom keybind: it interferes with the entire mod (and maybe other mods too).
 
-2- Keybind that manually swaps items in the slots (Default Q, few other mods use this key though). very useful if you disable above keybind for usage of dual-attack weapons.
-
-
-
-If you want to use weapons with 2 different attacks, simply unbind 'Use offhand Item` and stick to just using the 'Swap Offhand' keybind, that way you can use those weapons like normal.
-
-This also applies for anything that doesn't work correctly with the `Use offhand Item` bind. I'm fixing as much of that as I can at the moment.
+2. Keybind that manually swaps items from current hotbar slot to offhand and vice-versa (Default Q, since few other mods use this key): very useful if you disable above keybind for usage of dual-function items.
 
 
 
+If you want to use weapons with 2 different attacks, simply unbind 'Use offhand Item' and stick to just using the 'Swap Offhand' keybind, that way you can use those weapons like normal.
 
-Please leave a rating! It makes me very happy and keeps me motivated <3
+This also applies for anything that doesn't work correctly with the 'Use offhand Item' bind. I'm fixing as much of that as I can at the moment.
+
+
+[h3] Bug Reports [/h3]
+
+[url=https://github.com/HellcatFTW/OffHandidiotmodSlotted/blob/main/README.md] Known Issues and Planned Features [/url]
 
 if an item doesn't work as intended or if you have any suggestions, leave a comment on the workshop. 
 
 Please, don't report dual-function items like calamity swords, I'm working on it.
 
+[h3] Links [/h3]
+
+[url=https://github.com/HellcatFTW/OffHandidiotmodSlotted] Source Code [/url]
+[url=https://github.com/abluescarab/tModLoader-CustomSlot] abluescarab's Custom Slot Library [/url]
 
 
-Mod repo: https://github.com/HellcatFTW/OffHandidiotmodSlotted
-abluescarab's very helpful library I forked (not needed!): https://github.com/abluescarab/tModLoader-CustomSlot
+[u] Please leave a rating! It makes me very happy and keeps me motivated <3 [/u]
 
-Thanks to tModLoader discord for all of their amazing help! and @whalekit for directly helping make this as well!
+[b] Thanks to tModLoader discord for all of their amazing help! and @whalekit for directly helping make this as well! [/b]
+[quote=tModLoader]Developed By Cat[/quote]
