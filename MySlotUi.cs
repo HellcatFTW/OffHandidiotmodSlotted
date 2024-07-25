@@ -18,7 +18,7 @@ public class MySlotUI : UIState {
     public override void OnInitialize() {
 
         RMBSlot = new CustomItemSlot(ItemSlot.Context.InventoryItem,0.85f) {
-            IsValidItem = item => item.type > ItemID.None && !ItemID.Sets.Torches[item.type], // what do you want in the slot?
+            IsValidItem = item => item.type > ItemID.None && !ItemID.Sets.Torches[item.type] && !ItemID.Sets.Glowsticks[item.type], // what do you want in the slot?
             HoverText = "RMB Slot" // try to describe what will go into the slot
         };; // leave blank for a plain inventory space
 

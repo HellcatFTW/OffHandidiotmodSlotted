@@ -41,7 +41,7 @@ namespace OffHandidiotmod
         public bool isTorchHeld()
         {
             Item item = Player.HeldItem;
-            return ItemID.Sets.Torches[item.type];
+            return ItemID.Sets.Torches[item.type] || ItemID.Sets.Glowsticks[item.type];
 
         }
         public bool isUIActive()
@@ -67,10 +67,12 @@ namespace OffHandidiotmod
             //11- (DONE) setting use off hand item to mouse1(lmb) prevents you from using GUI mouse1 functions. can temporarily try to block mouse1 from being assigned? but the real fix is to use mirsario's implementation 
             //
             //12- (DONE)swapping to prism via magic key then releasing, still uses mouse after swap
-            //13- (meh) if you mine blocks they dont get stacked back into offhandslot
+            //13- if you mine blocks they dont get stacked back into offhandslot
             //14- change slot color
             //15- make slot draggable(?) or move it
             //16- maybe account for resolution and UI Scale?
+            //
+            //
             //================================================================================================================================================
 
 
