@@ -4,7 +4,7 @@
 
 - Pressing 'Use Offhand Item' keybind and releasing it too quickly, then holding the keybind again, results in the item being fired once and item use being stopped. You can do short bursts, but not "a few frames" short.
 
-- Going click by click with the 'Use Offhand Item' keybind instead of holding it may cause some issues.
+- Going click by click with the 'Use Offhand Item' keybind instead of holding it may cause some very slight visual/animation issues. Needs further testing.
 
 - Pressing 'Use Offhand Item' keybind for less than 1 tick will cause nothing to happen. This cannot be circumvented at the moment as if the user right clicks a chest to open it with autopause enabled and the 1 tick delay isn't there, the game will pause the frame after an item use animation happens, making you unable to move items around.
 
