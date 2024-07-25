@@ -15,7 +15,7 @@ Configurable keybinds! (you MUST set them in controls!):
 
 1- Keybind that uses offhand item (Default RMB). Don't use mouse1(left click) as the custom keybind, it interferes with the entire mod (and maybe other mods too).
 
-2- Keybind that manually swaps items in the slots (Default Q, few other mods use this key though.). very useful if you disable above keybind for usage of dual-attack weapons.
+2- Keybind that manually swaps items in the slots (Default Q, few other mods use this key though). very useful if you disable above keybind for usage of dual-attack weapons.
 
 
 
