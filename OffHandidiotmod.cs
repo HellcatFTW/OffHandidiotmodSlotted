@@ -65,7 +65,7 @@ namespace OffHandidiotmod
 		public override void Load()
 		{
 			// Register new keybind
-			SwapKeybind = KeybindLoader.RegisterKeybind(Mod, "Swap Offhand", "T");
+			SwapKeybind = KeybindLoader.RegisterKeybind(Mod, "Swap Offhand", "Q");
 			UseOffhandKeybind = KeybindLoader.RegisterKeybind(Mod, "Use Offhand Item", "Mouse2");
 		}
 

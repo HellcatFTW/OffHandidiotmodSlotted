@@ -1,12 +1,12 @@
 Put an item in the custom slot below inventory, and when you use your custom keybind (Default RMB), it will use the item in that slot. 
 Only allows using one at a time, no doubling your dps! (Summoners using two whips with 2 buttons.. I'm looking at you.)
 
-MOD IS PARTIALLY DISABLED IN MULTIPLAYER, DO NOT USE IN MULTIPLAYER UNTIL THIS TEXT IS REMOVED. 
+Multiplayer is now working. Everything should work fine, but please report any error codes if you somehow get any in chat. ("Code (XXX): please conta...")
 
 Configurable keybinds! (you MUST set them in controls!):
 1- Keybind that uses offhand item (Default RMB). Don't use mouse1(left click) as the custom keybind, it interferes with the entire mod (and maybe other mods too).
 
-2- Keybind that manually swaps items in the slots (Default T, conflicts with vanilla "throw item"). very useful if you disable above keybind for usage of dual-attack weapons.
+2- Keybind that manually swaps items in the slots (Default Q). very useful if you disable above keybind for usage of dual-attack weapons.
 
 
 If you want to use weapons with 2 different attacks, or some other buggy items, simply unbind 'Use offhand Item` and stick to just using the 'Swap Offhand' keybind.

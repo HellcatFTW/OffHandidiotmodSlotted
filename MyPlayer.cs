@@ -6,11 +6,13 @@ using CustomSlot.UI;
 using CustomSlot;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
+using System;
 
 namespace OffHandidiotmod
 {
     public class MyPlayer : ModPlayer
     {
+        public static string ContactDev = "Contact 'Off hand mod' dev in workshop comments please, with details.";
         private int delayTimerOffhand = 0;
         private int delayTimerMessage = 0;
         private bool currentlySwapped = false;
@@ -20,39 +22,56 @@ namespace OffHandidiotmod
         private bool requestExists { get => manualSwapRequested || swapRequestedToMain || swapRequestedToOffhand; }
         private bool previousMouseLeft;
 
-        public bool IsMessageEnabled()
+        public bool IsMessageEnabled() // message enabled in config or not, all instances where this is called should have a remote player exit
         {
             return ModContent.GetInstance<OffHandConfig>().ChatMessageToggle;
         }
-        public override void OnEnterWorld()
+        public override void OnEnterWorld() // starts message timer to be after some other mods if message is enabled and player is not remote
         {
-            if (IsMessageEnabled() && Main.netMode == NetmodeID.SinglePlayer)
+            if (Player.whoAmI != Main.myPlayer)
+            {
+                return;
+            }
+            if (IsMessageEnabled())
             {
                 delayTimerMessage = 160;
             }
         }
-        public override void ProcessTriggers(TriggersSet triggersSet)
+        public override void ProcessTriggers(TriggersSet triggersSet) // called by game automatically, checks for manual swap keybind and acts accordingly if not remote.
         {
-            if (Activation.SwapKeybind.JustPressed && Player.selectedItem != 58 && !isTorchHeld() && Main.netMode == NetmodeID.SinglePlayer)
+            if (Player.whoAmI != Main.myPlayer)
+            {
+                return;
+            }
+            if (Activation.SwapKeybind.JustPressed && Player.selectedItem != 58 && !isTorchHeld())
             {
                 manualSwapRequested = true;
             }
         }
-        public bool isTorchHeld()
+        public bool isTorchHeld() // torch hold check
         {
+            if (Player.whoAmI != Main.myPlayer) // throws exception if player is remote somehow at time of check.
+            {
+                throw new Exception($"Code 762: {ContactDev}");
+            }
             Item item = Player.HeldItem;
             return ItemID.Sets.Torches[item.type] || ItemID.Sets.Glowsticks[item.type];
 
         }
         public bool isUIActive()
         {
+            if (Player.whoAmI != Main.myPlayer) // throws exception if player is remote somehow at time of check.
+            {
+                throw new Exception($"Code 556: {ContactDev}");
+            }
             return Main.ingameOptionsWindow || Main.mapFullscreen || Main.gamePaused;
         }
         public override void PreUpdate()
         {
-            if (Main.netMode != NetmodeID.SinglePlayer)
+            if (Player.whoAmI != Main.myPlayer)
+            {
                 return;
-
+            }
             bool shiftCurrent = Main.keyState.PressingShift();
             bool actualMouseLeftCurrent = PlayerInput.Triggers.Current.MouseLeft;
             var actualMouseLeftJustPressed = actualMouseLeftCurrent && !previousMouseLeft;
@@ -172,13 +191,11 @@ namespace OffHandidiotmod
             if (swapRequestedToMain || swapRequestedToOffhand)
             {
                 bool cancelCurrent = false;
-                //PrintStates();
                 if (TrySwap(out cancelCurrent))
                 {
                     swapRequestedToOffhand = false;
                     swapRequestedToMain = false;
                     currentlySwapped = !currentlySwapped;
-                    //PrintStates();
                 }
                 else if (cancelCurrent)
                 {
@@ -213,7 +230,7 @@ namespace OffHandidiotmod
             }
             if (delayTimerMessage == 1 && IsMessageEnabled()) // Warning message send
             {
-                Main.NewText("Please make sure you've set Offhand Slot's keybinds in your controls. You can disable this message in Mod Configuration.", 255, 255, 0);
+                Main.NewText("Please make sure you've set Offhand Slot's keybinds in your controls. Disable this message manually in Mod Configuration.", 255, 255, 0);
             }
 
 
@@ -223,18 +240,10 @@ namespace OffHandidiotmod
 
 
 
-        public void PrintStates()
-        {
-            Main.NewText("offhand: {" + currentlySwapped.ToString() + "}, swapRequestedToOffhand: {" + swapRequestedToOffhand.ToString() + "},"
-            + "swapRequestedToMain: {" + swapRequestedToMain.ToString() + "}");
-        }
-
-
-
-
 
 
         // swaps at earliest possible moment while looking.. ok. prevent funny torch business
+        // only called when local.
         public bool TrySwap(out bool cancelSwapRequests)
         {
             if (!isTorchHeld() && !isUIActive() && Player.selectedItem != 58)
@@ -282,6 +291,10 @@ namespace OffHandidiotmod
 
         public void SwapSlots()
         {
+            if (Player.whoAmI != Main.myPlayer)
+            {
+                throw new Exception($"Code 939: {ContactDev}");
+            }
             Item originalSelectedItem = Player.inventory[Player.selectedItem];
             Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
             MySlotUI.RMBSlot.SetItem(originalSelectedItem);
@@ -300,6 +313,7 @@ namespace OffHandidiotmod
 
     public class MyCustomSlotPlayer : ModPlayer
     {
+
         private PlayerData<Item> myCustomItem = new PlayerData<Item>("myitemtag", new Item());
 
         public override void OnEnterWorld()
@@ -321,12 +335,16 @@ namespace OffHandidiotmod
 
             // Remember that SetItem() fires the ItemChanged event, so if you have set up events then this will
             // update myCustomItem as desired
+            if (Player.whoAmI != Main.myPlayer)
+            {
+                return;
+            }
             MySlotUI.RMBSlot.SetItem(new Item());
         }
 
         public void ItemChanged(CustomItemSlot slot, ItemChangedEventArgs e)
         {
-            // Here we update myCustomItem when MyNormalSlot fires ItemChanged
+            // Here we update myCustomItem when RMBSlot fires ItemChanged
             myCustomItem.Value = e.NewItem.Clone();
         }
 
