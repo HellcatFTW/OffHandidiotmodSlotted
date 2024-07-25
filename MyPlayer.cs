@@ -95,7 +95,7 @@ namespace OffHandidiotmod
             //16- maybe account for resolution and UI Scale?
             //
             //17- if you click magic key quickly then hold after releasing said fast click, item will shoot once and not continue.
-            //18 somehow check for if you have a weapon that has 2 attacks in your main hand and temporarily disabling the offhand entirely
+            //18- somehow check for if you have a weapon that has 2 attacks in your main hand and temporarily disabling the offhand entirely
             //================================================================================================================================================
 
 
