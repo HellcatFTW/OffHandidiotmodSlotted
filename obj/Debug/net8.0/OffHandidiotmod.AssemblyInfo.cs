@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OffHandidiotmod")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b73350637dcca42eb51c3ac16379de277f614c3b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9248f117c5712a0d00b45a5860167f741f71c469")]
 [assembly: System.Reflection.AssemblyProductAttribute("OffHandidiotmod")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OffHandidiotmod")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

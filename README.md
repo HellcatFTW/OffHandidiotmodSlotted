@@ -2,7 +2,7 @@
 
 - When picking up items such as when mining blocks while building, and said blocks are in offhand, they get stacked into inventory instead of offhand, eventually forcing you to manually replace the stack into offhand. To avoid this, try to keep blocks in hotbar instead.
 
-- Pressing 'Use Offhand Item' keybind and releasing it too quickly, then holding the keybind again, results in the item being fired once and input being blocked. You can do short bursts, but not "a few frames" short.
+- Pressing 'Use Offhand Item' keybind and releasing it too quickly, then holding the keybind again, results in the item being fired once and item use being stopped. You can do short bursts, but not "a few frames" short.
 
 - Going click by click with the 'Use Offhand Item' keybind instead of holding it may cause some issues.
 
