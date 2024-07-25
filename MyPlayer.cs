@@ -71,11 +71,12 @@ namespace OffHandidiotmod
             //14- change slot color
             //15- make slot draggable(?) or move it
             //16- maybe account for resolution and UI Scale?
-            //
+            //17- disable mod if Main.netMode > 0
             //
             //================================================================================================================================================
 
 
+            
             // Offhand function: This simulates LMB. Prevents vanilla interference and duplication by disallowing if inventory is open or mouse has an item in it
             // also disables mouse simulating if UI is open to prevent locking player in their settings menu
             if (Activation.UseOffhandKeybind.Current && !isUIActive() && !requestExists && !Main.playerInventory)
