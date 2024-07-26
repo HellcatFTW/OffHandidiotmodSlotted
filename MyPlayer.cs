@@ -13,7 +13,6 @@ namespace OffHandidiotmod
     public class MyPlayer : ModPlayer
     {
         public static string ContactDev = "Contact 'Off hand mod' dev in workshop comments please, with details.";
-        private int delayTimerOffhand = 0;
         private int delayTimerMessage = 0;
         private bool currentlySwapped = false;
         private bool swapRequestedToOffhand = false;
