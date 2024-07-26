@@ -124,7 +124,7 @@ namespace OffHandidiotmod
             }
             //================================================================================================================================================
 
-            if (manualSwapRequested)  // for Swap Slots keybind 'T', don't touch it.  DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH
+            if (manualSwapRequested)  // for Swap Slots keybind 'Q', don't touch it.  DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH
             {
                 bool cancelCurrent = false;
                 if (TrySwap(out cancelCurrent))
