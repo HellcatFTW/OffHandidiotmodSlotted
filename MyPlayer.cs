@@ -42,12 +42,12 @@ namespace OffHandidiotmod
             {
                 return;
             }
-            if (Activation.SwapKeybind.JustPressed && Player.selectedItem != 58 && !isTorchHeld())
+            if (Activation.SwapKeybind.JustPressed && Player.selectedItem != 58 && !IsTorchHeld())
             {
                 manualSwapRequested = true;
             }
         }
-        public bool isTorchHeld() // torch hold check
+        public bool IsTorchHeld() // torch hold check
         {
             if (Player.whoAmI != Main.myPlayer) // throws exception if player is remote somehow at time of check.
             {
@@ -58,7 +58,7 @@ namespace OffHandidiotmod
             return ItemID.Sets.Torches[item.type] || ItemID.Sets.Glowsticks[item.type];
 
         }
-        public bool isUIActive()
+        public bool IsUIActive()
         {
             if (Player.whoAmI != Main.myPlayer) // throws exception if player is remote somehow at time of check.
             {
@@ -67,6 +67,21 @@ namespace OffHandidiotmod
             }
             return Main.ingameOptionsWindow || Main.mapFullscreen || Main.gamePaused;
         }
+        public bool IsPlayerAboutToInteract()
+        {
+            if(Player.mouseInterface)
+            {
+            return true;
+            }
+            var tileCoords = Main.MouseWorld.ToTileCoordinates();
+            Tile tile = Main.tile[tileCoords.X, tileCoords.Y];
+            if (tile != null && tile.TileType == TileID.Containers)
+            {
+                return true;
+            }
+            return false;
+        }
+    
         public override void PreUpdate()
         {
             if (Player.whoAmI != Main.myPlayer)
@@ -103,7 +118,7 @@ namespace OffHandidiotmod
 
             // Offhand function: This simulates LMB. Prevents vanilla interference and duplication by disallowing if inventory is open or mouse has an item in it
             // also disables mouse simulating if UI is open to prevent locking player in their settings menu
-            if (Activation.UseOffhandKeybind.Current && !isUIActive() && !requestExists && !Main.playerInventory)
+            if (Activation.UseOffhandKeybind.Current && !IsUIActive() && !requestExists && !Main.playerInventory)
             {
                 if (currentlySwapped)
                 {
@@ -133,7 +148,7 @@ namespace OffHandidiotmod
 
 
             // General input handler, assuming mod should be active and no pause / menus open that require cursor clicks
-            if (!shiftCurrent && !isUIActive() && !Main.playerInventory)
+            if (!shiftCurrent && !IsUIActive() && !Main.playerInventory && !IsPlayerAboutToInteract())
             {
                 // Handles magic key state 
                 if (!currentlySwapped && Activation.UseOffhandKeybind.JustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) // 1: No offhand, keybind just pressed, switches from main to off 
@@ -236,7 +251,7 @@ namespace OffHandidiotmod
         // only called when local.
         public bool TrySwap(out bool cancelSwapRequests)
         {
-            if (!isTorchHeld() && !isUIActive() && Player.selectedItem != 58)
+            if (!IsTorchHeld() && !IsUIActive() && Player.selectedItem != 58)
             {
                 if (Player.HeldItem.channel)
                 {
