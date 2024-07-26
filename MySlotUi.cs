@@ -13,10 +13,11 @@ namespace OffHandidiotmod
     {
         public class SomethingSlot : CustomItemSlot
         {
-            public SomethingSlot() : base(ItemSlot.Context.InventoryItem, 0.85f) {
+            public SomethingSlot() : base(ItemSlot.Context.InventoryItem, 0.85f)
+            {
                 IsValidItem = item => item.type > ItemID.None && !ItemID.Sets.Torches[item.type] && !ItemID.Sets.Glowsticks[item.type];
             }
-            
+
             protected override void DrawSelf(SpriteBatch spriteBatch)
             {
                 string SlotHoverText = Language.GetText("Mods.OffHandidiotmod.SlotHoverText").Value;
@@ -25,18 +26,17 @@ namespace OffHandidiotmod
             }
         }
 
-
         public static SomethingSlot RMBSlot;
 
-        public bool Visible
-        {
-            get => Main.playerInventory; // how do you display your slot?
-        }
+        public bool Visible = true;
+        //{
+        //    get => Main.playerInventory; // how do you display your slot?
+        //}
 
         public override void OnInitialize()
         {
             RMBSlot = new SomethingSlot();
-            
+
 
 
             // You can set these once or change them in DrawSelf()
