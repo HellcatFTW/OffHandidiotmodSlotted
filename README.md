@@ -12,6 +12,8 @@
 
 - Slot is partially on top of / covered by crafting menu if it's scrolled down. 
 
+- When containers are opened via RMB and 'Use Offhand Item' is also bound to RMB, your selected hotbar slot and offhand are briefly swapped.
+
 # Planned Features:
 
 - Changing offhand slot texture

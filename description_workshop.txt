@@ -29,7 +29,7 @@ This also applies for anything that doesn't work correctly with the 'Use offhand
 
 [url=https://github.com/HellcatFTW/OffHandidiotmodSlotted/blob/main/README.md] Known Issues and Planned Features [/url]
 
-if an item doesn't work as intended or if you have any suggestions, leave a comment on the workshop or it's discussion threads. 
+if an item doesn't work as intended or if you have any suggestions, leave a comment on the workshop or its discussion threads. 
 
 Please, don't report dual-function items like calamity swords, I'm working on it.
 
@@ -41,4 +41,8 @@ Please, don't report dual-function items like calamity swords, I'm working on it
 
 [u] Please leave a rating! It makes me very happy and keeps me motivated <3 [/u]
 
-[b] Thanks to tModLoader discord for all of their amazing help! and @whalekit for directly helping make this as well! [/b]
+[b] Special thanks to:
+- Kit for helping with code Russian workshop translation (WIP)
+- yumyum86 for Japanese workshop translation
+- Elpias for Korean workshop translation (WIP)
+- tModLoader's developer community [/b]

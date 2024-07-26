@@ -96,6 +96,7 @@ namespace OffHandidiotmod
             //
             //17- if you click magic key quickly then hold after releasing said fast click, item will shoot once and not continue.
             //18- somehow check for if you have a weapon that has 2 attacks in your main hand and temporarily disabling the offhand entirely
+            //19- When containers are opened via RMB and 'Use Offhand Item' is also bound to RMB, your selected hotbar slot and offhand are briefly swapped.
             //================================================================================================================================================
 
 
@@ -103,23 +104,9 @@ namespace OffHandidiotmod
             // also disables mouse simulating if UI is open to prevent locking player in their settings menu
             if (Activation.UseOffhandKeybind.Current && !isUIActive() && !requestExists && !Main.playerInventory)
             {
-                // Ensure we have a valid item in RMBSlot and nor torch nor mouseitem is held, as well as being in main hand state
                 if (currentlySwapped)
                 {
-                    // Swap and use
-                    if (!currentlySwapped && Player.selectedItem != 58 && !isTorchHeld())
-                    {
-                        delayTimerOffhand = 1; // 1-tick delay to allow autopause and whatever else to interrupt
-                    }
-                    //----------------------------
-                    if (delayTimerOffhand >= 0)
-                    {
-                        delayTimerOffhand--;
-                    }
-                    else
-                    {
                         PlayerInput.Triggers.Current.MouseLeft = true;
-                    }
                 }
             }
             //================================================================================================================================================
