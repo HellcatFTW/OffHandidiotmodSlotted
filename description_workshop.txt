@@ -1,5 +1,5 @@
 [h2] What does this mod do? [/h2]
-It adds a new slot below your inventory, where you can place an item that will be used when holding the mod's [b] 'Use offhand Item' [/b] keybind(RMB). It also allows manually swapping to that slot's item to use it without the quick-use keybind.
+It adds a new slot below your inventory, where you can place an item that will be used when holding the mod's [b] 'Use offhand Item' [/b] keybind(RMB). It also allows manually swapping between the selected hotbar slot's item and offhand, to use it without the quick-use keybind.
 
 Want to place blocks with one hand and hammer with the other? No problem! Maybe dig them up while placing them? That also works. Or you can use 2 different weapons!
 
