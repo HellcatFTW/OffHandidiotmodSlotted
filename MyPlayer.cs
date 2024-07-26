@@ -7,12 +7,12 @@ using CustomSlot;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using System;
+using Terraria.Localization;
 
 namespace OffHandidiotmod
 {
     public class MyPlayer : ModPlayer
     {
-        public static string ContactDev = "Contact 'Off hand mod' dev in workshop comments please, with details.";
         private int delayTimerMessage = 0;
         private bool currentlySwapped = false;
         private bool swapRequestedToOffhand = false;
@@ -51,6 +51,7 @@ namespace OffHandidiotmod
         {
             if (Player.whoAmI != Main.myPlayer) // throws exception if player is remote somehow at time of check.
             {
+                string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
                 throw new Exception($"Code 762: {ContactDev}");
             }
             Item item = Player.HeldItem;
@@ -61,6 +62,7 @@ namespace OffHandidiotmod
         {
             if (Player.whoAmI != Main.myPlayer) // throws exception if player is remote somehow at time of check.
             {
+                string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
                 throw new Exception($"Code 556: {ContactDev}");
             }
             return Main.ingameOptionsWindow || Main.mapFullscreen || Main.gamePaused;
@@ -217,7 +219,8 @@ namespace OffHandidiotmod
             }
             if (delayTimerMessage == 1 && IsMessageEnabled()) // Warning message send
             {
-                Main.NewText("Please make sure you've set Offhand Slot's keybinds in your controls. Disable this message manually in Mod Configuration.", 255, 255, 0);
+                string SpawnMessage = Language.GetText("Mods.OffHandidiotmod.TextMessages.SpawnMessage").Value;
+                Main.NewText(SpawnMessage, 255, 255, 0);
             }
 
 
@@ -280,6 +283,7 @@ namespace OffHandidiotmod
         {
             if (Player.whoAmI != Main.myPlayer)
             {
+                string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
                 throw new Exception($"Code 939: {ContactDev}");
             }
             Item originalSelectedItem = Player.inventory[Player.selectedItem];

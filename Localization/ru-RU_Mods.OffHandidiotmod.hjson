@@ -1,0 +1,19 @@
+Keybinds: {
+	"Swap Offhand.DisplayName": Поменять руки
+	"Use Offhand Item.DisplayName": Использовать предмет в другой руке
+}
+
+Configs: {
+	OffHandConfig: {
+		DisplayName: Off Hand Config
+		Label: Показывать напоминание о привязке клавиш
+		ChatMessageToggle.Tooltip: ""
+	}
+}
+
+TextMessages: {
+	ContactDev: Свяжитесь, пожалуйста, с разработчиком мода 'Off hand slot' в комментариях на странице Steam Workshop, и сообщите ему код ошибки и детали.
+	SpawnMessage: Пожалуйста, убедитесь что вы привязали клавиши из мода 'Off hand mod'. Чтобы выключить это сообщение, измените опцию "Показывать напоминание о привязке клавиш". в конфигурации мода "Off Hand Slot"
+}
+
+SlotHoverText: Другая рука

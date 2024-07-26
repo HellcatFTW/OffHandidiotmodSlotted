@@ -3,4 +3,17 @@ Keybinds: {
 	"Use Offhand Item.DisplayName": Use Offhand Item
 }
 
-Configs.OffHandConfig.DisplayName: Off Hand Config
+Configs: {
+	OffHandConfig: {
+		DisplayName: Off Hand Config
+		Label: Chat Message Toggle
+		ChatMessageToggle.Tooltip: ""
+	}
+}
+
+TextMessages: {
+	ContactDev: Contact 'Off hand mod' dev in workshop comments please, with details.
+	SpawnMessage: Please make sure you've set Offhand Slot's keybinds in your controls. Disable this message manually in Mod Configuration.
+}
+
+SlotHoverText: Off Hand Slot

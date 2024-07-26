@@ -84,8 +84,8 @@ namespace OffHandidiotmod
 		// The things in brackets are known as "Attributes".
 
 		// [Header("Items")] // Headers are like titles in a config. You only need to declare a header on the item it should appear over, not every item in the category. 
-		[LabelKey("$Some.Key")] // A label is the text displayed next to the option. This should usually be a short description of what it does. By default all ModConfig fields and properties have an automatic label translation key, but modders can specify a specific translation key.
-		[TooltipKey("$Some.Key")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option. Like with Label, a specific key can be provided.
+		[LabelKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.Label")] // A label is the text displayed next to the option. This should usually be a short description of what it does. By default all ModConfig fields and properties have an automatic label translation key, but modders can specify a specific translation key.
+																   // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option. Like with Label, a specific key can be provided.
 		[DefaultValue(true)] // This sets the configs default value.
 							 // [ReloadRequired] // Marking it with [ReloadRequired] makes tModLoader force a mod reload if the option is changed. It should be used for things like item toggles, which only take effect during mod loading
 		public bool ChatMessageToggle; // To see the implementation of this option, see ExampleWings.cs

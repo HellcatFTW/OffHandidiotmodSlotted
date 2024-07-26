@@ -5,12 +5,28 @@ using Terraria.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Localization;
 
 namespace OffHandidiotmod
 {
     public class MySlotUI : UIState
     {
-        public static CustomItemSlot RMBSlot;
+        public class SomethingSlot : CustomItemSlot
+        {
+            public SomethingSlot() : base(ItemSlot.Context.InventoryItem, 0.85f) {
+                IsValidItem = item => item.type > ItemID.None && !ItemID.Sets.Torches[item.type] && !ItemID.Sets.Glowsticks[item.type];
+            }
+            
+            protected override void DrawSelf(SpriteBatch spriteBatch)
+            {
+                string SlotHoverText = Language.GetText("Mods.OffHandidiotmod.SlotHoverText").Value;
+                HoverText = SlotHoverText;
+                base.DrawSelf(spriteBatch);
+            }
+        }
+
+
+        public static SomethingSlot RMBSlot;
 
         public bool Visible
         {
@@ -19,17 +35,13 @@ namespace OffHandidiotmod
 
         public override void OnInitialize()
         {
-
-            RMBSlot = new CustomItemSlot(ItemSlot.Context.InventoryItem, 0.85f)
-            {
-                IsValidItem = item => item.type > ItemID.None && !ItemID.Sets.Torches[item.type] && !ItemID.Sets.Glowsticks[item.type], // what do you want in the slot?
-                HoverText = "Off Hand Slot" // try to describe what will go into the slot
-            }; ; // leave blank for a plain inventory space
+            RMBSlot = new SomethingSlot();
+            
 
 
             // You can set these once or change them in DrawSelf()
             RMBSlot.Left.Set(20, 0);
-            RMBSlot.Top.Set(300, 0);
+            RMBSlot.Top.Set(260, 0);
 
             // Don't forget to add them to the UIState!
             Append(RMBSlot);
