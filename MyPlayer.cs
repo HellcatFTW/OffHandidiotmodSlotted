@@ -120,13 +120,13 @@ namespace OffHandidiotmod
             // 19- (DONE) When containers are opened via RMB and 'Use Offhand Item' is also bound to RMB, your selected hotbar slot and offhand are briefly swapped.
             // 17- (DONE)if you click magic key quickly then hold after releasing said fast click, item will shoot once and not continue.
             // 20- (DONE)grabbing item from slot if inventory is not open causes weird behaviour because terraria disallows holding items if inventory is closed.
-
+            // 21- (DONE)check if wall is held in mouseitem
 
             // Minor features to add?
             //18- somehow check for if you have a weapon that has 2 attacks in your main hand and temporarily disabling the offhand entirely
             //14- change slot color or texture
             //15- make slot draggable(?) or move it
- 
+
 
             // BIG problem to tackle:
             //-19 items dont stack into offhand slot
