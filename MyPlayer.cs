@@ -122,16 +122,31 @@ namespace OffHandidiotmod
             // 20- (DONE)grabbing item from slot if inventory is not open causes weird behaviour because terraria disallows holding items if inventory is closed.
             // 21- (DONE)check if wall is held in mouseitem
 
-            // Minor features to add?
+
             //18- somehow check for if you have a weapon that has 2 attacks in your main hand and temporarily disabling the offhand entirely
             //14- change slot color or texture
             //15- make slot draggable(?) or move it
+
+
+
 
 
             // BIG problem to tackle:
             //-19 items dont stack into offhand slot
             //            Solution: link offhand slot item from inventory instead of actually having it there, make it very clear it isnt a real item.
             //
+
+            // Other huge fix:
+            // 1 remember what hotbar slot you were on
+            // 2 remember what item was (before swap) in offhand
+            // so you swap back into that slot instead of currently selected one (in case it changed) and 
+            // before you swap back to main hand, you check that it has item that it's supposed to have (which is off-hand item), and if somehow not - call things off
+            // but, to avoid duplication, don't use the item variable for anything but checks
+            // Minor features to add?
+
+
+
+
             //
             //================================================================================================================================================
 
