@@ -8,6 +8,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using System;
 using Terraria.Localization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace OffHandidiotmod
 {
@@ -20,6 +21,7 @@ namespace OffHandidiotmod
         private bool manualSwapRequested = false;
         private bool requestExists { get => manualSwapRequested || swapRequestedToMain || swapRequestedToOffhand; }
         private bool previousMouseLeft;
+        private bool interactableIconShown;
 
         public bool IsMessageEnabled() // message enabled in config or not, all instances where this is called should have a remote player exit
         {
@@ -69,7 +71,16 @@ namespace OffHandidiotmod
         }
         public bool IsPlayerAboutToInteract() //checks if mouse is on a door, switch, or container etc
         {
-            if(Player.tileInteractionHappened)
+            Microsoft.Xna.Framework.Point tileCoords = Main.MouseWorld.ToTileCoordinates();
+            Tile tile = Main.tile[tileCoords.X, tileCoords.Y];
+            if (!Main.SmartCursorShowing)
+            {
+                if (interactableIconShown)
+                {
+                    return true;
+                }
+            }
+            if (Main.HoveringOverAnNPC)
             {
                 return true;
             }
@@ -77,43 +88,11 @@ namespace OffHandidiotmod
             {
                 return true;
             }
-            if (Main.SmartInteractTileCoords.Count!=0)
+            if (Main.SmartInteractTileCoords.Count != 0)
             {
                 return true;
             }
             return false;
-            //Microsoft.Xna.Framework.Point tileCoords = Main.MouseWorld.ToTileCoordinates();
-            //Tile tile = Main.tile[tileCoords.X, tileCoords.Y];
-
-            //if (tile.TileType == TileID.Containers || tile.TileType == TileID.Containers2 || tile.TileType == TileID.FakeContainers ||  
-            //  tile.TileType == TileID.FakeContainers2 || tile.TileType == TileID.Dressers || tile.TileType == TileID.Safes)  // storages
-            //{
-            //    return true;
-            //}
-            //if (tile.TileType == TileID.WeaponsRack || tile.TileType == TileID.WeaponsRack2 || tile.TileType == TileID.ItemFrame || tile.TileType == TileID.DisplayDoll) // item frames and such
-            //{
-            //    return true;
-            //}
-            //if (tile.TileType == TileID.Campfire || tile.TileType == TileID.Torches || tile.TileType == TileID.Candles || tile.TileType == TileID.WaterCandle) //lightsource
-            //{
-            //    return true;
-            //}
-            //if (tile.TileType == TileID.Lever || tile.TileType == TileID.Switches) // levers and switches
-            //{
-            //    return true;
-            //}
-            //if (tile.TileType == TileID.OpenDoor || tile.TileType == TileID.ClosedDoor) // doors
-            //{
-            //    return true;
-            //}
-            //if (tile.TileType == TileID.Signs || tile.TileType == TileID.Tombstones || tile.TileType == TileID.Toilets) // write and.. flush
-            //{
-            //    return true;
-            //}
-            //if (tile.TileType == TileID.Chairs || tile.TileType == TileID.Beds || tile.TileType == TileID.Benches) // sit and sleep
-            //{
-            //    return true;
-            //}
         }
 
         public override void PreUpdate()
@@ -141,7 +120,6 @@ namespace OffHandidiotmod
             //9- (DONE) player.heldItem must not be torch, otherwise some weird shit happens which ill explain. basically dont swap items if held item is torch or shift is held (ItemID.Sets.Torches[item.type]) 
             //10- (DONE) items swap if inventory is open. Check if inventory is open when magic key is pressed to send a swapRequest.
             //11- (DONE) setting use off hand item to mouse1(lmb) prevents you from using GUI mouse1 functions. can temporarily try to block mouse1 from being assigned? but the real fix is to use mirsario's implementation 
-            //
             //12- (DONE)swapping to prism via magic key then releasing, still uses mouse after swap
             //13- if you mine blocks they dont get stacked back into offhandslot
             //14- change slot color
@@ -150,9 +128,13 @@ namespace OffHandidiotmod
             //
             //17- if you click magic key quickly then hold after releasing said fast click, item will shoot once and not continue.
             //18- somehow check for if you have a weapon that has 2 attacks in your main hand and temporarily disabling the offhand entirely
-            //19- When containers are opened via RMB and 'Use Offhand Item' is also bound to RMB, your selected hotbar slot and offhand are briefly swapped.
+            //            Solution: link offhand slot item from inventory instead of actually having it there, make it very clear it isnt a real item.
+            //
+            //19- (DONE) When containers are opened via RMB and 'Use Offhand Item' is also bound to RMB, your selected hotbar slot and offhand are briefly swapped.
             //20- grabbing item from slot if inventory is not open causes weird behaviour because terraria disallows holding items if inventory is closed.
-            //            Solution: open inventory if you click it or don't allow it until inventory is open
+            //            Solution: open inventory if you click it or don't allow clicking until inventory is open
+            //
+            //
             //
             //================================================================================================================================================
 
@@ -283,7 +265,21 @@ namespace OffHandidiotmod
 
             previousMouseLeft = actualMouseLeftCurrent; // save mouse state for next tick lol
         }  //end of preupdate
-
+        public override void PostUpdate()
+        {
+            if (Player.whoAmI != Main.myPlayer)
+            {
+                return;
+            }
+            if (Player.HeldItem.pick == 0 && Player.HeldItem.axe == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.createTile == -1)
+            {
+                interactableIconShown = Player.cursorItemIconEnabled;
+            }
+            else
+            {
+                interactableIconShown = false;
+            }
+        }
 
 
 
