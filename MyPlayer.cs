@@ -231,25 +231,6 @@ namespace OffHandidiotmod
                 }
             }
 
-
-            // MOUSE DEBUGGING STUFFFF
-            // if (PlayerInput.Triggers.Current.MouseLeft)
-            // {
-            //     Main.NewText("Fake Mouse Current:" + PlayerInput.Triggers.Current.MouseLeft.ToString());
-            // }
-            // if (PlayerInput.Triggers.JustPressed.MouseLeft)
-            // {
-            //     Main.NewText("Fake Mouse Press:" + PlayerInput.Triggers.JustPressed.MouseLeft.ToString());
-            // }
-            // if (PlayerInput.Triggers.JustReleased.MouseLeft)
-            // {
-            //     Main.NewText("Fake Mouse Release:" + PlayerInput.Triggers.JustReleased.MouseLeft.ToString());
-            // }
-            //if (actualMouseLeftCurrent)
-            //{
-            //    Main.NewText("Actual Mouse Current:" + actualMouseLeftCurrent.ToString());
-            //}
-
             //Message timer
             if (delayTimerMessage > 0) // Warning message delay
             {
