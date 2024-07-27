@@ -1,5 +1,5 @@
 Put an item in the custom slot below inventory, and when you use your custom keybind (Default RMB), it will use the item in that slot. 
-Only allows using one at a time, no doubling your dps! (Summoners using two whips with 2 buttons.. I'm looking at you.)
+Only allows using one at a time, no doubling your dps! Summoners, you can still whipstack lightning fast with this ;)
 
 Multiplayer is now working. Everything should work fine, but please report any error codes if you somehow get any in chat. ("Code (XXX): please conta...")
 
