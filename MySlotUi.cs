@@ -29,15 +29,15 @@ namespace OffHandidiotmod
                 HoverText = SlotHoverText;
                 if (Main.playerInventory) // Inventory open
                 {
-                    if(Main.LocalPlayer.difficulty!=3)
+                    if (Main.LocalPlayer.difficulty != 3)
                     {
-                    RMBSlot.Left.Set(20, 0);
-                    RMBSlot.Top.Set(260, 0);
+                        RMBSlot.Left.Set(20, 0);
+                        RMBSlot.Top.Set(260, 0);
                     }
                     else
                     {
-                    RMBSlot.Left.Set(70, 0);
-                    RMBSlot.Top.Set(260, 0);
+                        RMBSlot.Left.Set(70, 0);
+                        RMBSlot.Top.Set(260, 0);
                     }
                 }
                 else // Inventory closed
