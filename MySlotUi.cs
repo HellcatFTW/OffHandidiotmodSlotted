@@ -22,6 +22,8 @@ namespace OffHandidiotmod
             {
                 string SlotHoverText = Language.GetText("Mods.OffHandidiotmod.SlotHoverText").Value;
                 HoverText = SlotHoverText;
+                RMBSlot.Left.Set(20, 0);
+                RMBSlot.Top.Set(260, 0);
                 base.DrawSelf(spriteBatch);
             }
         }
@@ -40,8 +42,6 @@ namespace OffHandidiotmod
 
 
             // You can set these once or change them in DrawSelf()
-            RMBSlot.Left.Set(20, 0);
-            RMBSlot.Top.Set(260, 0);
 
             // Don't forget to add them to the UIState!
             Append(RMBSlot);
