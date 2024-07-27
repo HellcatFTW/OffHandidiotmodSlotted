@@ -67,26 +67,64 @@ namespace OffHandidiotmod
             }
             return Main.ingameOptionsWindow || Main.mapFullscreen || Main.gamePaused;
         }
-        public bool IsPlayerAboutToInteract()
+        public bool IsPlayerAboutToInteract() //checks if mouse is on a door, switch, or container etc
         {
-            if(Player.mouseInterface)
+            if(Player.tileInteractionHappened)
             {
-            return true;
+                return true;
             }
-            var tileCoords = Main.MouseWorld.ToTileCoordinates();
-            Tile tile = Main.tile[tileCoords.X, tileCoords.Y];
-            if (tile != null && tile.TileType == TileID.Containers)
+            if (Player.mouseInterface)
+            {
+                return true;
+            }
+            if (Main.SmartInteractTileCoords.Count!=0)
             {
                 return true;
             }
             return false;
+            //Microsoft.Xna.Framework.Point tileCoords = Main.MouseWorld.ToTileCoordinates();
+            //Tile tile = Main.tile[tileCoords.X, tileCoords.Y];
+
+            //if (tile.TileType == TileID.Containers || tile.TileType == TileID.Containers2 || tile.TileType == TileID.FakeContainers ||  
+            //  tile.TileType == TileID.FakeContainers2 || tile.TileType == TileID.Dressers || tile.TileType == TileID.Safes)  // storages
+            //{
+            //    return true;
+            //}
+            //if (tile.TileType == TileID.WeaponsRack || tile.TileType == TileID.WeaponsRack2 || tile.TileType == TileID.ItemFrame || tile.TileType == TileID.DisplayDoll) // item frames and such
+            //{
+            //    return true;
+            //}
+            //if (tile.TileType == TileID.Campfire || tile.TileType == TileID.Torches || tile.TileType == TileID.Candles || tile.TileType == TileID.WaterCandle) //lightsource
+            //{
+            //    return true;
+            //}
+            //if (tile.TileType == TileID.Lever || tile.TileType == TileID.Switches) // levers and switches
+            //{
+            //    return true;
+            //}
+            //if (tile.TileType == TileID.OpenDoor || tile.TileType == TileID.ClosedDoor) // doors
+            //{
+            //    return true;
+            //}
+            //if (tile.TileType == TileID.Signs || tile.TileType == TileID.Tombstones || tile.TileType == TileID.Toilets) // write and.. flush
+            //{
+            //    return true;
+            //}
+            //if (tile.TileType == TileID.Chairs || tile.TileType == TileID.Beds || tile.TileType == TileID.Benches) // sit and sleep
+            //{
+            //    return true;
+            //}
         }
-    
+
         public override void PreUpdate()
         {
             if (Player.whoAmI != Main.myPlayer)
             {
                 return;
+            }
+            if (IsPlayerAboutToInteract())
+            {
+                Main.NewText("disable this message idiot");
             }
             bool shiftCurrent = Main.keyState.PressingShift();
             bool actualMouseLeftCurrent = PlayerInput.Triggers.Current.MouseLeft;
@@ -113,16 +151,19 @@ namespace OffHandidiotmod
             //17- if you click magic key quickly then hold after releasing said fast click, item will shoot once and not continue.
             //18- somehow check for if you have a weapon that has 2 attacks in your main hand and temporarily disabling the offhand entirely
             //19- When containers are opened via RMB and 'Use Offhand Item' is also bound to RMB, your selected hotbar slot and offhand are briefly swapped.
+            //20- grabbing item from slot if inventory is not open causes weird behaviour because terraria disallows holding items if inventory is closed.
+            //            Solution: open inventory if you click it or don't allow it until inventory is open
+            //
             //================================================================================================================================================
 
 
             // Offhand function: This simulates LMB. Prevents vanilla interference and duplication by disallowing if inventory is open or mouse has an item in it
             // also disables mouse simulating if UI is open to prevent locking player in their settings menu
-            if (Activation.UseOffhandKeybind.Current && !IsUIActive() && !requestExists && !Main.playerInventory)
+            if (Activation.UseOffhandKeybind.Current && !IsUIActive() && !requestExists && !Main.playerInventory && !IsPlayerAboutToInteract())
             {
                 if (currentlySwapped)
                 {
-                        PlayerInput.Triggers.Current.MouseLeft = true;
+                    PlayerInput.Triggers.Current.MouseLeft = true;
                 }
             }
             //================================================================================================================================================
