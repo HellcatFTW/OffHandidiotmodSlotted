@@ -6,6 +6,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Localization;
+using System;
+using System.Linq;
 
 namespace OffHandidiotmod
 {
@@ -13,6 +15,9 @@ namespace OffHandidiotmod
     {
         public class SomethingSlot : CustomItemSlot
         {
+            private double emptybuffamount;
+            private int rowgap;
+            private int buffrows;
             public SomethingSlot() : base(ItemSlot.Context.InventoryItem, 0.85f)
             {
                 IsValidItem = item => item.type > ItemID.None && !ItemID.Sets.Torches[item.type] && !ItemID.Sets.Glowsticks[item.type];
@@ -22,8 +27,31 @@ namespace OffHandidiotmod
             {
                 string SlotHoverText = Language.GetText("Mods.OffHandidiotmod.SlotHoverText").Value;
                 HoverText = SlotHoverText;
-                RMBSlot.Left.Set(20, 0);
-                RMBSlot.Top.Set(260, 0);
+                if (Main.playerInventory) // Inventory open
+                {
+                    RMBSlot.Left.Set(20, 0);
+                    RMBSlot.Top.Set(260, 0);
+                }
+                else // Inventory closed
+                {
+                    emptybuffamount = Main.LocalPlayer.buffTime.Count(0);
+
+                    buffrows = (int)Math.Ceiling(
+                        (Main.LocalPlayer.buffTime.Length - emptybuffamount) / 11); // divide buffs by 11 which is amount of buffs in a row 
+                    if (buffrows > 1)
+                    {
+                        rowgap = 4;
+                    }
+                    else
+                    {
+                        rowgap = 0;
+                    }
+                    RMBSlot.Left.Set(25, 0);
+                    RMBSlot.Top.Set(79 + (buffrows * 43) + (rowgap * buffrows), 0);
+                }
+
+
+
                 base.DrawSelf(spriteBatch);
             }
         }
