@@ -109,30 +109,28 @@ namespace OffHandidiotmod
             // Issues:
             //
             // Remake the entire thing using Mirsario's overhaul's PlayerItemUse.....
-            //1- Needs a toggle to choose which attack of a weapon it uses
-            //6- having a config that does allow you to use both items at once (1: do we care? thats just becoming yoraizors at this point, + idk if we can even do on current implementation)
-            //7- (DONE)going click by click for people who dont have autofire enabled does some stupid shit. maybe thats what that guy was complaining about in issue 5
-            //8- (DONE) if hotbar slot is empty, and magic key is pressed, item gets swapped and nothing happens 
-            //9- (DONE) player.heldItem must not be torch, otherwise some weird shit happens which ill explain. basically dont swap items if held item is torch or shift is held (ItemID.Sets.Torches[item.type]) 
-            //10- (DONE) items swap if inventory is open. Check if inventory is open when magic key is pressed to send a swapRequest.
-            //11- (DONE) setting use off hand item to mouse1(lmb) prevents you from using GUI mouse1 functions. can temporarily try to block mouse1 from being assigned? but the real fix is to use mirsario's implementation 
-            //12- (DONE)swapping to prism via magic key then releasing, still uses mouse after swap
-            //19- (DONE) When containers are opened via RMB and 'Use Offhand Item' is also bound to RMB, your selected hotbar slot and offhand are briefly swapped.
-            //13- if you mine blocks they dont get stacked back into offhandslot
-            //14- change slot color
-            //15- make slot draggable(?) or move it
-            //16- maybe account for resolution and UI Scale?
-            //
-            //17- if you click magic key quickly then hold after releasing said fast click, item will shoot once and not continue.
+            //  1- Needs a toggle to choose which attack of a weapon it uses
+            //  6- having a config that does allow you to use both items at once (1: do we care? thats just becoming yoraizors at this point, + idk if we can even do on current implementation)
+            //  7- (DONE)going click by click for people who dont have autofire enabled does some stupid shit. maybe thats what that guy was complaining about in issue 5
+            //  8- (DONE) if hotbar slot is empty, and magic key is pressed, item gets swapped and nothing happens 
+            //  9- (DONE) player.heldItem must not be torch, otherwise some weird shit happens which ill explain. basically dont swap items if held item is torch or shift is held (ItemID.Sets.Torches[item.type]) 
+            // 10- (DONE) items swap if inventory is open. Check if inventory is open when magic key is pressed to send a swapRequest.
+            // 11- (DONE) setting use off hand item to mouse1(lmb) prevents you from using GUI mouse1 functions. can temporarily try to block mouse1 from being assigned? but the real fix is to use mirsario's implementation 
+            // 12- (DONE)swapping to prism via magic key then releasing, still uses mouse after swap
+            // 19- (DONE) When containers are opened via RMB and 'Use Offhand Item' is also bound to RMB, your selected hotbar slot and offhand are briefly swapped.
+            // 17- (DONE)if you click magic key quickly then hold after releasing said fast click, item will shoot once and not continue.
+            // 20- (DONE)grabbing item from slot if inventory is not open causes weird behaviour because terraria disallows holding items if inventory is closed.
+
+
+            // Minor features to add?
             //18- somehow check for if you have a weapon that has 2 attacks in your main hand and temporarily disabling the offhand entirely
-            //            
+            //14- change slot color or texture
+            //15- make slot draggable(?) or move it
+ 
+
+            // BIG problem to tackle:
             //-19 items dont stack into offhand slot
             //            Solution: link offhand slot item from inventory instead of actually having it there, make it very clear it isnt a real item.
-            //
-            //
-            //20- grabbing item from slot if inventory is not open causes weird behaviour because terraria disallows holding items if inventory is closed.
-            //            Solution: open inventory if you click it or don't allow clicking until inventory is open
-            //
             //
             //
             //================================================================================================================================================
@@ -161,7 +159,6 @@ namespace OffHandidiotmod
                     manualSwapRequested = false;
                 }
             }    // DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH DONT TOUCH
-
 
             // Input handlers:
             // we may not swap to empty off-hand
@@ -199,6 +196,10 @@ namespace OffHandidiotmod
                     swapRequestedToMain = true;
                 }
                 if (swapRequestedToMain && actualMouseLeftJustReleased) // reset swapRequestedToMain if key is released
+                {
+                    swapRequestedToMain = false;
+                }
+                if (swapRequestedToMain && !actualMouseLeftCurrent && Activation.UseOffhandKeybind.Current && currentlySwapped)
                 {
                     swapRequestedToMain = false;
                 }
@@ -270,7 +271,7 @@ namespace OffHandidiotmod
             {
                 return;
             }
-            if (Player.HeldItem.pick == 0 && Player.HeldItem.axe == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.createTile == -1)
+            if (Player.HeldItem.pick == 0 && Player.HeldItem.axe == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.createTile == -1 && Player.HeldItem.createWall == -1)
             {
                 interactableIconShown = Player.cursorItemIconEnabled;
             }
