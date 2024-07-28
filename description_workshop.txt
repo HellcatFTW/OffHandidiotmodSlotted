@@ -7,9 +7,8 @@ Want to place blocks with one hand and hammer with the other? No problem! Maybe 
 
 [h2] Features [/h2]
 
-
-Multiplayer is now working. Everything should function correctly, but please report any errors with the code if you somehow get any in chat. ("Code (XXX): please conta...")
-
+[b]Effortless Whip Stacking![/b]
+[img]https://i.imgur.com/rerI6yh.gif[/img]
 
 
 Configurable keybinds!  [b] (you MUST set them in controls!): [/b]
