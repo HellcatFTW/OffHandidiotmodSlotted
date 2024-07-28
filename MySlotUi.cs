@@ -18,10 +18,10 @@ namespace OffHandidiotmod
             private double emptybuffamount;
             private int rowgap;
             private int buffrows;
-            private int OffsetDownInventory {get => ModContent.GetInstance<OffHandConfig>().SlotPositionXInventory;}
-            private int OffsetDownHUD {get => ModContent.GetInstance<OffHandConfig>().SlotPositionXHUD;}
-            private int OffsetRightInventory {get => ModContent.GetInstance<OffHandConfig>().SlotPositionYInventory;}
-            private int OffsetRightHUD {get => ModContent.GetInstance<OffHandConfig>().SlotPositionYHUD;}
+            private int PosYInventory {get => ModContent.GetInstance<OffHandConfig>().SlotPositionYInventory;}
+            private int PosYHUD {get => ModContent.GetInstance<OffHandConfig>().SlotPositionYHUD;}
+            private int PosXInventory {get => ModContent.GetInstance<OffHandConfig>().SlotPositionXInventory;}
+            private int PosXHUD {get => ModContent.GetInstance<OffHandConfig>().SlotPositionXHUD;}
             public SomethingSlot() : base(ItemSlot.Context.InventoryItem, 0.85f)
             {
                 IsValidItem = item => item.type > ItemID.None && !ItemID.Sets.Torches[item.type] && !ItemID.Sets.Glowsticks[item.type];
@@ -35,13 +35,13 @@ namespace OffHandidiotmod
                 {
                     if (Main.LocalPlayer.difficulty != 3) // In all modes but journey mode
                     {
-                        RMBSlot.Left.Set(20 + OffsetRightInventory, 0);
-                        RMBSlot.Top.Set(260 + OffsetDownInventory, 0);
+                        RMBSlot.Left.Set(PosXInventory, 0);
+                        RMBSlot.Top.Set(PosYInventory, 0);
                     }
                     else // In journey mode
                     {
-                        RMBSlot.Left.Set(70 + OffsetRightInventory, 0);
-                        RMBSlot.Top.Set(260 + OffsetDownInventory, 0);
+                        RMBSlot.Left.Set(PosXInventory+50, 0); // 50 pixel offset to right for journey mode power menu thing
+                        RMBSlot.Top.Set(PosYInventory, 0);
                     }
                 }
                 else // Inventory closed
@@ -58,8 +58,8 @@ namespace OffHandidiotmod
                     {
                         rowgap = 0;
                     }
-                    RMBSlot.Left.Set(25 + OffsetRightHUD, 0);
-                    RMBSlot.Top.Set(79 + OffsetDownHUD + (buffrows * 43) + (rowgap * buffrows), 0);
+                    RMBSlot.Left.Set(PosXHUD, 0);
+                    RMBSlot.Top.Set(PosYHUD + (buffrows * 43) + (rowgap * buffrows), 0);
                 }
 
 

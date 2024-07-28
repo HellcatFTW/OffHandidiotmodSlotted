@@ -84,21 +84,25 @@ namespace OffHandidiotmod
 		public bool ChatMessageToggle;
 
 		[Header("$Mods.OffHandidiotmod.Configs.OffHandConfig.HUDHeader")]
-		[DefaultValue(0)]
-		[Range(0, 1000)]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotPositionXHUD.Tooltip")]
+		[DefaultValue(25)]
+		[Range(0, 1920)]
 		public int SlotPositionXHUD;
 
-		[DefaultValue(0)]
-		[Range(0, 1000)]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotPositionYHUD.Tooltip")]
+		[DefaultValue(79)]
+		[Range(0, 1080)]
 		public int SlotPositionYHUD;
 
 		[Header("$Mods.OffHandidiotmod.Configs.OffHandConfig.InventoryHeader")]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotPositionXInventory.Tooltip")]
 		[DefaultValue(20)]
-		[Range(0, 1000)]
+		[Range(0, 1920)]
 		public int SlotPositionXInventory;
 
-		[DefaultValue(0)]
-		[Range(0, 1000)]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotPositionYInventory.Tooltip")]
+		[DefaultValue(260)]
+		[Range(0, 1080)]
 		public int SlotPositionYInventory;
 	}
 }

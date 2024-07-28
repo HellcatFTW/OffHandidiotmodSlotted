@@ -8,27 +8,27 @@ Configs: {
 		DisplayName: Off Hand Config
 		Label: Показывать напоминание о привязке клавиш
 		ChatMessageToggle.Tooltip: ""
-		HUDHeader: UI Offset when inventory is closed
-		InventoryHeader: UI Offset when inventory is open
+		HUDHeader: Позиция слота в HUD
+		InventoryHeader: Позиция слота при открытом инвентаре
 
 		SlotPositionXHUD: {
-			// Label: Slot Position X
-			// Tooltip: ""
+			Label: X-координата слота
+			Tooltip: Расстояние от левого края экрана до слота
 		}
 
 		SlotPositionYHUD: {
-			// Label: Slot Position Y
-			// Tooltip: ""
+			Label: Y-координата слота
+			Tooltip: Расстояние от верхнего края экрана в пикселях
 		}
 
 		SlotPositionXInventory: {
-			// Label: Slot Position X
-			// Tooltip: ""
+			Label: X-координата слота
+			Tooltip: Расстояние от левого края экрана до слота
 		}
 
 		SlotPositionYInventory: {
-			// Label: Slot Position Y
-			// Tooltip: ""
+			Label: Y-координата слота
+			Tooltip: Расстояние от верхнего края экрана в пикселях
 		}
 	}
 }

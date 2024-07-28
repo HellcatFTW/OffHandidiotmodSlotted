@@ -9,26 +9,26 @@ Configs: {
 		Label: Chat Message Toggle
 		ChatMessageToggle.Tooltip: ""
 		HUDHeader: UI Offset in HUD
-		InventoryHeader: UI Offset in Inventory
+		InventoryHeader: UI Offset in Inventory Screen
 
 		SlotPositionXHUD: {
-			Label: Slot Position Y (Pixels)
-			Tooltip: ""
+			Label: Slot Position X
+			Tooltip: This is the distance from the left side of your screen to the slot in pixels
 		}
 
 		SlotPositionYHUD: {
-			Label: Slot Position X (Pixels)
-			Tooltip: ""
+			Label: Slot Position Y
+			Tooltip: This is the distance from the top of your screen to the slot in pixels
 		}
 
 		SlotPositionXInventory: {
-			Label: Slot Position Y (Pixels)
-			Tooltip: ""
+			Label: Slot Position X
+			Tooltip: This is the distance from the left side of your screen to the slot in pixels
 		}
 
 		SlotPositionYInventory: {
-			Label: Slot Position X (Pixels)
-			Tooltip: ""
+			Label: Slot Position Y
+			Tooltip: This is the distance from the top of your screen to the slot in pixels
 		}
 	}
 }
