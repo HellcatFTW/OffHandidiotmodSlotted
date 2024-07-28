@@ -18,6 +18,8 @@ namespace OffHandidiotmod
             private double emptybuffamount;
             private int rowgap;
             private int buffrows;
+            private int goblinOffset;
+            private const int journeyOffset = 50;
             private int PosYInventory {get => ModContent.GetInstance<OffHandConfig>().SlotPositionYInventory;}
             private int PosYHUD {get => ModContent.GetInstance<OffHandConfig>().SlotPositionYHUD;}
             private int PosXInventory {get => ModContent.GetInstance<OffHandConfig>().SlotPositionXInventory;}
@@ -33,14 +35,23 @@ namespace OffHandidiotmod
                 HoverText = SlotHoverText;
                 if (Main.playerInventory) // Inventory open
                 {
+                    if(Main.InReforgeMenu)
+                    {
+                        goblinOffset = 60;
+                    }
+                    else
+                    {
+                        goblinOffset = 0;
+                    }
+                    
                     if (Main.LocalPlayer.difficulty != 3) // In all modes but journey mode
                     {
                         RMBSlot.Left.Set(PosXInventory, 0);
-                        RMBSlot.Top.Set(PosYInventory, 0);
+                        RMBSlot.Top.Set(PosYInventory+goblinOffset, 0);
                     }
                     else // In journey mode
                     {
-                        RMBSlot.Left.Set(PosXInventory+50, 0); // 50 pixel offset to right for journey mode power menu thing
+                        RMBSlot.Left.Set(PosXInventory+journeyOffset, 0); // 50 pixel offset to right for journey mode power menu thing
                         RMBSlot.Top.Set(PosYInventory, 0);
                     }
                 }
