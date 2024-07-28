@@ -8,6 +8,28 @@ Configs: {
 		DisplayName: Off Hand Config
 		Label: Chat Message Toggle
 		ChatMessageToggle.Tooltip: ""
+		HUDHeader: UI Offset in HUD
+		InventoryHeader: UI Offset in Inventory
+
+		SlotPositionXHUD: {
+			Label: Slot Position Y (Pixels)
+			Tooltip: ""
+		}
+
+		SlotPositionYHUD: {
+			Label: Slot Position X (Pixels)
+			Tooltip: ""
+		}
+
+		SlotPositionXInventory: {
+			Label: Slot Position Y (Pixels)
+			Tooltip: ""
+		}
+
+		SlotPositionYInventory: {
+			Label: Slot Position X (Pixels)
+			Tooltip: ""
+		}
 	}
 }
 

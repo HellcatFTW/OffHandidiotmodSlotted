@@ -142,12 +142,10 @@ namespace OffHandidiotmod
             // so you swap back into that slot instead of currently selected one (in case it changed) and 
             // before you swap back to main hand, you check that it has item that it's supposed to have (which is off-hand item), and if somehow not - call things off
             // but, to avoid duplication, don't use the item variable for anything but checks
-            // Minor features to add?
 
 
 
 
-            //
             //================================================================================================================================================
 
 

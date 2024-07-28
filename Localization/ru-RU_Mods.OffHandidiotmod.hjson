@@ -8,6 +8,28 @@ Configs: {
 		DisplayName: Off Hand Config
 		Label: Показывать напоминание о привязке клавиш
 		ChatMessageToggle.Tooltip: ""
+		HUDHeader: UI Offset when inventory is closed
+		InventoryHeader: UI Offset when inventory is open
+
+		SlotPositionXHUD: {
+			// Label: Slot Position X
+			// Tooltip: ""
+		}
+
+		SlotPositionYHUD: {
+			// Label: Slot Position Y
+			// Tooltip: ""
+		}
+
+		SlotPositionXInventory: {
+			// Label: Slot Position X
+			// Tooltip: ""
+		}
+
+		SlotPositionYInventory: {
+			// Label: Slot Position Y
+			// Tooltip: ""
+		}
 	}
 }
 

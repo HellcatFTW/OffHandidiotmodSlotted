@@ -18,6 +18,10 @@ namespace OffHandidiotmod
             private double emptybuffamount;
             private int rowgap;
             private int buffrows;
+            private int OffsetDownInventory {get => ModContent.GetInstance<OffHandConfig>().SlotPositionXInventory;}
+            private int OffsetDownHUD {get => ModContent.GetInstance<OffHandConfig>().SlotPositionXHUD;}
+            private int OffsetRightInventory {get => ModContent.GetInstance<OffHandConfig>().SlotPositionYInventory;}
+            private int OffsetRightHUD {get => ModContent.GetInstance<OffHandConfig>().SlotPositionYHUD;}
             public SomethingSlot() : base(ItemSlot.Context.InventoryItem, 0.85f)
             {
                 IsValidItem = item => item.type > ItemID.None && !ItemID.Sets.Torches[item.type] && !ItemID.Sets.Glowsticks[item.type];
@@ -29,15 +33,15 @@ namespace OffHandidiotmod
                 HoverText = SlotHoverText;
                 if (Main.playerInventory) // Inventory open
                 {
-                    if (Main.LocalPlayer.difficulty != 3)
+                    if (Main.LocalPlayer.difficulty != 3) // In all modes but journey mode
                     {
-                        RMBSlot.Left.Set(20, 0);
-                        RMBSlot.Top.Set(260, 0);
+                        RMBSlot.Left.Set(20 + OffsetRightInventory, 0);
+                        RMBSlot.Top.Set(260 + OffsetDownInventory, 0);
                     }
-                    else
+                    else // In journey mode
                     {
-                        RMBSlot.Left.Set(70, 0);
-                        RMBSlot.Top.Set(260, 0);
+                        RMBSlot.Left.Set(70 + OffsetRightInventory, 0);
+                        RMBSlot.Top.Set(260 + OffsetDownInventory, 0);
                     }
                 }
                 else // Inventory closed
@@ -54,8 +58,8 @@ namespace OffHandidiotmod
                     {
                         rowgap = 0;
                     }
-                    RMBSlot.Left.Set(25, 0);
-                    RMBSlot.Top.Set(79 + (buffrows * 43) + (rowgap * buffrows), 0);
+                    RMBSlot.Left.Set(25 + OffsetRightHUD, 0);
+                    RMBSlot.Top.Set(79 + OffsetDownHUD + (buffrows * 43) + (rowgap * buffrows), 0);
                 }
 
 
