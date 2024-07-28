@@ -10,6 +10,8 @@
 
 # Planned Features:
 
+- Add Offset-left Offset-down options in config, for both 'When Inventory open' and 'When Inventory Closed'
+
 - Changing offhand slot texture
 
 - Adding a toggle that allows dragging the offhand slot
