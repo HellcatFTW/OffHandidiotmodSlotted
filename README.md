@@ -6,15 +6,13 @@
 
 - while holding/using the offhand item, if the player lets go of the keybind and uses their scrollwheel or number keys to change hotbar selection, it can change just before swapping is done, causing incorrect items to be swapped.
 
-- slight oversight, but the mod's slot overlaps with calamity's "protective barrier" icon on HUD as well as dodge timer / potion timer circles
-
 # Planned Features:
 
-- Add Offset-left Offset-down options in config, for both 'When Inventory open' and 'When Inventory Closed'
+- (DONE)~~Add Offset-left Offset-down options in config, for both 'When Inventory open' and 'When Inventory Closed'~~(DONE)
 
 - Changing offhand slot texture
 
-- Adding a toggle that allows dragging the offhand slot
+- ~~Adding a toggle that allows dragging the offhand slot~~  <==== Slot can now be moved in config!
 
 - Adding a clickable toggle to the offhand slot, which decides whether holding the 'Use Offhand Slot' key will use the item's normal attack(LMB), or it's alternate attack(RMB)
 - (DONE) ~~Making offhand slot visible even when inventory is closed~~ (DONE)
