@@ -2,9 +2,7 @@
 
 - When picking up items such as when mining blocks while building, and said blocks are in offhand, they get stacked into inventory instead of offhand, eventually forcing you to manually replace the stack into offhand. To avoid this, try to keep blocks in hotbar instead.
 
-- Slot is partially on top of / covered by crafting menu if it's scrolled down. 
-
-- while holding/using the offhand item, if the player lets go of the keybind and uses their scrollwheel or number keys to change hotbar selection, it can change just before swapping is done, causing incorrect items to be swapped.
+- Slot is partially on top of / covered by crafting menu if it's scrolled down. Change position in config if this bothers you enough.
 
 # Planned Features:
 
