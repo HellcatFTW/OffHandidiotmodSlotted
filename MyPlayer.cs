@@ -16,6 +16,7 @@ namespace OffHandidiotmod
     {
         private int delayTimerMessage = 0;
         private bool currentlySwapped = false;
+        private int? originalMainItemSlot;
         private bool swapRequestedToOffhand = false;
         private bool swapRequestedToMain = false;
         private bool manualSwapRequested = false;
@@ -332,13 +333,55 @@ namespace OffHandidiotmod
                 string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
                 throw new Exception($"Code 939: {ContactDev}");
             }
+            if (swapRequestedToOffhand)
+            {
+                if (originalMainItemSlot != null) // this should also literally never happen so it prints an error code to chat
+                {
+                    string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
+                    Main.NewText($"Code 338: {ContactDev}");
+                }
+                originalMainItemSlot = Player.selectedItem;
+                IndiscriminateSwap();
+            }
+
+
+            if (swapRequestedToMain) // Swap requested to main: Must check if current slot has the correct offhand item, if not, swap the correct ones not the new ones
+            {
+                if (originalMainItemSlot == null) // this should literally never happen so it prints an error code to chat
+                {
+                    IndiscriminateSwap();
+
+                    string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
+                    Main.NewText($"Code 918: {ContactDev}");
+                }
+                else
+                {
+                    Item originalSelectedItem = Player.inventory[(int)originalMainItemSlot];
+                    Player.inventory[(int)originalMainItemSlot] = MySlotUI.RMBSlot.Item;
+                    MySlotUI.RMBSlot.SetItem(originalSelectedItem);
+                    originalMainItemSlot = null;
+                }
+            }
+            if (manualSwapRequested)
+            {
+                IndiscriminateSwap();
+            }
+        }
+
+        public void IndiscriminateSwap()
+        {
+            if (Player.whoAmI != Main.myPlayer)
+            {
+                string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
+                throw new Exception($"Code 939: {ContactDev}");
+            }
             Item originalSelectedItem = Player.inventory[Player.selectedItem];
             Player.inventory[Player.selectedItem] = MySlotUI.RMBSlot.Item;
             MySlotUI.RMBSlot.SetItem(originalSelectedItem);
         }
 
 
-    }
+    }// End of player class
 
 
 
