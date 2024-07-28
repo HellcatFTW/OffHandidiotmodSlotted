@@ -6,6 +6,8 @@
 
 - while holding/using the offhand item, if the player lets go of the keybind and uses their scrollwheel or number keys to change hotbar selection, it can change just before swapping is done, causing incorrect items to be swapped.
 
+- slight oversight, but the mod's slot overlaps with calamity's "protective barrier" icon on HUD as well as dodge timer / potion timer circles
+
 # Planned Features:
 
 - Changing offhand slot texture
