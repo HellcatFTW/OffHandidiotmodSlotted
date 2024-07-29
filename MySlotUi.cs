@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Localization;
 using System;
 using System.Linq;
+using Terraria.GameContent.UI;
 
 namespace OffHandidiotmod
 {
@@ -20,10 +21,10 @@ namespace OffHandidiotmod
             private int buffrows;
             private int goblinOffset;
             private const int journeyOffset = 50;
-            private int PosYInventory {get => ModContent.GetInstance<OffHandConfig>().SlotPositionYInventory;}
-            private int PosYHUD {get => ModContent.GetInstance<OffHandConfig>().SlotPositionYHUD;}
-            private int PosXInventory {get => ModContent.GetInstance<OffHandConfig>().SlotPositionXInventory;}
-            private int PosXHUD {get => ModContent.GetInstance<OffHandConfig>().SlotPositionXHUD;}
+            private int PosYInventory { get => ModContent.GetInstance<OffHandConfig>().SlotPositionYInventory; }
+            private int PosYHUD { get => ModContent.GetInstance<OffHandConfig>().SlotPositionYHUD; }
+            private int PosXInventory { get => ModContent.GetInstance<OffHandConfig>().SlotPositionXInventory; }
+            private int PosXHUD { get => ModContent.GetInstance<OffHandConfig>().SlotPositionXHUD; }
             public SomethingSlot() : base(ItemSlot.Context.InventoryItem, 0.85f)
             {
                 IsValidItem = item => item.type > ItemID.None && !ItemID.Sets.Torches[item.type] && !ItemID.Sets.Glowsticks[item.type];
@@ -32,10 +33,10 @@ namespace OffHandidiotmod
             protected override void DrawSelf(SpriteBatch spriteBatch)
             {
                 string SlotHoverText = Language.GetText("Mods.OffHandidiotmod.SlotHoverText").Value;
-                HoverText = SlotHoverText;
                 if (Main.playerInventory) // Inventory open
                 {
-                    if(Main.InReforgeMenu)
+                    HoverText = SlotHoverText;
+                    if (Main.InReforgeMenu)
                     {
                         goblinOffset = 60;
                     }
@@ -43,20 +44,33 @@ namespace OffHandidiotmod
                     {
                         goblinOffset = 0;
                     }
-                    
+
                     if (Main.LocalPlayer.difficulty != 3) // In all modes but journey mode
                     {
                         RMBSlot.Left.Set(PosXInventory, 0);
-                        RMBSlot.Top.Set(PosYInventory+goblinOffset, 0);
+                        RMBSlot.Top.Set(PosYInventory + goblinOffset, 0);
                     }
                     else // In journey mode
                     {
-                        RMBSlot.Left.Set(PosXInventory+journeyOffset, 0); // 50 pixel offset to right for journey mode power menu thing
+                        RMBSlot.Left.Set(PosXInventory + journeyOffset, 0); // 50 pixel offset to right for journey mode power menu thing
                         RMBSlot.Top.Set(PosYInventory, 0);
                     }
                 }
                 else // Inventory closed
                 {
+                    if (!Main.LocalPlayer.ItemAnimationActive && !Main.LocalPlayer.hbLocked && RMBSlot.item.type > ItemID.None)
+                    {
+                        HoverText = RMBSlot.Item.AffixName();
+                        ItemRarity = RMBSlot.item.rare;
+                        if (RMBSlot.Item.stack > 1)
+                            HoverText = HoverText + " (" + RMBSlot.Item.stack + ")";
+                    }
+                    else
+                    {
+                        HoverText = "";
+                        ItemRarity = null;
+                    }
+
                     emptybuffamount = Main.LocalPlayer.buffTime.Count(0);
 
                     buffrows = (int)Math.Ceiling(

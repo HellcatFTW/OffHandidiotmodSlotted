@@ -9,6 +9,7 @@ using Terraria.ModLoader.IO;
 using System;
 using Terraria.Localization;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.Xna.Framework.Input;
 
 namespace OffHandidiotmod
 {
@@ -45,7 +46,7 @@ namespace OffHandidiotmod
             {
                 return;
             }
-            if (Activation.SwapKeybind.JustPressed && Player.selectedItem != 58 && !IsTorchHeld())
+            if (Activation.SwapKeybind.JustPressed && Main.LocalPlayer.selectedItem != 58 && !IsTorchHeld())
             {
                 manualSwapRequested = true;
             }
@@ -57,7 +58,7 @@ namespace OffHandidiotmod
                 string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
                 throw new Exception($"Code 762: {ContactDev}");
             }
-            Item item = Player.HeldItem;
+            Item item = Main.LocalPlayer.HeldItem;
             return ItemID.Sets.Torches[item.type] || ItemID.Sets.Glowsticks[item.type];
 
         }
@@ -68,32 +69,40 @@ namespace OffHandidiotmod
                 string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
                 throw new Exception($"Code 556: {ContactDev}");
             }
-            return Main.ingameOptionsWindow || Main.mapFullscreen || Main.gamePaused;
+            return Main.ingameOptionsWindow || Main.mapFullscreen || Main.gamePaused || Main.LocalPlayer.mouseInterface;
         }
         public bool IsPlayerAboutToInteract() //checks if mouse is on a door, switch, or container etc
         {
-            Microsoft.Xna.Framework.Point tileCoords = Main.MouseWorld.ToTileCoordinates();
-            Tile tile = Main.tile[tileCoords.X, tileCoords.Y];
-            if (!Main.SmartCursorShowing)
+            if (isKeybindMouseLeftOrRight())
             {
-                if (interactableIconShown)
+                Microsoft.Xna.Framework.Point tileCoords = Main.MouseWorld.ToTileCoordinates();
+                Tile tile = Main.tile[tileCoords.X, tileCoords.Y];
+                if (!Main.SmartCursorShowing)
+                {
+                    if (interactableIconShown)
+                    {
+                        return true;
+                    }
+                }
+                if (Main.HoveringOverAnNPC)
+                {
+                    return true;
+                }
+                if (Main.LocalPlayer.mouseInterface)
+                {
+                    return true;
+                }
+                if (Main.SmartInteractTileCoords.Count != 0)
                 {
                     return true;
                 }
             }
-            if (Main.HoveringOverAnNPC)
-            {
-                return true;
-            }
-            if (Player.mouseInterface)
-            {
-                return true;
-            }
-            if (Main.SmartInteractTileCoords.Count != 0)
-            {
-                return true;
-            }
             return false;
+        }
+        public bool isKeybindMouseLeftOrRight()
+        {
+            var offhandkeybindlist = Activation.UseOffhandKeybind.GetAssignedKeys();
+            return offhandkeybindlist.Contains("Mouse2") || offhandkeybindlist.Contains("Mouse1");
         }
 
         public override void PreUpdate()
@@ -126,9 +135,6 @@ namespace OffHandidiotmod
 
             //18- somehow check for if you have a weapon that has 2 attacks in your main hand and temporarily disabling the offhand entirely
             //14- change slot color or texture
-            //15- make slot draggable(?) or move it
-
-
 
 
 
@@ -136,6 +142,8 @@ namespace OffHandidiotmod
             //-19 items dont stack into offhand slot
             //            Solution: link offhand slot item from inventory instead of actually having it there, make it very clear it isnt a real item.
             //
+
+
 
             // Other huge fix:
             // 1 remember what hotbar slot you were on
@@ -152,7 +160,7 @@ namespace OffHandidiotmod
 
             // Offhand function: This simulates LMB. Prevents vanilla interference and duplication by disallowing if inventory is open or mouse has an item in it
             // also disables mouse simulating if UI is open to prevent locking player in their settings menu
-            if (Activation.UseOffhandKeybind.Current && !IsUIActive() && !requestExists && !Main.playerInventory && !IsPlayerAboutToInteract())
+            if (Activation.UseOffhandKeybind.Current && !IsUIActive() && !requestExists && !IsPlayerAboutToInteract())
             {
                 if (currentlySwapped)
                 {
@@ -181,7 +189,7 @@ namespace OffHandidiotmod
 
 
             // General input handler, assuming mod should be active and no pause / menus open that require cursor clicks
-            if (!shiftCurrent && !IsUIActive() && !Main.playerInventory && !IsPlayerAboutToInteract())
+            if (!shiftCurrent && !IsUIActive() && !IsPlayerAboutToInteract())
             {
                 // Handles magic key state 
                 if (!currentlySwapped && Activation.UseOffhandKeybind.JustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) // 1: No offhand, keybind just pressed, switches from main to off 
