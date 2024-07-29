@@ -1,0 +1,41 @@
+Keybinds: {
+	"Swap Offhand.DisplayName": Scambia Mani
+	"Use Offhand Item.DisplayName": Usa Oggetto nella Mano Secondaria
+}
+
+Configs: {
+	OffHandConfig: {
+		DisplayName: Configurazione Mano Secondaria
+		Label: Abilita/Disabilita Messaggio in Chat
+		ChatMessageToggle.Tooltip: ""
+		HUDHeader: Sposta la UI nella HUD
+		InventoryHeader: Sposta la UI nella Schermata dell'Inventario
+
+		SlotPositionXHUD: {
+			Label: Coordinata X dello Slot
+			Tooltip: Questa è la distanza dal lato sinistro dello schermo allo slot misurata in pixel
+		}
+
+		SlotPositionYHUD: {
+			Label: Coordinata Y dello Slot
+			Tooltip: Questa è la distanza dal lato superiore dello schermo allo slot misurata in pixel
+		}
+
+		SlotPositionXInventory: {
+			Label: Coordinata X dello Slot
+			Tooltip: Questa è la distanza dal lato sinistro dello schermo allo slot misurata in pixel
+		}
+
+		SlotPositionYInventory: {
+			Label: Coordinata Y dello Slot
+			Tooltip: Questa è la distanza dal lato superiore dello schermo allo slot misurata in pixel
+		}
+	}
+}
+
+TextMessages: {
+	ContactDev: Per contattare lo sviluppatore di 'Off hand mod' fatelo tramite i commenti del workshop per favore (in inglese), nel modo più dettagliato possibile.
+	SpawnMessage: Per favore controlla che hai impostato l'abbinamento dei tasti di Offhand Slot nei comandi. Devi disabilitare manualmente questo messaggio in Mod Configuration. 
+}
+
+SlotHoverText: Slot Mano Secondaria
