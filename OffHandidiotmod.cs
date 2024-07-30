@@ -41,8 +41,9 @@ namespace OffHandidiotmod
 		public override void PostSetupContent()
 		{
 
-			if (ModLoader.TryGetMod("CalamityMod", out _)) // Calamity mod :3
+			if (ModLoader.TryGetMod("CalamityMod", out Mod Calamity)) // Calamity mod :3
 			{
+				MySlotUI.Calamity = Calamity;
 				MySlotUI.CalamityEnabled = true;
 			}
 			else

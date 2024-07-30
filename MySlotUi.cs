@@ -9,6 +9,9 @@ using Terraria.Localization;
 using System;
 using System.Linq;
 using Terraria.GameContent.UI;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace OffHandidiotmod
 {
@@ -16,8 +19,11 @@ namespace OffHandidiotmod
     {
         public static bool CalamityEnabled;
         public static bool QoTEnabled;
+        public static Mod Calamity;
         public class SomethingSlot : CustomItemSlot
         {
+
+            public int cooldownCount;
             private double emptyBuffAmount = 0;
             private int rowGap = 0;
             private const int rowSize = 43;
@@ -43,6 +49,40 @@ namespace OffHandidiotmod
                 IsValidItem = item => item.type > ItemID.None && !ItemID.Sets.Torches[item.type] && !ItemID.Sets.Glowsticks[item.type];
             }
 
+            public int? getCalamityCooldowns()
+            {
+                if (Calamity == null)
+                {
+                    return null;
+                }
+                try
+                {
+                    ModPlayer calamityPlayerInstance = null;
+                    foreach (ModPlayer i in Main.LocalPlayer.ModPlayers)
+                    {
+                        if (i.GetType().Name == "CalamityPlayer")
+                        {
+                            calamityPlayerInstance = i;
+                        }
+                    }
+
+
+                    FieldInfo getCooldowns = calamityPlayerInstance.GetType().GetField("cooldowns");
+
+                    PropertyInfo getCooldownCount = getCooldowns.FieldType.GetProperty("Count");
+
+                    object cooldowns = getCooldowns.GetValue(calamityPlayerInstance);
+
+                    cooldownCount = (int)getCooldownCount.GetValue(cooldowns);
+
+                    return cooldownCount;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+
             protected override void DrawSelf(SpriteBatch spriteBatch)
             {
                 string SlotHoverText = Language.GetText("Mods.OffHandidiotmod.SlotHoverText").Value;
@@ -60,7 +100,7 @@ namespace OffHandidiotmod
                     rowGap = 0;
                 }
 
-                if (CalamityEnabled) // Calamitymod cooldown timers offset
+                if (getCalamityCooldowns() != null && getCalamityCooldowns() != 0) // Calamitymod cooldown timers offset
                 {
                     calamityOffsetY = 57;
                     calamityOffsetX = 7;
