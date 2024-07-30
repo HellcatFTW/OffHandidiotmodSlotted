@@ -1,0 +1,41 @@
+Keybinds: {
+	"Swap Offhand.DisplayName": 切换副手
+	"Use Offhand Item.DisplayName": 使用副手物品
+}
+
+Configs: {
+	OffHandConfig: {
+		DisplayName: 副手配置
+		Label: 聊天信息切换
+		ChatMessageToggle.Tooltip: ""
+		HUDHeader: HUD中的UI偏移
+		InventoryHeader: 物品栏屏幕中的UI偏移
+
+		SlotPositionXHUD: {
+			Label: 插槽位置X
+			Tooltip: 这是从屏幕左侧到插槽的像素距离
+		}
+
+		SlotPositionYHUD: {
+			Label: 插槽位置Y
+			Tooltip: 这是从屏幕顶部到插槽的像素距离
+		}
+
+		SlotPositionXInventory: {
+			Label: 插槽位置X
+			Tooltip: 这是从屏幕左侧到插槽的像素距离
+		}
+
+		SlotPositionYInventory: {
+			Label: 插槽位置Y
+			Tooltip: 这是从屏幕顶部到插槽的像素距离
+		}
+	}
+}
+
+TextMessages: {
+	ContactDev: 请在工作坊评论中联系‘副手模组’开发者，提供详细信息。
+	SpawnMessage: 请确保你已经在控制中设置了副手插槽的快捷键。请在模组配置中手动禁用此消息。
+}
+
+SlotHoverText: 副手插槽
