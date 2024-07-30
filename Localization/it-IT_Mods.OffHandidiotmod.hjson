@@ -35,7 +35,7 @@ Configs: {
 
 TextMessages: {
 	ContactDev: Per contattare lo sviluppatore di 'Off hand mod' fatelo tramite i commenti del workshop per favore (in inglese), nel modo più dettagliato possibile.
-	SpawnMessage: Per favore controlla che hai impostato l'abbinamento dei tasti di Offhand Slot nei comandi. Devi disabilitare manualmente questo messaggio in Mod Configuration. 
+	SpawnMessage: Per favore controlla che hai impostato l'abbinamento dei tasti di Offhand Slot nei comandi. Devi disabilitare manualmente questo messaggio in Mod Configuration.
 }
 
 SlotHoverText: Slot Mano Secondaria
