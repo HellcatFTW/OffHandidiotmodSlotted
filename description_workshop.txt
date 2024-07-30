@@ -44,7 +44,7 @@ Please, don't report dual-function items like calamity swords, I'm working on it
 [u] Please leave a rating! It makes me very happy and keeps me motivated <3 [/u]
 
 [b] Special thanks to:
-- Kit for helping with code Russian workshop translation
+- Kit for helping with code and Russian translation
 - yumyum86 for Japanese workshop translation
-- Elpias for Korean workshop translation (WIP)
+- ELPIAS for Korean workshop translation
 - tModLoader's developer community [/b]
