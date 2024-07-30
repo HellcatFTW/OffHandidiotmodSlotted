@@ -14,6 +14,17 @@ Configurable slot position! You can open the mod configuration page and change t
 
 
 
-If you want to use weapons with 2 different attacks, or some other buggy items, simply unbind 'Use offhand Item` and stick to just using the 'Swap Offhand' keybind.
+If you want to use weapons with 2 different attacks, keeping offhand empty will allow your hotbar weapons to utilize both buttons.
+You can also rebind 'Use Offhand Item' to something other than Mouse2 to allow main hand's 2 functions to work. If you UNBIND it, you can use the 'Swap Offhand' keybind to manually swap whenever desired.
 
-(More info on workshop.)
+
+Special thanks to:
+- Kit for helping with code and Russian workshop translation and localization
+- yumyum86 for Japanese workshop translation
+- ELPIAS for Korean workshop translation
+- KonoLoserDa for Italian localization
+- tModLoader's developer community
+
+
+
+(More mod info on workshop.)

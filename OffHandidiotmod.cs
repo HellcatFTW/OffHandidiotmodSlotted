@@ -37,6 +37,31 @@ namespace OffHandidiotmod
 	}
 	public class Activation : ModSystem
 	{
+
+		public override void PostSetupContent()
+		{
+
+			if (ModLoader.TryGetMod("CalamityMod", out _)) // Calamity mod :3
+			{
+				MySlotUI.CalamityEnabled = true;
+			}
+			else
+			{
+				MySlotUI.CalamityEnabled = false;
+			}
+
+			if (ModLoader.TryGetMod("ImproveGame", out _)) // Quality of terraria mod that adds stupid ass 20 trash slots
+			{
+				MySlotUI.QoTEnabled = true;
+			}
+			else
+			{
+				MySlotUI.QoTEnabled = false;
+			}
+
+
+		}
+
 		// Make sure the UI can draw
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{

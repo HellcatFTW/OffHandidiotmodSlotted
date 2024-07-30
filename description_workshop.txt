@@ -22,18 +22,17 @@ Configurable keybinds!  [b] (you MUST set them in controls!): [/b]
 
 
 
-If you want to use weapons with 2 different attacks, simply unbind 'Use offhand Item' and stick to just using the 'Swap Offhand' keybind, that way you can use those weapons like normal.
-
-This also applies for anything that doesn't work correctly with the 'Use offhand Item' bind. I'm fixing as much of that as I can at the moment.
+If you want to use weapons with 2 different attacks, keeping offhand empty will allow your hotbar weapons to utilize both buttons.
+You can also rebind 'Use Offhand Item' to something other than Mouse2 to allow main hand's 2 functions to work. If you UNBIND it, you can use the 'Swap Offhand' keybind to manually swap whenever desired.
 
 
 [h3] Bug Reports [/h3]
 
 [url=https://github.com/HellcatFTW/OffHandidiotmodSlotted/blob/main/README.md] Known Issues and Planned Features [/url]
 
-if an item doesn't work as intended or if you have any suggestions, leave a comment on the workshop or its discussion threads. 
+if an item doesn't work as intended or if you have any suggestions, leave a comment on the workshop or its discussion threads.
 
-Please, don't report dual-function items like calamity swords, I'm working on it.
+Calamity gimmick swords obviously won't work if your Mouse2/RMB is taken up by the mod. Rebind it to something else if you want to use those.
 
 [h3] Links [/h3]
 
@@ -44,7 +43,8 @@ Please, don't report dual-function items like calamity swords, I'm working on it
 [u] Please leave a rating! It makes me very happy and keeps me motivated <3 [/u]
 
 [b] Special thanks to:
-- Kit for helping with code and Russian translation
+- Kit for helping with code and Russian workshop translation and localization
 - yumyum86 for Japanese workshop translation
 - ELPIAS for Korean workshop translation
+- KonoLoserDa for Italian localization
 - tModLoader's developer community [/b]
