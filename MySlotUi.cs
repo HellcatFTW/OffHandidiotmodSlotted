@@ -56,21 +56,37 @@ namespace OffHandidiotmod
                 }
                 try
                 {
-                    ModPlayer calamityPlayerInstance = Main.LocalPlayer.GetModPlayer(Activation.calamityPlayerTemplate);
+                    float cooldownDisplaySetting = (float)Activation.cooldownDisplayProperty.GetValue(Activation.calamityConfigInstance);
 
-                    IDictionary cooldowns = (IDictionary)Activation.getCooldowns.GetValue(calamityPlayerInstance);
+                    if (cooldownDisplaySetting < 1)
+                    {
+                        return null;
+                    }
 
-                    return cooldowns.Count;
+                    object result = (IList)Activation.getCooldownsMethod.Invoke(null, [Main.LocalPlayer]);
+
+                    if (result is IList cooldowns)
+                    {
+                        return cooldowns.Count;
+                    }
+                    else
+                    {
+                        Calamity = null;
+                        string ContactDev = Language.GetTextValue("Mods.OffHandidiotmod.TextMessages.ContactDev");
+                        Main.NewText($"Code 127: {ContactDev}");
+                    }
+                    return null;
                 }
                 catch (Exception)
                 {
+                    Calamity = null;
                     return null;
                 }
             }
 
             protected override void DrawSelf(SpriteBatch spriteBatch)
             {
-                string SlotHoverText = Language.GetText("Mods.OffHandidiotmod.SlotHoverText").Value;
+                string SlotHoverText = Language.GetTextValue("Mods.OffHandidiotmod.SlotHoverText");
 
                 emptyBuffAmount = Main.LocalPlayer.buffTime.Count(0); // includes modded buffs too :D
 

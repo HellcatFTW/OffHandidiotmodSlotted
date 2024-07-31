@@ -55,7 +55,7 @@ namespace OffHandidiotmod
         {
             if (Player.whoAmI != Main.myPlayer) // throws exception if player is remote somehow at time of check.
             {
-                string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
+                string ContactDev = Language.GetTextValue("Mods.OffHandidiotmod.TextMessages.ContactDev");
                 throw new Exception($"Code 762: {ContactDev}");
             }
             Item item = Main.LocalPlayer.HeldItem;
@@ -66,7 +66,7 @@ namespace OffHandidiotmod
         {
             if (Player.whoAmI != Main.myPlayer) // throws exception if player is remote somehow at time of check.
             {
-                string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
+                string ContactDev = Language.GetTextValue("Mods.OffHandidiotmod.TextMessages.ContactDev");
                 throw new Exception($"Code 556: {ContactDev}");
             }
             return Main.ingameOptionsWindow || Main.mapFullscreen || Main.gamePaused || Main.LocalPlayer.mouseInterface;
@@ -260,7 +260,7 @@ namespace OffHandidiotmod
             }
             if (delayTimerMessage == 1 && IsMessageEnabled()) // Warning message send
             {
-                string SpawnMessage = Language.GetText("Mods.OffHandidiotmod.TextMessages.SpawnMessage").Value;
+                string SpawnMessage = Language.GetTextValue("Mods.OffHandidiotmod.TextMessages.SpawnMessage");
                 Main.NewText(SpawnMessage, 255, 255, 0);
             }
 
@@ -338,14 +338,14 @@ namespace OffHandidiotmod
         {
             if (Player.whoAmI != Main.myPlayer)
             {
-                string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
+                string ContactDev = Language.GetTextValue("Mods.OffHandidiotmod.TextMessages.ContactDev");
                 throw new Exception($"Code 939: {ContactDev}");
             }
             if (swapRequestedToOffhand)
             {
                 if (originalMainItemSlot != null) // this should also literally never happen so it prints an error code to chat
                 {
-                    string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
+                    string ContactDev = Language.GetTextValue("Mods.OffHandidiotmod.TextMessages.ContactDev");
                     Main.NewText($"Code 338: {ContactDev}");
                 }
                 originalMainItemSlot = Player.selectedItem;
@@ -359,7 +359,7 @@ namespace OffHandidiotmod
                 {
                     IndiscriminateSwap();
 
-                    string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
+                    string ContactDev = Language.GetTextValue("Mods.OffHandidiotmod.TextMessages.ContactDev");
                     Main.NewText($"Code 918: {ContactDev}");
                 }
                 else
@@ -380,7 +380,7 @@ namespace OffHandidiotmod
         {
             if (Player.whoAmI != Main.myPlayer)
             {
-                string ContactDev = Language.GetText("Mods.OffHandidiotmod.TextMessages.ContactDev").Value;
+                string ContactDev = Language.GetTextValue("Mods.OffHandidiotmod.TextMessages.ContactDev");
                 throw new Exception($"Code 939: {ContactDev}");
             }
             Item originalSelectedItem = Player.inventory[Player.selectedItem];

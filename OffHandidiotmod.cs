@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
@@ -38,24 +39,36 @@ namespace OffHandidiotmod
 	}
 	public class Activation : ModSystem
 	{
-		public static ModPlayer calamityPlayerTemplate;
-		public static FieldInfo getCooldowns;
+		public static MethodInfo getCooldownsMethod;
+		public static object calamityConfigInstance;
+		public static PropertyInfo cooldownDisplayProperty;
 		public override void PostSetupContent()
 		{
 
 			if (ModLoader.TryGetMod("CalamityMod", out Mod Calamity)) // Calamity mod
 			{
-				MySlotUI.Calamity = Calamity;
+				try
+				{
+					MySlotUI.Calamity = Calamity;
 
-				calamityPlayerTemplate = ModContent.Find<ModPlayer>("CalamityMod/CalamityPlayer");
+					//calamity cooldown method
+					Type calamityUtilsType = Calamity.Code.GetType("CalamityMod.CalamityUtils");
+					getCooldownsMethod = calamityUtilsType.GetMethod("GetDisplayedCooldowns", BindingFlags.Public | BindingFlags.Static);
 
-				getCooldowns = calamityPlayerTemplate.GetType().GetField("cooldowns");
+					//calamity config's cooldownrack setting
+					calamityConfigInstance = Calamity.GetConfig("CalamityConfig");
+					cooldownDisplayProperty = calamityConfigInstance.GetType().GetProperty("CooldownDisplay");
+				}
+				catch (Exception exception)
+				{
+					MySlotUI.Calamity = null;
+					Mod.Logger.Warn($"Error setting up calamity compatibility with offhand mod. {exception}");
+				}
 			}
 			else
 			{
 				MySlotUI.Calamity = null;
 			}
-
 
 			if (ModLoader.TryGetMod("ImproveGame", out _)) // Quality of terraria mod that adds stupid ass 20 trash slots
 			{
