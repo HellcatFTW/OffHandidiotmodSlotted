@@ -40,14 +40,12 @@ namespace OffHandidiotmod
 	{
 		public static ModPlayer calamityPlayerTemplate;
 		public static FieldInfo getCooldowns;
-		public static PropertyInfo getCooldownCount;
 		public override void PostSetupContent()
 		{
 
 			if (ModLoader.TryGetMod("CalamityMod", out Mod Calamity)) // Calamity mod
 			{
 				MySlotUI.Calamity = Calamity;
-				MySlotUI.CalamityEnabled = true;
 
 				calamityPlayerTemplate = ModContent.Find<ModPlayer>("CalamityMod/CalamityPlayer");
 
@@ -55,7 +53,7 @@ namespace OffHandidiotmod
 			}
 			else
 			{
-				MySlotUI.CalamityEnabled = false;
+				MySlotUI.Calamity = null;
 			}
 
 

@@ -18,12 +18,10 @@ namespace OffHandidiotmod
 {
     public class MySlotUI : UIState
     {
-        public static bool CalamityEnabled;
         public static bool QoTEnabled;
         public static Mod Calamity;
         public class SomethingSlot : CustomItemSlot
         {
-
             public int cooldownCount;
             private double emptyBuffAmount = 0;
             private int rowGap = 0;
@@ -61,7 +59,7 @@ namespace OffHandidiotmod
                     ModPlayer calamityPlayerInstance = Main.LocalPlayer.GetModPlayer(Activation.calamityPlayerTemplate);
 
                     IDictionary cooldowns = (IDictionary)Activation.getCooldowns.GetValue(calamityPlayerInstance);
-                    
+
                     return cooldowns.Count;
                 }
                 catch (Exception)
