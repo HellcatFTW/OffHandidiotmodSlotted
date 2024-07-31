@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -37,19 +38,26 @@ namespace OffHandidiotmod
 	}
 	public class Activation : ModSystem
 	{
-
+		public static ModPlayer calamityPlayerTemplate;
+		public static FieldInfo getCooldowns;
+		public static PropertyInfo getCooldownCount;
 		public override void PostSetupContent()
 		{
 
-			if (ModLoader.TryGetMod("CalamityMod", out Mod Calamity)) // Calamity mod :3
+			if (ModLoader.TryGetMod("CalamityMod", out Mod Calamity)) // Calamity mod
 			{
 				MySlotUI.Calamity = Calamity;
 				MySlotUI.CalamityEnabled = true;
+
+				calamityPlayerTemplate = ModContent.Find<ModPlayer>("CalamityMod/CalamityPlayer");
+
+				getCooldowns = calamityPlayerTemplate.GetType().GetField("cooldowns");
 			}
 			else
 			{
 				MySlotUI.CalamityEnabled = false;
 			}
+
 
 			if (ModLoader.TryGetMod("ImproveGame", out _)) // Quality of terraria mod that adds stupid ass 20 trash slots
 			{

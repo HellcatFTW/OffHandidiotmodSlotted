@@ -12,6 +12,7 @@ using Terraria.GameContent.UI;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Collections;
 
 namespace OffHandidiotmod
 {
@@ -57,25 +58,11 @@ namespace OffHandidiotmod
                 }
                 try
                 {
-                    ModPlayer calamityPlayerInstance = null;
-                    foreach (ModPlayer i in Main.LocalPlayer.ModPlayers)
-                    {
-                        if (i.GetType().Name == "CalamityPlayer")
-                        {
-                            calamityPlayerInstance = i;
-                        }
-                    }
+                    ModPlayer calamityPlayerInstance = Main.LocalPlayer.GetModPlayer(Activation.calamityPlayerTemplate);
 
-
-                    FieldInfo getCooldowns = calamityPlayerInstance.GetType().GetField("cooldowns");
-
-                    PropertyInfo getCooldownCount = getCooldowns.FieldType.GetProperty("Count");
-
-                    object cooldowns = getCooldowns.GetValue(calamityPlayerInstance);
-
-                    cooldownCount = (int)getCooldownCount.GetValue(cooldowns);
-
-                    return cooldownCount;
+                    IDictionary cooldowns = (IDictionary)Activation.getCooldowns.GetValue(calamityPlayerInstance);
+                    
+                    return cooldowns.Count;
                 }
                 catch (Exception)
                 {
