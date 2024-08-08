@@ -10,6 +10,7 @@ Configs: {
 		ChatMessageToggle.Tooltip: ""
 		HUDHeader: Позиция слота в HUD
 		InventoryHeader: Позиция слота при открытом инвентаре
+		// DraggingHeader: Slot dragging
 
 		SlotPositionXHUD: {
 			Label: X-координата слота
@@ -30,6 +31,21 @@ Configs: {
 			Label: Y-координата слота
 			Tooltip: Расстояние от верхнего края экрана в пикселях
 		}
+
+		DraggingEnabled: {
+			// Label: Enable slot dragging
+			// Tooltip: Enables moving the slot with mouse
+		}
+
+		ResetPosition: {
+			// Label: Reset slot position?
+			// Tooltip: ""
+		}
+
+		// SlotOffsetYInventory.Label: Slot Offset Y Inventory
+		// SlotOffsetXInventory.Label: Slot Offset X Inventory
+		// SlotOffsetYHUD.Label: Slot Offset Y H U D
+		// SlotOffsetXHUD.Label: Slot Offset X H U D
 	}
 }
 

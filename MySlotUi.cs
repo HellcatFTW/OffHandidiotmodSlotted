@@ -8,10 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Localization;
 using System;
 using System.Linq;
-using Terraria.GameContent.UI;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Collections;
 
 namespace OffHandidiotmod
@@ -38,11 +34,19 @@ namespace OffHandidiotmod
             private int calamityOffsetX = 0;
             private int qotOffsetY = 0;
             private int qotOffsetX = 0;
-            private int currentDynamicOffset;
-            private int PosYInventory { get => ModContent.GetInstance<OffHandConfig>().SlotPositionYInventory; }
-            private int PosYHUD { get => ModContent.GetInstance<OffHandConfig>().SlotPositionYHUD; }
-            private int PosXInventory { get => ModContent.GetInstance<OffHandConfig>().SlotPositionXInventory; }
-            private int PosXHUD { get => ModContent.GetInstance<OffHandConfig>().SlotPositionXHUD; }
+            private int currentDynamicOffsetY;
+            private int OffsetYInventory { get => ModContent.GetInstance<OffHandConfig>().SlotOffsetYInventory; }
+            private int OffsetYHUD { get => ModContent.GetInstance<OffHandConfig>().SlotOffsetYHUD; }
+            private int OffsetXInventory { get => ModContent.GetInstance<OffHandConfig>().SlotOffsetXInventory; }
+            private int OffsetXHUD { get => ModContent.GetInstance<OffHandConfig>().SlotOffsetXHUD; }
+            private bool DraggingEnabled { get => ModContent.GetInstance<OffHandConfig>().DraggingEnabled; }
+            private int PosYInventory { get; set; } = 260; // 260
+            private int PosYHUD { get; set; } = 79; // 79
+            private int PosXInventory { get; set; } = 20; // 20
+            private int PosXHUD { get; set; } = 25; // 25
+            private bool ResetPositionCheck { get => ModContent.GetInstance<OffHandConfig>().ResetPosition; set => ModContent.GetInstance<OffHandConfig>().ResetPosition = value; }
+
+
             public SomethingSlot() : base(ItemSlot.Context.InventoryItem, 0.85f)
             {
                 IsValidItem = item => item.type > ItemID.None && !ItemID.Sets.Torches[item.type] && !ItemID.Sets.Glowsticks[item.type];
@@ -83,6 +87,18 @@ namespace OffHandidiotmod
                     return null;
                 }
             }
+            
+            public void ResetPosition()
+            {
+                if (ResetPositionCheck)
+                {
+                    PosYInventory = defaultPosYInventory;
+                    PosXInventory = defaultPosXInventory;
+                    PosYHUD = defaultPosYHUD;
+                    PosXHUD = defaultPosXHUD;
+                    ResetPositionCheck = false;
+                }
+            }
 
             protected override void DrawSelf(SpriteBatch spriteBatch)
             {
@@ -100,6 +116,19 @@ namespace OffHandidiotmod
                 {
                     rowGap = 0;
                 }
+
+                if(DraggingEnabled)
+                {
+                    DragPanel.CanDrag = true;
+                    DragPanel.Visible = true;
+                }
+                else
+                {
+                    DragPanel.CanDrag = false;
+                    DragPanel.Visible = false;
+                }
+
+                ResetPosition();
 
                 if (getCalamityCooldowns() != null && getCalamityCooldowns() != 0) // Calamitymod cooldown timers offset
                 {
@@ -132,10 +161,7 @@ namespace OffHandidiotmod
                     goblinOffset = 0;
                 }
 
-                currentDynamicOffset = (buffRows * rowSize) + (rowGap * buffRows) + calamityOffsetY; // buffs + calamity offset for HUD
-
-
-
+                currentDynamicOffsetY = (buffRows * rowSize) + (rowGap * buffRows) + calamityOffsetY; // buffs + calamity offset for HUD
 
 
                 // Sets position for inventory
@@ -150,41 +176,40 @@ namespace OffHandidiotmod
                     {
                         if (Main.npcShop == 0) // not in a shop
                         {
-                            if (Main.InReforgeMenu) // is in reforge menu specifically
+                            if (Main.InReforgeMenu) // is in reforge menu specifically, force default
                             {
-                                RMBSlot.Left.Set(defaultPosXInventory, 0);
-                                RMBSlot.Top.Set(defaultPosYInventory + goblinOffset, 0);
+                                RMBSlot.SetPos(defaultPosXInventory,
+                                               defaultPosYInventory + goblinOffset);
                             }
-                            else // is in regular inventory
+                            else // is in regular inventory, use user position
                             {
-                                RMBSlot.Left.Set(PosXInventory + qotOffsetX, 0);
-                                RMBSlot.Top.Set(PosYInventory + qotOffsetY, 0);
+                                RMBSlot.SetPos(PosXInventory + OffsetXInventory + qotOffsetX,
+                                               PosYInventory + OffsetYInventory + qotOffsetY);
                             }
                         }
-                        else // is in a shop
+                        else // is in a shop, force default
                         {
-                            RMBSlot.Left.Set(defaultPosXInventory, 0);
-                            RMBSlot.Top.Set(defaultPosYInventory, 0);
+                            RMBSlot.SetPos(defaultPosXInventory, defaultPosYInventory);
                         }
                     }
                     else // In journey mode
                     {
-                        if (Main.npcShop == 0 && !Main.InReforgeMenu) // regular inventory
+                        if (Main.npcShop == 0 && !Main.InReforgeMenu) // regular inventory, use user position and offset for journey menu toggle
                         {
-                            RMBSlot.Left.Set(PosXInventory + journeyOffset, 0); // 50 pixel offset to right for journey mode power menu thing
-                            RMBSlot.Top.Set(PosYInventory + qotOffsetY, 0);
+                            RMBSlot.SetPos(PosXInventory + OffsetXInventory + journeyOffset,
+                                           PosYInventory + OffsetYInventory + qotOffsetY);
                         }
                         else // shop is open or player reforging
                         {
-                            if (Main.InReforgeMenu) //reforging
+                            if (Main.InReforgeMenu) // reforging, force default
                             {
-                                RMBSlot.Left.Set(defaultPosXInventory, 0);
-                                RMBSlot.Top.Set(defaultPosYInventory + goblinOffset, 0); // no QoT offset because the menu disappears in tinkerer shop
+                                RMBSlot.SetPos(defaultPosXInventory,
+                                               defaultPosYInventory + goblinOffset); // no QoT offset because the menu disappears in tinkerer shop
                             }
-                            else // shop is open
+                            else // shop is open, force default
                             {
-                                RMBSlot.Left.Set(defaultPosXInventory, 0);
-                                RMBSlot.Top.Set(defaultPosYInventory, 0);
+                                RMBSlot.SetPos(defaultPosXInventory,
+                                               defaultPosYInventory);
                             }
                         }
                     }
@@ -219,27 +244,27 @@ namespace OffHandidiotmod
                     // Sets position for HUD
                     if (PosYHUD == defaultPosYHUD && PosXHUD == defaultPosXHUD) // HUD is default position, add dynamic offset
                     {
-                        RMBSlot.Left.Set(defaultPosXHUD + calamityOffsetX, 0);
-                        RMBSlot.Top.Set(defaultPosYHUD + currentDynamicOffset, 0);
+                        RMBSlot.SetPos(defaultPosXHUD + calamityOffsetX,
+                                       defaultPosYHUD + currentDynamicOffsetY + OffsetYHUD);
                     }
-                    else
+                    else // slot position is not default
                     {
                         if (PosXHUD >= PosXIgnoreThreshold) // Special case that slot is set to right of hotbar, no need to lower it with buffs.
                         {
-                            RMBSlot.Left.Set(PosXHUD + calamityOffsetX, 0); // leave calamityoffset there for consistent user experience
-                            RMBSlot.Top.Set(PosYHUD, 0);
+                            RMBSlot.SetPos(PosXHUD + OffsetXHUD + calamityOffsetX, // leave calamityoffset there for consistency
+                                           PosYHUD + OffsetYHUD);
                         }
                         else // X is not at ignore threshold and positions are not default
                         {
-                            if (PosYHUD > currentDynamicOffset + defaultPosYHUD) // Config position is outside current active buffs area
+                            if (OffsetYHUD > currentDynamicOffsetY + defaultPosYHUD) // Config position is outside current active buffs area
                             {
-                                RMBSlot.Left.Set(PosXHUD + calamityOffsetX, 0);
-                                RMBSlot.Top.Set(PosYHUD, 0);
+                                RMBSlot.SetPos(PosXHUD + OffsetXHUD + calamityOffsetX,
+                                               PosYHUD + OffsetYHUD);
                             }
                             else // config position is IN current active buffs area, 
                             {
-                                RMBSlot.Left.Set(PosXHUD + calamityOffsetX, 0);
-                                RMBSlot.Top.Set(defaultPosYHUD + currentDynamicOffset, 0);
+                                RMBSlot.SetPos(PosXHUD + OffsetXHUD + calamityOffsetX,
+                                               defaultPosYHUD + OffsetYHUD + currentDynamicOffsetY);
                             }
                         }
                     }
@@ -256,16 +281,11 @@ namespace OffHandidiotmod
         public static SomethingSlot RMBSlot;
 
         public bool Visible = true;
-        //{
-        //    get => Main.playerInventory; // how do you display your slot?
-        //}
+
         public override void OnInitialize()
         {
             RMBSlot = new SomethingSlot();
 
-            // You can set these once or change them in DrawSelf()
-
-            // Don't forget to add them to the UIState!
             Append(RMBSlot);
 
 

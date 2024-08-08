@@ -10,6 +10,7 @@ Configs: {
 		ChatMessageToggle.Tooltip: ""
 		HUDHeader: Sposta la UI nella HUD
 		InventoryHeader: Sposta la UI nella Schermata dell'Inventario
+		// DraggingHeader: Slot dragging
 
 		SlotPositionXHUD: {
 			Label: Coordinata X dello Slot
@@ -30,6 +31,21 @@ Configs: {
 			Label: Coordinata Y dello Slot
 			Tooltip: Questa è la distanza dal lato superiore dello schermo allo slot misurata in pixel
 		}
+
+		DraggingEnabled: {
+			// Label: Enable slot dragging
+			// Tooltip: Enables moving the slot with mouse
+		}
+
+		ResetPosition: {
+			// Label: Reset slot position?
+			// Tooltip: ""
+		}
+
+		// SlotOffsetYInventory.Label: Slot Offset Y Inventory
+		// SlotOffsetXInventory.Label: Slot Offset X Inventory
+		// SlotOffsetYHUD.Label: Slot Offset Y H U D
+		// SlotOffsetXHUD.Label: Slot Offset X H U D
 	}
 }
 

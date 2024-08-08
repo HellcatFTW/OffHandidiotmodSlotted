@@ -10,6 +10,7 @@ Configs: {
 		ChatMessageToggle.Tooltip: ""
 		HUDHeader: UI Offset in HUD
 		InventoryHeader: UI Offset in Inventory Screen
+		DraggingHeader: Slot dragging
 
 		SlotPositionXHUD: {
 			Label: Slot Position X
@@ -30,6 +31,21 @@ Configs: {
 			Label: Slot Position Y
 			Tooltip: This is the distance from the top of your screen to the slot in pixels
 		}
+
+		DraggingEnabled: {
+			Label: Enable slot dragging
+			Tooltip: Enables moving the slot with mouse
+		}
+
+		ResetPosition: {
+			Label: Reset slot position?
+			Tooltip: ""
+		}
+
+		SlotOffsetYInventory.Label: Slot Offset Y Inventory
+		SlotOffsetXInventory.Label: Slot Offset X Inventory
+		SlotOffsetYHUD.Label: Slot Offset Y H U D
+		SlotOffsetXHUD.Label: Slot Offset X H U D
 	}
 }
 
