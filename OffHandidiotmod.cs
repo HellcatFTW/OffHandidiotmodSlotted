@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.UI;
@@ -34,7 +36,27 @@ namespace OffHandidiotmod
 			// Ensure that you unload the UI's event handlers here
 			SlotUI.Unload();
 		}
-
+		internal static void SaveConfig(OffHandConfig configInstance) // yoinked from calamitymod
+		{
+			// There is no current way to manually save a mod configuration file in tModLoader.
+			// The method which saves mod config files is private in ConfigManager, so reflection is used to invoke it.
+			try
+			{
+				MethodInfo saveMethodInfo = typeof(ConfigManager).GetMethod("Save", BindingFlags.Static | BindingFlags.NonPublic);
+				if (saveMethodInfo is not null)
+				{
+					saveMethodInfo.Invoke(null, [configInstance]);
+				}
+				else
+				{
+					string ContactDev = Language.GetTextValue("Mods.OffHandidiotmod.TextMessages.ContactDev");
+					Main.NewText($"Modconfig save reflection failed. {ContactDev}", 255, 255, 255);
+				}
+			}
+			catch
+			{
+			}
+		}
 
 	}
 	public class Activation : ModSystem
@@ -126,7 +148,32 @@ namespace OffHandidiotmod
 	}
 	public class OffHandConfig : ModConfig
 	{
+		public static OffHandConfig Instance => ModContent.GetInstance<OffHandConfig>();
 		public override ConfigScope Mode => ConfigScope.ClientSide;
+
+		[JsonProperty("PosYInventory")]
+		[DefaultValue(260f)]
+		private float _PosYInventory; // 260
+		[JsonIgnore]
+		public float PosYInventory { get => _PosYInventory; set => _PosYInventory = value; }
+
+		[JsonProperty("PosYHUD")]
+		[DefaultValue(79f)]
+		private float _PosYHUD;// 79
+		[JsonIgnore]
+		public float PosYHUD { get => _PosYHUD; set => _PosYHUD = value; }
+
+		[JsonProperty("PosXInventory")]
+		[DefaultValue(20f)]
+		private float _PosXInventory;// 20
+		[JsonIgnore]
+		public float PosXInventory { get => _PosXInventory; set => _PosXInventory = value; }
+
+		[JsonProperty("PosXHUD")]
+		[DefaultValue(25f)]
+		private float _PosXHUD; // 25
+		[JsonIgnore]
+		public float PosXHUD { get => _PosXHUD; set => _PosXHUD = value; }
 
 		[LabelKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.Label")]
 		[DefaultValue(true)]
@@ -159,10 +206,5 @@ namespace OffHandidiotmod
 		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.DraggingEnabled.Tooltip")]
 		[DefaultValue(false)]
 		public bool DraggingEnabled;
-
-		[LabelKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.ResetPosition.Label")]
-		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.ResetPosition.Tooltip")]
-		[DefaultValue(false)]
-		public bool ResetPosition;
 	}
 }

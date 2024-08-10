@@ -27,7 +27,7 @@ namespace OffHandidiotmod
 
         public bool IsMessageEnabled() // message enabled in config or not, all instances where this is called should have a remote player exit
         {
-            return ModContent.GetInstance<OffHandConfig>().ChatMessageToggle;
+            return OffHandConfig.Instance.ChatMessageToggle;
         }
         public override void OnEnterWorld() // starts message timer to be after some other mods if message is enabled and player is not remote
         {
@@ -274,7 +274,7 @@ namespace OffHandidiotmod
             {
                 return;
             }
-            if (Player.HeldItem.pick == 0 && Player.HeldItem.axe == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.createTile == -1 && Player.HeldItem.createWall == -1)
+            if (Player.HeldItem.pick == 0 && Player.HeldItem.axe == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.createTile == -1 && Player.HeldItem.createWall == -1 && Player.HeldItem.type != ItemID.Clentaminator && Player.HeldItem.type != ItemID.Clentaminator2)
             {
                 interactableIconShown = Player.cursorItemIconEnabled;
             }

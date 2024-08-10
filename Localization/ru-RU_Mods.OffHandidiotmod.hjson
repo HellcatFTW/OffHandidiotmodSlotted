@@ -10,7 +10,7 @@ Configs: {
 		ChatMessageToggle.Tooltip: ""
 		HUDHeader: Позиция слота в HUD
 		InventoryHeader: Позиция слота при открытом инвентаре
-		// DraggingHeader: Slot dragging
+		// DraggingHeader: Slot Dragging
 
 		SlotOffsetXHUD: {
 			// Label: Slot Offset X
@@ -35,11 +35,6 @@ Configs: {
 		DraggingEnabled: {
 			// Label: Enable slot dragging
 			// Tooltip: Enables moving the slot with mouse
-		}
-
-		ResetPosition: {
-			// Label: Reset slot position?
-			// Tooltip: Resets slot position to default when you save the settings
 		}
 	}
 }

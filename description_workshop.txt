@@ -22,7 +22,7 @@ Configurable keybinds!  [b] (you MUST set them in controls!): [/b]
 
 You can also apply an offset afterwards for fine tuning, enter a number and it will apply when you save. The number resets to 0 on save so you can offset as many times as you need.
 
-Resetting position is possible by enabling the "Reset Slot Position?" option. This will also reset on save.
+Resetting position can be done by using "Restore Defaults" in the mod's config page.
 
 
 

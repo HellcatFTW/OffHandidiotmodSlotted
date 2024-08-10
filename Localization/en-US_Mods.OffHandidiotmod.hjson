@@ -36,11 +36,6 @@ Configs: {
 			Label: Enable slot dragging
 			Tooltip: Enables moving the slot with mouse
 		}
-
-		ResetPosition: {
-			Label: Reset slot position?
-			Tooltip: Resets slot position to default when you save the settings
-		}
 	}
 }
 

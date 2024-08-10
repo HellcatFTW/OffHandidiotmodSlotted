@@ -36,16 +36,15 @@ namespace OffHandidiotmod
             private int qotOffsetY = 0;
             private int qotOffsetX = 0;
             private int currentDynamicOffsetY;
-            private int OffsetYInventory { get => ModContent.GetInstance<OffHandConfig>().SlotOffsetYInventory; set => ModContent.GetInstance<OffHandConfig>().SlotOffsetYInventory = value; }
-            private int OffsetYHUD { get => ModContent.GetInstance<OffHandConfig>().SlotOffsetYHUD; set => ModContent.GetInstance<OffHandConfig>().SlotOffsetYHUD = value; }
-            private int OffsetXInventory { get => ModContent.GetInstance<OffHandConfig>().SlotOffsetXInventory; set => ModContent.GetInstance<OffHandConfig>().SlotOffsetXInventory = value; }
-            private int OffsetXHUD { get => ModContent.GetInstance<OffHandConfig>().SlotOffsetXHUD; set => ModContent.GetInstance<OffHandConfig>().SlotOffsetXHUD = value; }
-            public bool DraggingEnabled { get => ModContent.GetInstance<OffHandConfig>().DraggingEnabled; }
-            public float PosYInventory { get; set; } = 260; // 260
-            public float PosYHUD { get; set; } = 79; // 79
-            public float PosXInventory { get; set; } = 20; // 20
-            public float PosXHUD { get; set; } = 25; // 25
-            private bool ResetPositionCheck { get => ModContent.GetInstance<OffHandConfig>().ResetPosition; set => ModContent.GetInstance<OffHandConfig>().ResetPosition = value; }
+            private int OffsetYInventory { get => OffHandConfig.Instance.SlotOffsetYInventory; set => OffHandConfig.Instance.SlotOffsetYInventory = value; }
+            private int OffsetYHUD { get => OffHandConfig.Instance.SlotOffsetYHUD; set => OffHandConfig.Instance.SlotOffsetYHUD = value; }
+            private int OffsetXInventory { get => OffHandConfig.Instance.SlotOffsetXInventory; set => OffHandConfig.Instance.SlotOffsetXInventory = value; }
+            private int OffsetXHUD { get => OffHandConfig.Instance.SlotOffsetXHUD; set => OffHandConfig.Instance.SlotOffsetXHUD = value; }
+            public bool DraggingEnabled { get => OffHandConfig.Instance.DraggingEnabled; }
+            public float PosYInventory { get => OffHandConfig.Instance.PosYInventory; set => OffHandConfig.Instance.PosYInventory = value; } // 260
+            public float PosYHUD { get => OffHandConfig.Instance.PosYHUD; set => OffHandConfig.Instance.PosYHUD = value; } // 79
+            public float PosXInventory { get => OffHandConfig.Instance.PosXInventory; set => OffHandConfig.Instance.PosXInventory = value; } // 20
+            public float PosXHUD { get => OffHandConfig.Instance.PosXHUD; set => OffHandConfig.Instance.PosXHUD = value; } // 25
             public bool dragging = false;
             public Vector2 dragoffset;
 
@@ -89,17 +88,9 @@ namespace OffHandidiotmod
                     return null;
                 }
             }
-
+            
             public void ApplyConfigs()
             {
-                if (ResetPositionCheck)
-                {
-                    PosYInventory = defaultPosYInventory;
-                    PosXInventory = defaultPosXInventory;
-                    PosYHUD = defaultPosYHUD;
-                    PosXHUD = defaultPosXHUD;
-                    ResetPositionCheck = false;
-                }
                 if (OffsetXHUD != 0 || OffsetYHUD != 0 || OffsetXInventory != 0 || OffsetYInventory != 0)
                 {
                     PosXHUD += OffsetXHUD;
@@ -110,6 +101,7 @@ namespace OffHandidiotmod
                     OffsetYHUD = 0;
                     OffsetXInventory = 0;
                     OffsetYInventory = 0;
+                    OffHandidiotmod.SaveConfig(OffHandConfig.Instance);
                 }
             }
 
@@ -138,12 +130,8 @@ namespace OffHandidiotmod
                     Drag();
                 }
 
-                ApplyConfigs();
-
                 RMBSlot.SetPos(CalcDisplayedPos().X,
                                CalcDisplayedPos().Y);
-                //Main.NewText($"Mouse position: {Main.MouseScreen}", 255, 255, 255);
-                //Main.NewText($"Dimensions: {RMBSlot.GetDimensions().Height}  ,  {RMBSlot.GetDimensions().Width}", 255, 0, 0);
 
                 base.DrawSelf(spriteBatch);
             }// end of drawself override
@@ -153,6 +141,7 @@ namespace OffHandidiotmod
             {
                 float resultX;
                 float resultY;
+                ApplyConfigs();
 
                 emptyBuffAmount = Main.LocalPlayer.buffTime.Count(0); // includes modded buffs too :D
 
@@ -331,6 +320,7 @@ namespace OffHandidiotmod
             if (RMBSlot.dragging)
             {
                 DragEnd(evt);
+                OffHandidiotmod.SaveConfig(OffHandConfig.Instance);
             }
         }
         private void DragBegin(UIMouseEvent e)
@@ -364,7 +354,6 @@ namespace OffHandidiotmod
         public override void OnInitialize()
         {
             RMBSlot = new SomethingSlot();
-
             Append(RMBSlot);
 
 
