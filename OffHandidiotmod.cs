@@ -81,6 +81,10 @@ namespace OffHandidiotmod
 
 
 		}
+		public override void UpdateUI(GameTime gameTime)
+		{
+			OffHandidiotmod._myUserInterface?.Update(gameTime);
+		}
 
 		// Make sure the UI can draw
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
