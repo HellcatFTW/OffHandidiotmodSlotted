@@ -13,18 +13,22 @@ Want to place blocks with one hand and hammer with the other? No problem! Maybe 
 
 Configurable keybinds!  [b] (you MUST set them in controls!): [/b]
 
-1. Keybind that uses offhand item (Default RMB).  [b] Don't use mouse1 (left click) [/b] as the custom keybind: it interferes with the entire mod (and maybe other mods too).
+1. Keybind that uses offhand item (Default RMB).  [b] Don't use mouse1 (left click) [/b] as the custom keybind: it interferes with the entire mod.
 
 2. Keybind that manually swaps items from current hotbar slot to offhand and vice-versa (Default Q, since few other mods use this key): very useful if you disable above keybind for usage of dual-function items.
 
 
-[b] Configurable slot position! [/b] You can open the mod configuration page and change the X/Y coordinates for both HUD and inventory screen.
+[b] Configurable slot position! [/b] You can open the mod configuration page and enable the dragging option to move the slot around with your mouse, keep in mind the position is separate for inventory open/closed.
+
+You can also apply an offset afterwards for fine tuning, enter a number and it will apply when you save. The number resets to 0 on save so you can offset as many times as you need.
+
+Resetting position is possible by enabling the "Reset Slot Position?" option. This will also reset on save.
 
 
 
 If you want to use weapons with 2 different attacks, keeping offhand empty will allow your hotbar weapons to utilize both buttons.
 
-You can also rebind 'Use Offhand Item' to something other than Mouse2 to allow main hand's 2 functions to work. If you UNBIND it, you can use the 'Swap Offhand' keybind to manually swap whenever desired.
+You can also rebind 'Use Offhand Item' to something other than Mouse2(RMB) to allow main hand's 2 functions to work. If you UNBIND it, you can use the 'Swap Offhand' keybind to manually swap whenever desired.
 
 
 [h3] Bug Reports [/h3]
@@ -33,7 +37,7 @@ You can also rebind 'Use Offhand Item' to something other than Mouse2 to allow m
 
 if an item doesn't work as intended or if you have any suggestions, leave a comment on the workshop or its discussion threads.
 
-Calamity gimmick swords obviously won't work if your Mouse2/RMB is taken up by the mod. Rebind it to something else if you want to use those.
+Calamity gimmick swords obviously won't work if your Mouse2(RMB) is taken up by this mod. Rebind it to something else if you want to use those.
 
 [h3] Links [/h3]
 
