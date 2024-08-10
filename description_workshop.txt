@@ -13,7 +13,7 @@ Want to place blocks with one hand and hammer with the other? No problem! Maybe 
 
 Configurable keybinds!  [b] (you MUST set them in controls!): [/b]
 
-1. Keybind that uses offhand item (Default RMB).  [b] Don't use mouse1 (left click) [/b] as the custom keybind: it interferes with the entire mod.
+1. Keybind that uses offhand item (Default RMB).  [b] Don't use Mouse1(LMB) [/b] as the custom keybind.
 
 2. Keybind that manually swaps items from current hotbar slot to offhand and vice-versa (Default Q, since few other mods use this key): very useful if you disable above keybind for usage of dual-function items.
 
