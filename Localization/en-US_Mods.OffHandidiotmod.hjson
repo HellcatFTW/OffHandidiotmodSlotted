@@ -10,7 +10,7 @@ Configs: {
 		ChatMessageToggle.Tooltip: ""
 		HUDHeader: UI Offset in HUD
 		InventoryHeader: UI Offset in Inventory Screen
-		DraggingHeader: Slot dragging
+		DraggingHeader: Slot Dragging
 
 		SlotOffsetXHUD: {
 			Label: Slot Offset X
