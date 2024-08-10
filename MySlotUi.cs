@@ -295,12 +295,12 @@ namespace OffHandidiotmod
                     Main.LocalPlayer.mouseInterface = true;
                 }
 
-                if (dragging && Main.playerInventory)
+                if (dragging && Main.playerInventory && Main.npcShop == 0 && !Main.InReforgeMenu)
                 {
                     PosXInventory = Main.mouseX - dragoffset.X;
                     PosYInventory = Main.mouseY - dragoffset.Y;
                 }
-                else if (dragging && !Main.playerInventory)
+                else if (dragging && !Main.playerInventory && Main.npcShop == 0 && !Main.InReforgeMenu)
                 {
                     PosXHUD = Main.mouseX - dragoffset.X;
                     PosYHUD = Main.mouseY - dragoffset.Y;
@@ -343,12 +343,12 @@ namespace OffHandidiotmod
         {
             Vector2 end = e.MousePosition;
             RMBSlot.dragging = false;
-            if (Main.playerInventory)
+            if (Main.playerInventory && Main.npcShop == 0 && !Main.InReforgeMenu)
             {
                 RMBSlot.PosXInventory = end.X - RMBSlot.dragoffset.X;
                 RMBSlot.PosYInventory = end.Y - RMBSlot.dragoffset.Y;
             }
-            else
+            else if (!Main.playerInventory && Main.npcShop == 0 && !Main.InReforgeMenu)
             {
                 RMBSlot.PosXHUD = end.X - RMBSlot.dragoffset.X;
                 RMBSlot.PosYHUD = end.Y - RMBSlot.dragoffset.Y;

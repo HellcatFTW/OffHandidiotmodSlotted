@@ -12,24 +12,24 @@ Configs: {
 		InventoryHeader: Sposta la UI nella Schermata dell'Inventario
 		// DraggingHeader: Slot dragging
 
-		SlotPositionXHUD: {
-			Label: Coordinata X dello Slot
-			Tooltip: Questa è la distanza dal lato sinistro dello schermo allo slot misurata in pixel
+		SlotOffsetXHUD: {
+			// Label: Slot Offset X
+			// Tooltip: Positive values move the slot to the right, negative values move it to the left
 		}
 
-		SlotPositionYHUD: {
-			Label: Coordinata Y dello Slot
-			Tooltip: Questa è la distanza dal lato superiore dello schermo allo slot misurata in pixel
+		SlotOffsetYHUD: {
+			// Label: Slot Offset Y
+			// Tooltip: Positive values move the slot downwards, negative values move it upwards
 		}
 
-		SlotPositionXInventory: {
-			Label: Coordinata X dello Slot
-			Tooltip: Questa è la distanza dal lato sinistro dello schermo allo slot misurata in pixel
+		SlotOffsetXInventory: {
+			// Label: Slot Offset X
+			// Tooltip: Positive values move the slot to the right, negative values move it to the left
 		}
 
-		SlotPositionYInventory: {
-			Label: Coordinata Y dello Slot
-			Tooltip: Questa è la distanza dal lato superiore dello schermo allo slot misurata in pixel
+		SlotOffsetYInventory: {
+			// Label: Slot Offset Y
+			// Tooltip: Positive values move the slot downwards, negative values move it upwards
 		}
 
 		DraggingEnabled: {
@@ -39,13 +39,8 @@ Configs: {
 
 		ResetPosition: {
 			// Label: Reset slot position?
-			// Tooltip: ""
+			// Tooltip: Resets slot position to default when you save the settings
 		}
-
-		// SlotOffsetYInventory.Label: Slot Offset Y Inventory
-		// SlotOffsetXInventory.Label: Slot Offset X Inventory
-		// SlotOffsetYHUD.Label: Slot Offset Y H U D
-		// SlotOffsetXHUD.Label: Slot Offset X H U D
 	}
 }
 

@@ -133,33 +133,35 @@ namespace OffHandidiotmod
 		public bool ChatMessageToggle;
 
 		[Header("$Mods.OffHandidiotmod.Configs.OffHandConfig.HUDHeader")]
-		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotPositionXHUD.Tooltip")]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotOffsetXHUD.Tooltip")]
 		[DefaultValue(0)]
 		[Range(-100, 100)]
 		public int SlotOffsetXHUD;
 
-		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotPositionYHUD.Tooltip")]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotOffsetYHUD.Tooltip")]
 		[DefaultValue(0)]
 		[Range(-100, 100)]
 		public int SlotOffsetYHUD;
 
 		[Header("$Mods.OffHandidiotmod.Configs.OffHandConfig.InventoryHeader")]
-		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotPositionXInventory.Tooltip")]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotOffsetXInventory.Tooltip")]
 		[DefaultValue(0)]
 		[Range(-100, 100)]
 		public int SlotOffsetXInventory;
 
-		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotPositionYInventory.Tooltip")]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.SlotOffsetYInventory.Tooltip")]
 		[DefaultValue(0)]
 		[Range(-100, 100)]
 		public int SlotOffsetYInventory;
 
 		[Header("$Mods.OffHandidiotmod.Configs.OffHandConfig.DraggingHeader")]
-		[LabelKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.DraggingEnabled")]
+		[LabelKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.DraggingEnabled.Label")]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.DraggingEnabled.Tooltip")]
 		[DefaultValue(false)]
 		public bool DraggingEnabled;
 
-		[LabelKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.ResetPosition")]
+		[LabelKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.ResetPosition.Label")]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.ResetPosition.Tooltip")]
 		[DefaultValue(false)]
 		public bool ResetPosition;
 	}

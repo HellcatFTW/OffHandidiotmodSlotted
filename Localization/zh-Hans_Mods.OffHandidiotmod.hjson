@@ -12,24 +12,24 @@ Configs: {
 		InventoryHeader: 物品栏屏幕中的UI偏移
 		// DraggingHeader: Slot dragging
 
-		SlotPositionXHUD: {
-			Label: 插槽位置X
-			Tooltip: 这是从屏幕左侧到插槽的像素距离
+		SlotOffsetXHUD: {
+			// Label: Slot Offset X
+			// Tooltip: Positive values move the slot to the right, negative values move it to the left
 		}
 
-		SlotPositionYHUD: {
-			Label: 插槽位置Y
-			Tooltip: 这是从屏幕顶部到插槽的像素距离
+		SlotOffsetYHUD: {
+			// Label: Slot Offset Y
+			// Tooltip: Positive values move the slot downwards, negative values move it upwards
 		}
 
-		SlotPositionXInventory: {
-			Label: 插槽位置X
-			Tooltip: 这是从屏幕左侧到插槽的像素距离
+		SlotOffsetXInventory: {
+			// Label: Slot Offset X
+			// Tooltip: Positive values move the slot to the right, negative values move it to the left
 		}
 
-		SlotPositionYInventory: {
-			Label: 插槽位置Y
-			Tooltip: 这是从屏幕顶部到插槽的像素距离
+		SlotOffsetYInventory: {
+			// Label: Slot Offset Y
+			// Tooltip: Positive values move the slot downwards, negative values move it upwards
 		}
 
 		DraggingEnabled: {
@@ -39,13 +39,8 @@ Configs: {
 
 		ResetPosition: {
 			// Label: Reset slot position?
-			// Tooltip: ""
+			// Tooltip: Resets slot position to default when you save the settings
 		}
-
-		// SlotOffsetYInventory.Label: Slot Offset Y Inventory
-		// SlotOffsetXInventory.Label: Slot Offset X Inventory
-		// SlotOffsetYHUD.Label: Slot Offset Y H U D
-		// SlotOffsetXHUD.Label: Slot Offset X H U D
 	}
 }
 
