@@ -40,7 +40,7 @@ Configs: {
 
 		Blacklist: {
 			Label: Item Blacklist
-			Tooltip: If you place an item in this list, when you are holding it your offhand will be disabled to allow LMB/RMB to function as normal
+			Tooltip: If you add an item to this list, your offhand will be disabled when holding that item to allow LMB/RMB to function as normal
 		}
 	}
 }
