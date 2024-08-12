@@ -11,6 +11,7 @@ Configs: {
 		HUDHeader: UI Offset in HUD
 		InventoryHeader: UI Offset in Inventory Screen
 		DraggingHeader: Slot Dragging
+		BlacklistHeader: Blacklist
 
 		SlotOffsetXHUD: {
 			Label: Slot Offset X
@@ -35,6 +36,11 @@ Configs: {
 		DraggingEnabled: {
 			Label: Enable slot dragging
 			Tooltip: Enables moving the slot with mouse
+		}
+
+		Blacklist: {
+			Label: Item Blacklist
+			Tooltip: If you place an item in this list, when you are holding it your offhand will be disabled to allow LMB/RMB to function as normal
 		}
 	}
 }

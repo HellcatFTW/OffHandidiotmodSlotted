@@ -8,8 +8,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using System;
 using Terraria.Localization;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.Xna.Framework.Input;
+using System.Linq;
 
 namespace OffHandidiotmod
 {
@@ -24,6 +23,9 @@ namespace OffHandidiotmod
         private bool requestExists { get => manualSwapRequested || swapRequestedToMain || swapRequestedToOffhand; }
         private bool previousMouseLeft;
         private bool interactableIconShown;
+        public static bool blacklistChanged = false;
+        private bool[] blacklistSet = [];
+        private bool blockRMB = false;
 
         public bool IsMessageEnabled() // message enabled in config or not, all instances where this is called should have a remote player exit
         {
@@ -104,6 +106,15 @@ namespace OffHandidiotmod
             var offhandkeybindlist = Activation.UseOffhandKeybind.GetAssignedKeys();
             return offhandkeybindlist.Contains("Mouse2") || offhandkeybindlist.Contains("Mouse1");
         }
+        public void UpdateBlacklist()
+        {
+            if (blacklistChanged)
+            {
+                var itemIDs = OffHandConfig.Instance.ItemBlacklist.Where(val => !val.IsUnloaded).Select(val => val.Type).ToArray();
+                blacklistSet = ItemID.Sets.Factory.CreateBoolSet(itemIDs);
+                blacklistChanged = false;
+            }
+        }
 
         public override void PreUpdate()
         {
@@ -131,32 +142,32 @@ namespace OffHandidiotmod
             // 17- (DONE)if you click magic key quickly then hold after releasing said fast click, item will shoot once and not continue.
             // 20- (DONE)grabbing item from slot if inventory is not open causes weird behaviour because terraria disallows holding items if inventory is closed.
             // 21- (DONE)check if wall is held in mouseitem
-
-
-            //18- somehow check for if you have a weapon that has 2 attacks in your main hand and temporarily disabling the offhand entirely
             //14- change slot color or texture
-
-
 
             // BIG problem to tackle:
             //-19 items dont stack into offhand slot
             //            Solution: link offhand slot item from inventory instead of actually having it there, make it very clear it isnt a real item.
             //
-
-
-
-            // Other huge fix:
-            // 1 remember what hotbar slot you were on
-            // 2 remember what item was (before swap) in offhand
-            // so you swap back into that slot instead of currently selected one (in case it changed) and 
-            // before you swap back to main hand, you check that it has item that it's supposed to have (which is off-hand item), and if somehow not - call things off
-            // but, to avoid duplication, don't use the item variable for anything but checks
-
-
-
-
             //================================================================================================================================================
 
+
+            UpdateBlacklist();
+
+            if (blacklistSet[Player.HeldItem.type])
+            {
+                if (isKeybindMouseLeftOrRight())
+                {
+                    blockRMB = true;
+                }
+                else
+                {
+                    blockRMB = false;
+                }
+            }
+            else
+            {
+                blockRMB = false;
+            }
 
             // Offhand function: This simulates LMB. Prevents vanilla interference and duplication by disallowing if inventory is open or mouse has an item in it
             // also disables mouse simulating if UI is open to prevent locking player in their settings menu
@@ -192,7 +203,7 @@ namespace OffHandidiotmod
             if (!shiftCurrent && !IsUIActive() && !IsPlayerAboutToInteract())
             {
                 // Handles magic key state 
-                if (!currentlySwapped && Activation.UseOffhandKeybind.JustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None) // 1: No offhand, keybind just pressed, switches from main to off 
+                if (!currentlySwapped && Activation.UseOffhandKeybind.JustPressed && MySlotUI.RMBSlot.Item.type != ItemID.None && !blockRMB) // 1: No offhand, keybind just pressed, switches from main to off 
                 {
                     swapRequestedToOffhand = true;
                 }
@@ -204,7 +215,7 @@ namespace OffHandidiotmod
                 {
                     swapRequestedToMain = true;
                 }
-                if (actualMouseLeftJustReleased && Activation.UseOffhandKeybind.Current && !currentlySwapped && MySlotUI.RMBSlot.Item.type != ItemID.None)
+                if (actualMouseLeftJustReleased && Activation.UseOffhandKeybind.Current && !currentlySwapped && MySlotUI.RMBSlot.Item.type != ItemID.None && !blockRMB)
                 {
                     swapRequestedToOffhand = true;
                 }
@@ -274,7 +285,9 @@ namespace OffHandidiotmod
             {
                 return;
             }
-            if (Player.HeldItem.pick == 0 && Player.HeldItem.axe == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.createTile == -1 && Player.HeldItem.createWall == -1 && Player.HeldItem.type != ItemID.Clentaminator && Player.HeldItem.type != ItemID.Clentaminator2)
+
+            if (Player.HeldItem.pick == 0 && Player.HeldItem.axe == 0 && Player.HeldItem.hammer == 0 && Player.HeldItem.createTile == -1
+            && Player.HeldItem.createWall == -1 && Player.HeldItem.type != ItemID.Clentaminator && Player.HeldItem.type != ItemID.Clentaminator2)
             {
                 interactableIconShown = Player.cursorItemIconEnabled;
             }

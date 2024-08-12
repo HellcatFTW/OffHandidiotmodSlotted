@@ -206,5 +206,15 @@ namespace OffHandidiotmod
 		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.DraggingEnabled.Tooltip")]
 		[DefaultValue(false)]
 		public bool DraggingEnabled;
+
+		[Header("$Mods.OffHandidiotmod.Configs.OffHandConfig.BlacklistHeader")]
+		[LabelKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.Blacklist.Label")]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.Blacklist.Tooltip")]
+		public List<ItemDefinition> ItemBlacklist { get; set; } = [];
+
+		public override void OnChanged()
+		{
+			MyPlayer.blacklistChanged = true;
+		}
 	}
 }

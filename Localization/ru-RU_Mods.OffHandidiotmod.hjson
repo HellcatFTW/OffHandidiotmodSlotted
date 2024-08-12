@@ -11,6 +11,7 @@ Configs: {
 		HUDHeader: Позиция слота в HUD
 		InventoryHeader: Позиция слота при открытом инвентаре
 		DraggingHeader: Перетаскивание слота
+		// BlacklistHeader: Blacklist
 
 		SlotOffsetXHUD: {
 			Label: Сдвиг слота X
@@ -35,6 +36,11 @@ Configs: {
 		DraggingEnabled: {
 			Label: Разрешить перетаскивание слота
 			Tooltip: Позволяет перетаскивать слот мышью
+		}
+
+		Blacklist: {
+			// Label: Item Blacklist
+			// Tooltip: If you place an item in this list, when you are holding it your offhand will be disabled to allow LMB/RMB to function as normal
 		}
 	}
 }
