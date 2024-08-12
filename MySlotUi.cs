@@ -29,8 +29,12 @@ namespace OffHandidiotmod
             private const int defaultPosXHUD = 25;
             private const int defaultPosYInventory = 260;
             private const int defaultPosXInventory = 20;
-            private const int PosXIgnoreThreshold = 450;
-            private const int journeyOffset = 50;
+            private const int PosXHUDIgnoreThreshold = 450;
+            private int PosXInventoryIgnoreThreshold = 0;
+            private int PosYInventoryIgnoreThreshold = 0;
+            private const int PosYJourneyIgnoreThreshold = 310;
+            private int journeyOffsetX = 50;
+            private int journeyOffsetY = 0;
             private int calamityOffsetY = 0;
             private int calamityOffsetX = 0;
             private int qotOffsetY = 0;
@@ -88,7 +92,7 @@ namespace OffHandidiotmod
                     return null;
                 }
             }
-            
+
             public void ApplyConfigs()
             {
                 if (OffsetXHUD != 0 || OffsetYHUD != 0 || OffsetXInventory != 0 || OffsetYInventory != 0)
@@ -171,11 +175,15 @@ namespace OffHandidiotmod
                 {
                     qotOffsetY = 50;
                     qotOffsetX = 48;
+                    PosXInventoryIgnoreThreshold = 335;
+                    PosYInventoryIgnoreThreshold = 310;
                 }
                 else
                 {
                     qotOffsetY = 0;
                     qotOffsetX = 0;
+                    PosXInventoryIgnoreThreshold = 0;
+                    PosYInventoryIgnoreThreshold = 0;
                 }
 
                 if (Main.InReforgeMenu) // goblin tinkerer reforge slot offset
@@ -185,6 +193,17 @@ namespace OffHandidiotmod
                 else
                 {
                     goblinOffset = 0;
+                }
+
+                if (Main.LocalPlayer.difficulty == 3)
+                {
+                    journeyOffsetX = 50;
+                    journeyOffsetY = 50;
+                }
+                else
+                {
+                    journeyOffsetX = 0;
+                    journeyOffsetY = 0;
                 }
 
                 currentDynamicOffsetY = (buffRows * rowSize) + (rowGap * buffRows) + calamityOffsetY; // buffs + calamity offset for HUD
@@ -197,15 +216,39 @@ namespace OffHandidiotmod
                     {
                         if (Main.npcShop == 0) // not in a shop
                         {
-                            if (Main.InReforgeMenu) // is in reforge menu specifically, force default
+                            if (Main.npcShop == 0 && !Main.InReforgeMenu) // regular inventory
                             {
-                                resultX = defaultPosXInventory;
-                                resultY = defaultPosYInventory + goblinOffset;
+                                if (PosXInventory == defaultPosXInventory && PosYInventory == defaultPosYInventory) // slot is at default pos
+                                {
+                                    resultX = defaultPosXInventory + qotOffsetX;
+                                    resultY = defaultPosYInventory + qotOffsetY;
+                                }
+                                else // slot has been moved by user
+                                {
+                                    if (PosXInventory < PosXInventoryIgnoreThreshold && PosYInventory < PosYInventoryIgnoreThreshold)
+                                    {
+                                        resultX = PosXInventory;
+                                        resultY = defaultPosYInventory + qotOffsetY;
+                                    }
+                                    else
+                                    {
+                                        resultX = PosXInventory;
+                                        resultY = PosYInventory;
+                                    }
+                                }
                             }
-                            else // is in regular inventory, use user position
+                            else // shop / reforging, 
                             {
-                                resultX = PosXInventory + OffsetXInventory + qotOffsetX;
-                                resultY = PosYInventory + OffsetYInventory + qotOffsetY;
+                                if (Main.InReforgeMenu)
+                                {
+                                    resultX = defaultPosXInventory;
+                                    resultY = defaultPosYInventory + goblinOffset;
+                                }
+                                else
+                                {
+                                    resultX = defaultPosXInventory;
+                                    resultY = defaultPosYInventory;
+                                }
                             }
                         }
                         else // is in a shop, force default
@@ -218,10 +261,42 @@ namespace OffHandidiotmod
                     {
                         if (Main.npcShop == 0 && !Main.InReforgeMenu) // regular inventory, use user position and offset for journey menu toggle
                         {
-                            resultX = PosXInventory + OffsetXInventory + journeyOffset;
-                            resultY = PosYInventory + OffsetYInventory + qotOffsetY;
+                            if (PosXInventory == defaultPosXInventory && PosYInventory == defaultPosYInventory) // slot is at default pos
+                            {
+                                resultX = defaultPosXInventory + journeyOffsetX;
+                                resultY = defaultPosYInventory + qotOffsetY;
+                            }
+                            else // slot has been moved by user
+                            {
+                                if (QoTEnabled) // quality of terraria enabled, 50 pixel addition makes it perfectly touch the cog
+                                {
+                                    if (PosXInventory < PosXInventoryIgnoreThreshold + 50 && PosYInventory < PosYJourneyIgnoreThreshold)
+                                    {
+                                        resultX = PosXInventory;
+                                        resultY = defaultPosYInventory + journeyOffsetY;
+                                    }
+                                    else
+                                    {
+                                        resultX = PosXInventory;
+                                        resultY = PosYInventory;
+                                    }
+                                }
+                                else // vanilla journey UI, 60 pixels clears the menu toggle nicely
+                                {
+                                    if (PosXInventory < 60 && PosYInventory < PosYJourneyIgnoreThreshold)
+                                    {
+                                        resultX = PosXInventory;
+                                        resultY = defaultPosYInventory + journeyOffsetY;
+                                    }
+                                    else
+                                    {
+                                        resultX = PosXInventory;
+                                        resultY = PosYInventory;
+                                    }
+                                }
+                            }
                         }
-                        else // shop is open or player reforging
+                        else // shop / reforging,
                         {
                             if (Main.InReforgeMenu) // reforging, force default
                             {
@@ -246,27 +321,27 @@ namespace OffHandidiotmod
                     // Sets position for HUD
                     if (PosYHUD == defaultPosYHUD && PosXHUD == defaultPosXHUD) // HUD is default position, add dynamic offset
                     {
-                        resultX = defaultPosXHUD + OffsetXHUD + calamityOffsetX;
-                        resultY = defaultPosYHUD + OffsetYHUD + currentDynamicOffsetY;
+                        resultX = defaultPosXHUD + calamityOffsetX;
+                        resultY = defaultPosYHUD + currentDynamicOffsetY;
                     }
                     else // slot position is not default
                     {
-                        if (PosXHUD >= PosXIgnoreThreshold) // Special case that slot is set to right of hotbar, no need to lower it with buffs.
+                        if (PosXHUD >= PosXHUDIgnoreThreshold) // Special case that slot is set to right of hotbar, no need to lower it with buffs.
                         {
-                            resultX = PosXHUD + OffsetXHUD + calamityOffsetX;  // leave calamityoffset there for consistency
-                            resultY = PosYHUD + OffsetYHUD;
+                            resultX = PosXHUD + calamityOffsetX;  // leave calamityoffset there for consistency
+                            resultY = PosYHUD;
                         }
                         else // X is not at ignore threshold and positions are not default
                         {
                             if (PosYHUD > currentDynamicOffsetY + defaultPosYHUD) // Config position is outside current active buffs area
                             {
-                                resultX = PosXHUD + OffsetXHUD + calamityOffsetX;
-                                resultY = PosYHUD + OffsetYHUD;
+                                resultX = PosXHUD + calamityOffsetX;
+                                resultY = PosYHUD;
                             }
                             else // config position is IN current active buffs area, 
                             {
-                                resultX = PosXHUD + OffsetXHUD + calamityOffsetX;
-                                resultY = defaultPosYHUD + OffsetYHUD + currentDynamicOffsetY;
+                                resultX = PosXHUD + calamityOffsetX;
+                                resultY = defaultPosYHUD + currentDynamicOffsetY;
                             }
                         }
                     }
