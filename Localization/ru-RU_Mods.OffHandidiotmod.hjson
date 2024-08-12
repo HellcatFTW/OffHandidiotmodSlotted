@@ -10,31 +10,31 @@ Configs: {
 		ChatMessageToggle.Tooltip: ""
 		HUDHeader: Позиция слота в HUD
 		InventoryHeader: Позиция слота при открытом инвентаре
-		// DraggingHeader: Slot Dragging
+		DraggingHeader: Перетаскивание слота
 
 		SlotOffsetXHUD: {
-			// Label: Slot Offset X
-			// Tooltip: Positive values move the slot to the right, negative values move it to the left
+			Label: Сдвиг слота X
+			Tooltip: Положительные значения двигают слот вправо, отрицательные - влево
 		}
 
 		SlotOffsetYHUD: {
-			// Label: Slot Offset Y
-			// Tooltip: Positive values move the slot downwards, negative values move it upwards
+			Label: Сдвиг слота Y
+			Tooltip: Положительные значения двигают слот вниз, отрицательные - вверх
 		}
 
 		SlotOffsetXInventory: {
-			// Label: Slot Offset X
-			// Tooltip: Positive values move the slot to the right, negative values move it to the left
+			Label: Сдвиг слота X
+			Tooltip: Положительные значения двигают слот вправо, отрицательные - влево
 		}
 
 		SlotOffsetYInventory: {
-			// Label: Slot Offset Y
-			// Tooltip: Positive values move the slot downwards, negative values move it upwards
+			Label: Сдвиг слота Y
+			Tooltip: Положительные значения двигают слот вниз, отрицательные - вверх
 		}
 
 		DraggingEnabled: {
-			// Label: Enable slot dragging
-			// Tooltip: Enables moving the slot with mouse
+			Label: Разрешить перетаскивание слота
+			Tooltip: Позволяет перетаскивать слот мышью
 		}
 	}
 }
