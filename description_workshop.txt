@@ -25,8 +25,12 @@ You can also apply an offset afterwards for fine tuning, enter a number and it w
 Resetting position can be done by using "Restore Defaults" in the mod's config page.
 
 
+[b] Item prioritization: [/b] a feature which allows you to select certain items which will block the offhand from being quick-used while holding them(manual swap 'Q' still works), useful for things like the Grand Design which requires a right click to change the mode, as well as many modded weapons.
 
-If you want to use weapons with 2 different attacks, keeping offhand empty will allow your hotbar weapons to utilize both buttons.
+This only applies if your 'Use Offhand Item' keybind is set to Mouse2(RMB).
+
+
+If you want to use weapons with 2 different attacks, keeping offhand empty or adding the item to the prioritized items list will allow your hotbar items to utilize both buttons.
 
 You can also rebind 'Use Offhand Item' to something other than Mouse2(RMB) to allow main hand's 2 functions to work. If you UNBIND it, you can use the 'Swap Offhand' keybind to manually swap whenever desired.
 
@@ -37,7 +41,7 @@ You can also rebind 'Use Offhand Item' to something other than Mouse2(RMB) to al
 
 if an item doesn't work as intended or if you have any suggestions, leave a comment on the workshop or its discussion threads.
 
-Calamity gimmick swords obviously won't work if your Mouse2(RMB) is taken up by this mod. Rebind it to something else if you want to use those.
+Calamity gimmick swords obviously won't work if your Mouse2(RMB) is taken up by this mod. Rebind it to something else or put the problematic weapons in the priority list if you want to use those.
 
 [h3] Links [/h3]
 

@@ -11,7 +11,7 @@ Configs: {
 		HUDHeader: Позиция слота в HUD
 		InventoryHeader: Позиция слота при открытом инвентаре
 		DraggingHeader: Перетаскивание слота
-		// BlacklistHeader: Blacklist
+		PriorityListHeader: Приоритизация предметов
 
 		SlotOffsetXHUD: {
 			Label: Сдвиг слота X
@@ -38,9 +38,9 @@ Configs: {
 			Tooltip: Позволяет перетаскивать слот мышью
 		}
 
-		Blacklist: {
-			// Label: Item Blacklist
-			// Tooltip: If you add an item to this list, your offhand will be disabled when holding that item to allow LMB/RMB to function as normal
+		PriorityList: {
+			Label: Список приоритетных предметов
+			Tooltip: Если вы добавите предмет в этот список, то, пока этот предмет находится в главной руке, ПКМ не будет активировать слот другой руки. Это позволит и ЛКМ, и ПКМ работать с предметом в главной руке как обычно.
 		}
 	}
 }

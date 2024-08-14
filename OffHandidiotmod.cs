@@ -50,7 +50,7 @@ namespace OffHandidiotmod
 				else
 				{
 					string ContactDev = Language.GetTextValue("Mods.OffHandidiotmod.TextMessages.ContactDev");
-					Main.NewText($"Modconfig save reflection failed. {ContactDev}", 255, 255, 255);
+					Main.NewText($"Modconfig save reflection failed. {ContactDev}");
 				}
 			}
 			catch
@@ -207,14 +207,14 @@ namespace OffHandidiotmod
 		[DefaultValue(false)]
 		public bool DraggingEnabled;
 
-		[Header("$Mods.OffHandidiotmod.Configs.OffHandConfig.BlacklistHeader")]
-		[LabelKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.Blacklist.Label")]
-		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.Blacklist.Tooltip")]
-		public List<ItemDefinition> ItemBlacklist { get; set; } = [];
+		[Header("$Mods.OffHandidiotmod.Configs.OffHandConfig.PriorityListHeader")]
+		[LabelKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.PriorityList.Label")]
+		[TooltipKey("$Mods.OffHandidiotmod.Configs.OffHandConfig.PriorityList.Tooltip")]
+		public List<ItemDefinition> ItemPriorityList { get; set; } = [];
 
 		public override void OnChanged()
 		{
-			MyPlayer.blacklistChanged = true;
+			MyPlayer.priorityListChanged = true;
 		}
 	}
 }

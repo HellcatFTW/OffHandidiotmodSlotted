@@ -23,20 +23,32 @@ namespace OffHandidiotmod
         private bool requestExists { get => manualSwapRequested || swapRequestedToMain || swapRequestedToOffhand; }
         private bool previousMouseLeft;
         private bool interactableIconShown;
-        public static bool blacklistChanged = false;
-        private bool[] blacklistSet = [];
+        public static bool priorityListChanged = false;
+        private bool[] priorityBoolSet;
         private bool blockRMB = false;
-
-        public bool IsMessageEnabled() // message enabled in config or not, all instances where this is called should have a remote player exit
-        {
-            return OffHandConfig.Instance.ChatMessageToggle;
-        }
-        public override void OnEnterWorld() // starts message timer to be after some other mods if message is enabled and player is not remote
+        public override void Initialize()
         {
             if (Player.whoAmI != Main.myPlayer)
             {
                 return;
             }
+
+            priorityBoolSet = new bool[ItemLoader.ItemCount];
+
+        }
+        public bool IsMessageEnabled() // message enabled in config or not, all instances where this is called should have a remote player exit
+        {
+            return OffHandConfig.Instance.ChatMessageToggle;
+        }
+        public override void OnEnterWorld() // starts message timer and updates priority list
+        {
+            if (Player.whoAmI != Main.myPlayer)
+            {
+                return;
+            }
+
+            UpdatePrioritylist();
+
             if (IsMessageEnabled())
             {
                 delayTimerMessage = 160;
@@ -106,14 +118,23 @@ namespace OffHandidiotmod
             var offhandkeybindlist = Activation.UseOffhandKeybind.GetAssignedKeys();
             return offhandkeybindlist.Contains("Mouse2") || offhandkeybindlist.Contains("Mouse1");
         }
-        public void UpdateBlacklist()
+        public void UpdatePrioritylist()
         {
-            if (blacklistChanged)
+            if (Player.whoAmI != Main.myPlayer)
             {
-                var itemIDs = OffHandConfig.Instance.ItemBlacklist.Where(val => !val.IsUnloaded).Select(val => val.Type).ToArray();
-                blacklistSet = ItemID.Sets.Factory.CreateBoolSet(itemIDs);
-                blacklistChanged = false;
+                return;
             }
+
+            bool[] testSet = new bool[ItemLoader.ItemCount];
+            int[] itemIDs = OffHandConfig.Instance.ItemPriorityList.Where(val => !val.IsUnloaded).Select(val => val.Type).ToArray();
+            testSet = ItemID.Sets.Factory.CreateBoolSet(itemIDs);
+            if (testSet.Count() < ItemLoader.ItemCount)
+            {
+                return;
+            }
+
+            priorityBoolSet = testSet;
+            priorityListChanged = false;
         }
 
         public override void PreUpdate()
@@ -151,9 +172,12 @@ namespace OffHandidiotmod
             //================================================================================================================================================
 
 
-            UpdateBlacklist();
+            if (priorityListChanged)
+            {
+                UpdatePrioritylist();
+            }
 
-            if (blacklistSet[Player.HeldItem.type])
+            if (!Player.HeldItem.IsAir && Player.selectedItem != 58 && priorityBoolSet[Player.HeldItem.type])
             {
                 if (isKeybindMouseLeftOrRight())
                 {

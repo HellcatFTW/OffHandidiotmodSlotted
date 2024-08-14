@@ -11,7 +11,7 @@ Configs: {
 		HUDHeader: HUD中的UI偏移
 		InventoryHeader: 物品栏屏幕中的UI偏移
 		// DraggingHeader: Slot Dragging
-		// BlacklistHeader: Blacklist
+		// PriorityListHeader: Item Priority
 
 		SlotOffsetXHUD: {
 			// Label: Slot Offset X
@@ -34,13 +34,13 @@ Configs: {
 		}
 
 		DraggingEnabled: {
-			// Label: Enable slot dragging
+			// Label: Enable Slot Dragging
 			// Tooltip: Enables moving the slot with mouse
 		}
 
-		Blacklist: {
-			// Label: Item Blacklist
-			// Tooltip: If you add an item to this list, your offhand will be disabled when holding that item to allow LMB/RMB to function as normal
+		PriorityList: {
+			// Label: Item Priority List
+			// Tooltip: If you add an item to this list, your offhand won't activate on RMB while holding that item to allow LMB/RMB to function as normal on your main weapon
 		}
 	}
 }
