@@ -24,7 +24,7 @@ Configs: {
 		}
 
 		SlotOffsetXInventory: {
-			Label:插槽偏移X
+			Label: 插槽偏移X
 			Tooltip: 正值将插槽向右移动，负值将插槽向左移动
 		}
 
