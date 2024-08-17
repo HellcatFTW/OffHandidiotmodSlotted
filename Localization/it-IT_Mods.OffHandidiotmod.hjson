@@ -11,7 +11,7 @@ Configs: {
 		HUDHeader: Sposta la UI nella HUD
 		InventoryHeader: Sposta la UI nella Schermata dell'Inventario
 		// DraggingHeader: Slot Dragging
-		// PriorityListHeader: Item Priority
+		// PriorityListHeader: Item Prioritization
 
 		SlotOffsetXHUD: {
 			// Label: Slot Offset X
@@ -39,7 +39,7 @@ Configs: {
 		}
 
 		PriorityList: {
-			// Label: Item Priority List
+			// Label: Prioritized Items List
 			// Tooltip: If you add an item to this list, your offhand won't activate on RMB while holding that item to allow LMB/RMB to function as normal on your main weapon
 		}
 	}

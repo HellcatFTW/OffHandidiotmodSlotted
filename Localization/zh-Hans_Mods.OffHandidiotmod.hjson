@@ -10,37 +10,37 @@ Configs: {
 		ChatMessageToggle.Tooltip: ""
 		HUDHeader: HUD中的UI偏移
 		InventoryHeader: 物品栏屏幕中的UI偏移
-		// DraggingHeader: Slot Dragging
-		// PriorityListHeader: Item Priority
+		DraggingHeader: 插槽拖动
+		PriorityListHeader: 物品优先级
 
 		SlotOffsetXHUD: {
-			// Label: Slot Offset X
-			// Tooltip: Positive values move the slot to the right, negative values move it to the left
+			Label: 插槽偏移X
+			Tooltip: 正值将插槽向右移动，负值将插槽向左移动
 		}
 
 		SlotOffsetYHUD: {
-			// Label: Slot Offset Y
-			// Tooltip: Positive values move the slot downwards, negative values move it upwards
+			Label: 插槽偏移Y
+			Tooltip: 正值将插槽向下移动，负值将插槽向上移动
 		}
 
 		SlotOffsetXInventory: {
-			// Label: Slot Offset X
-			// Tooltip: Positive values move the slot to the right, negative values move it to the left
+			Label:插槽偏移X
+			Tooltip: 正值将插槽向右移动，负值将插槽向左移动
 		}
 
 		SlotOffsetYInventory: {
-			// Label: Slot Offset Y
-			// Tooltip: Positive values move the slot downwards, negative values move it upwards
+			Label: 插槽偏移Y
+			Tooltip: 正值将插槽向下移动，负值将插槽向上移动
 		}
 
 		DraggingEnabled: {
-			// Label: Enable Slot Dragging
-			// Tooltip: Enables moving the slot with mouse
+			Label: 启用插槽拖动
+			Tooltip: 启用鼠标移动插槽
 		}
 
 		PriorityList: {
-			// Label: Item Priority List
-			// Tooltip: If you add an item to this list, your offhand won't activate on RMB while holding that item to allow LMB/RMB to function as normal on your main weapon
+			Label: 优先物品列表
+			Tooltip: 如果你将物品添加到此列表，持有该物品时，副手将不会在RMB上激活，允许LMB/RMB在主武器上正常工作
 		}
 	}
 }
