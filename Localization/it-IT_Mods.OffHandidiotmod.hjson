@@ -10,37 +10,37 @@ Configs: {
 		ChatMessageToggle.Tooltip: ""
 		HUDHeader: Sposta la UI nella HUD
 		InventoryHeader: Sposta la UI nella Schermata dell'Inventario
-		// DraggingHeader: Trascinare Slot
-		// PriorityListHeader: Prioritizzare Oggetti
+		DraggingHeader: Trascinare Slot
+		PriorityListHeader: Prioritizzare Oggetti
 
 		SlotOffsetXHUD: {
-			// Label: Spostare Slot sull'asse X
-			// Tooltip: Valori positivi spostano lo slot a destra, valori negativi lo spostano a sinistra
+			Label: Spostare Slot sull'asse X
+			Tooltip: Valori positivi spostano lo slot a destra, valori negativi lo spostano a sinistra
 		}
 
 		SlotOffsetYHUD: {
-			// Label: Spostare Slot sull'asse Y
-			// Tooltip: Valori positivi spostano lo slot in basso, valori negativi lo spostano in alto
+			Label: Spostare Slot sull'asse Y
+			Tooltip: Valori positivi spostano lo slot in basso, valori negativi lo spostano in alto
 		}
 
 		SlotOffsetXInventory: {
-			// Label: Spostare Slot sull'asse X
-			// Tooltip: Valori positivi spostano lo slot a destra, valori negativi lo spostano a sinistra
+			Label: Spostare Slot sull'asse X
+			Tooltip: Valori positivi spostano lo slot a destra, valori negativi lo spostano a sinistra
 		}
 
 		SlotOffsetYInventory: {
-			// Label: Spostare Slot sull'asse Y
-			// Tooltip: Valori positivi spostano lo slot in basso, valori negativi lo spostano in alto
+			Label: Spostare Slot sull'asse Y
+			Tooltip: Valori positivi spostano lo slot in basso, valori negativi lo spostano in alto
 		}
 
 		DraggingEnabled: {
-			// Label: Abilita Trascinamento degli Slot
-			// Tooltip: Abilita la possibilità di muovere lo slot col mouse
+			Label: Abilita Trascinamento degli Slot
+			Tooltip: Abilita la possibilità di muovere lo slot col mouse
 		}
 
 		PriorityList: {
-			// Label: Lista di Oggetti con Priorità
-			// Tooltip: Se aggiungi un oggetto a questa lista la tua mano secondaria non si attiverà quando clicchi RMB mentre tieni in mano quell'oggetto, per permettere le funzionalità di LMB/RMB di funzionare come al solito sulla tua arma principale.
+			Label: Lista di Oggetti con Priorità
+			Tooltip: Se aggiungi un oggetto a questa lista la tua mano secondaria non si attiverà quando clicchi RMB mentre tieni in mano quell'oggetto, per permettere le funzionalità di LMB/RMB di funzionare come al solito sulla tua arma principale.
 		}
 	}
 }
