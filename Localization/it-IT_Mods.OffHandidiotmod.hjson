@@ -10,37 +10,37 @@ Configs: {
 		ChatMessageToggle.Tooltip: ""
 		HUDHeader: Sposta la UI nella HUD
 		InventoryHeader: Sposta la UI nella Schermata dell'Inventario
-		// DraggingHeader: Slot Dragging
-		// PriorityListHeader: Item Prioritization
+		DraggingHeader: Trascinare Slot
+		PriorityListHeader: Prioritizzare Oggetti
 
 		SlotOffsetXHUD: {
-			// Label: Slot Offset X
-			// Tooltip: Positive values move the slot to the right, negative values move it to the left
+			Label: Spostare Slot sull'asse X
+			Tooltip: Valori positivi spostano lo slot a destra, valori negativi lo spostano a sinistra
 		}
 
 		SlotOffsetYHUD: {
-			// Label: Slot Offset Y
-			// Tooltip: Positive values move the slot downwards, negative values move it upwards
+			Label: Spostare Slot sull'asse Y
+			Tooltip: Valori positivi spostano lo slot in basso, valori negativi lo spostano in alto
 		}
 
 		SlotOffsetXInventory: {
-			// Label: Slot Offset X
-			// Tooltip: Positive values move the slot to the right, negative values move it to the left
+			Label: Spostare Slot sull'asse X
+			Tooltip: Valori positivi spostano lo slot a destra, valori negativi lo spostano a sinistra
 		}
 
 		SlotOffsetYInventory: {
-			// Label: Slot Offset Y
-			// Tooltip: Positive values move the slot downwards, negative values move it upwards
+			Label: Spostare Slot sull'asse Y
+			Tooltip: Valori positivi spostano lo slot in basso, valori negativi lo spostano in alto
 		}
 
 		DraggingEnabled: {
-			// Label: Enable Slot Dragging
-			// Tooltip: Enables moving the slot with mouse
+			Label: Abilita Trascinamento degli Slot
+			Tooltip: Abilita la possibilità di muovere lo slot col mouse
 		}
 
 		PriorityList: {
-			// Label: Prioritized Items List
-			// Tooltip: If you add an item to this list, your offhand won't activate on RMB while holding that item to allow LMB/RMB to function as normal on your main weapon
+			Label: Lista di Oggetti con Priorità
+			Tooltip: Se aggiungi un oggetto a questa lista la tua mano secondaria non si attiverà quando clicchi RMB mentre tieni in mano quell'oggetto, per permettere le funzionalità di LMB/RMB di funzionare come al solito sulla tua arma principale.
 		}
 	}
 }
